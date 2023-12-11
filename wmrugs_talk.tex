@@ -173,8 +173,7 @@ This is because we want icosahedral point arrays to fit inside icosahedral latti
 However, we can project icosahedral point arrays from 6 dimensions into 3 dimensions.
 
 There are 55 standard point arrays from which we build all others.
-These are called the \emph{one-base} point arrays and take the form \(\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}\) (i.e. one translation and one base vector).
-\todo[inline]{cite Keef and Twarock 2009}
+These are called the \emph{one-base} point arrays and take the form \(\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t})\) (i.e. one translation and one base vector). \cite{keeftwarock2009affine}
 
 \subsection{Constructing Point Arrays}
 \todo[inline]{Add diagrams of point array construction. Describe Process}
@@ -220,8 +219,9 @@ Our linear transformation \(T\) preserves icosahedral symmetry because it is in 
     The centralizer of a group \(G\), denoted by \(Z(G)\) is the set of elements that commute with all elements of \(G\).
     That is, \[Z(G) = \{z\ |\ gz = zg\ \forall g \in G\}.\]
 \end{Definition}
-Any matrix of the form given in equation \ref{centralizer:ico} is in \(Z(\mathcal{I})\), the centralizer of \(\mathcal{I}\).\todo{cite Indelicato et al. 2012}
-Similar general matrix forms exist for matrices that are in \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\).\todo{include these general forms}
+Any matrix of the form given in equation \ref{centralizer:ico} is in \(Z(\mathcal{I})\), the centralizer of \(\mathcal{I}\).
+Similar general matrix forms exist for matrices that are in \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\). \cite{indelicatoetal2012}
+\todo{include these general forms}
 
 \subsection{CCMV \(D_6\) Transition Example}
 The following is an example of an equation for the CCMV virus the preserves \(D_6\) symmetry:
