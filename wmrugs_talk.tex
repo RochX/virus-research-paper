@@ -392,10 +392,50 @@ We have also chosen example vectors that generate the CCMV native and mature poi
 
 This equation is only one of many that represents a CCMV \( D_6 \) transition.
 In order to compute how many of these equations exist, we simply need to mutiply the sizes of the icosahedral orbits of each vector individually.
+\[\begin{array}{cc}
+	\abs{\mathcal{I}\begin{bmatrix}
+			-1/2 \\
+			-1/2 \\
+			1/2 \\
+			-1/2 \\
+			-1/2 \\
+			1/2
+		\end{bmatrix} } = 20 
+	&
+	\abs{\mathcal{I}\begin{bmatrix}
+			-3/2 \\
+			1/2 \\
+			-1/2 \\
+			-1/2 \\
+			1/2 \\
+			1/2
+	\end{bmatrix} } = 12 \\
 
+	\\
+	
+	\abs{\mathcal{I}\begin{bmatrix}
+		0 \\
+		0 \\
+		-1 \\
+		0 \\
+		0 \\
+		0 \\
+	\end{bmatrix}} = 12
+	&
+	\abs{\mathcal{I}\begin{bmatrix}
+			0 \\
+			0 \\
+			0 \\
+			-1 \\
+			-1 \\
+			-1 \\
+	\end{bmatrix}} = 20
+\end{array}\]
+Above we have the sizes of the icosahedral orbits for each vector used in equation \vref{eq:ccmv_d6_example}.
+Therefore there are \( 20 \cdot 12 \cdot 12 \cdot 20 = 57600 \) equations of the form \(TB_0 = B_1\) that could result in a \( D_6 \) symmetry preserving transition for CCMV.
 
 \section{Computational Techniques}
-In order to find a solvable equation (or say such an equation doesn't exist) of the form \(TB_0 = B_1\), we must search through up to hundreds of thousands of these equations.
+In order to find a solvable equation (or say such an equation doesn't exist) of the form \(TB_0 = B_1\), we must search through up to hundreds of thousands of these equations as the previous example illustrates.
 This is infesible to do by hand, so we employ various programs to find solvable equations.
 
 \subsection{Brute Force in C++}
