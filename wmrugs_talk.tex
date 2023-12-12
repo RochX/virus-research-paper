@@ -13,6 +13,7 @@
 \usepackage{mathtools}
 \usepackage{mathrsfs}
 \usepackage{framed}
+\usepackage{varioref} % adds \vref which is \ref but adds "on page N" iff figure is not on same page
 % eventually make left/right margins equal
 \usepackage[top=0.6in,bottom=0.6in,left=0.6in,right=0.6in]{geometry}
 \usepackage{dsfont}
@@ -306,7 +307,7 @@ This is shown visually in figure \ref{fig:point_array_construction}.
 Icosahedral viruses mature over time, and maturation is how they become infectous.
 For this paper we will focus on the Cowpea Chlorotic Mottle Virus (CCMV).
 This virus is characterized by one of the standard point arrays.
-How CCMV matures is shown by figure \ref{fig:CCMV_maturation}.
+How CCMV matures is shown by figure \vref{fig:CCMV_maturation}.
 Notice the points in orange, these points collectively are the point arrays that characterize the CCMV virus.
 We wish to see if there exists a linear transformation that maps the native point array to the mature point array while preserving icosahedral symmetry (or one of its maximal subgroups).
 
@@ -319,12 +320,13 @@ We wish to see if there exists a linear transformation that maps the native poin
 \end{figure}
 
 \section{Mathematical View of the Problem}
-To find a linear transformation that maps from native to mature point arrays while preserving, we solve matrix equations of the form \[TB_0 = B_1.\]
+To find a linear transformation that maps from native to mature point arrays while preserving symmetry, we solve matrix equations of the form \[TB_0 = B_1.\]
 In this equation, \(B_0\) and \(B_1\) represent the native and mature point arrays respectively, and \(T\) is our desired linear transformation.\footnote{Recall that we realize icosahedral symmetry as a matrix group and icosahedral point arrays are sets of vectors, so it makes sense that we are solving a matrix equation.}
 Since \(B_0\) and \(B_1\) are representatives of the point arrays, there exist many different equations of the form \(TB_0 = B_1\) that represent the same problem.
 Therefore, we only need to find one equation of this form that is solvable.
 
-In our example of CCMV, these equations will take the form \[T\cdot \begin{bmatrix}
+\noindent In our example of CCMV, these equations will take the form 
+\[T\cdot \begin{bmatrix}
     | & | \\
     \vec{t}_0 & \vec{v}_0 \\
     | & | \\
@@ -397,15 +399,16 @@ In order to find a solvable equation (or say such an equation doesn't exist) of 
 This is infesible to do by hand, so we employ various programs to find solvable equations.
 
 \subsection{Brute Force in C++}
-As a first approach, I brute force every possible transitions matrix.
-In order to do this, I take a set of values and create every possible transition matrix from those values.
+As a first approach, we try to brute force every possible transitions matrix.
+In order to do this, we take a set of values and create every possible transition matrix from those values.
 If we take the set \(E = \{0, \pm\frac{1}{2}, \pm 1\}\) as the set of values, then for our example equation (see equation \ref{eq:ccmv_d6_example}), then there will be \(\abs{E}^8 = 390625\) possible transition matrices to check.
 Because there are thousands of equations we need to check that look like our example, this approach quickly becomes infeasible.
+However, it was useful at the beginning of this research in order to get a grasp on the problem and get some results.
 
 \subsection{Equation Solving in Python}
 The final approach to finding transitions is to use a linear matrix equation solver within the Python \texttt{sympy} package.
 This package allows us to give it an equation such as equation \ref{eq:ccmv_d6_example} and it will tell us if a solution exists or not.
-We can simply loop through all possible equations and give it to \texttt{sympy} and check if any have a solution.
+We can simply loop through all possible equations and give it to \texttt{sympy} and it will tell us if any equations can be solved.
 If we find such an equation with a solution, then there exists a symmetry preserving transition.
 If we cannot find any equation, then there does not exist any symmetry preserving transitions.
 
@@ -430,6 +433,7 @@ As a final thought, a few future directions one could take with this research:
     \item I could attempt to find all possible transitions between larger point arrays because even if a transition exists between all of its components, a transition may not exist for the larger point array.
 \end{itemize}
 
+%
 \medskip
 \bibliographystyle{unsrt}%Used BibTeX style is unsrt
 \bibliography{references}
