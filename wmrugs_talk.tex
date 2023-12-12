@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{color}
+\usepackage{caption}
 \usepackage{graphicx}
 \usepackage{mathtools}
 \usepackage{mathrsfs}
@@ -25,6 +26,7 @@
 \usepackage{tikz}
 \usepackage{tikz-3dplot}
 \usetikzlibrary{perspective}
+\tdplotsetmaincoords{82}{20}
 
 %prevent math mode statements from being broken up across lines
 \relpenalty=9999
@@ -158,9 +160,99 @@ The icosahedral group has maximal subgroups \(A_4, D_{10}, \text{ and } D_6\).
     \item \(D_{6}\) has a singular 2-fold and 3-fold axis.
     \item \(D_{10}\) has a 5-fold and a 2-fold axis.
 \end{itemize}
-These are subsets of \(\mathcal{I}\).
-The shapes that these maximal subgroups represent also fit inside an icosahedron.
+These are subsets of \(\mathcal{I}\) and more specificially, maximal subgroups of \(\mathcal{I}\).
+Similar to how the icosahedral group represents the shape of an icosahedron, these maximal subgroups represent their own shapes.
+These shapes are shown in figure \ref{fig:maximal_subgroups}.
 We use these subgroups because if we are unable to preserve all of icosahedral symmetry, then we wish to at least preserve the symmetry of one of these maximal subgroups.
+\begin{figure}[h]
+	\captionsetup{width=0.75\textwidth}
+	\centering
+	% A4
+	\begin{tikzpicture}[scale=0.5, tdplot_main_coords,
+		declare function={b=5;h=4.33;l=15;}]
+		\draw[fill=gray,fill opacity=0.3] (b/2,-l/2,0)  -- (0,-l/2,h) -- (-b/2,-l/2,0) -- cycle;
+		% \draw (b/2,-l/2,0) -- (0, l-20, h/3);
+		% \draw (0,-l/2,h) -- (0, l-20, h/3);
+		% \draw (-b/2,-l/2,0) -- (0, l-20, h/3);
+		\draw (b/2,-l/2,0) -- (0, 0, h/3);
+		\draw (0,-l/2,h) -- (0, 0, h/3);
+		\draw[dashed] (-b/2,-l/2,0) -- (0, 0, h/3);
+		\draw[orange,dashed] (0,-l/2,h/3) -- (0,l/2,h/3); % center to center aka 3 fold
+		\draw[orange] (0,-l/2-10,h/3) -- (0,-l/2,h/3);
+		% \node[fill=orange, circle, inner sep=4pt] at (0,-l/2,h/3) {};
+		\draw[blue, dashed] (0, -l/4, 4*h/6) -- (0,-l/2,0);
+		\draw[blue] (0, -l/4, 4*h/6) -- (0, -l/4+1/8*l, {4*h/6+1/8*(2*h+3)});
+		\draw[blue] (0,-l/2,0) -- (0,-l/2-1/10*l,{-1/10*(2*h+3)});
+		
+		%draw the axes
+		% \draw[red] (0,0,0) -- (3,0,0) node[anchor=west]{$x$};
+		% \draw[green] (0,0,0) -- (0,3,0) node[anchor=west]{$y$};
+		% \draw[blue] (0,0,0) -- (0,0,3) node[anchor=west]{$z$};
+	\end{tikzpicture}
+	% D10
+	\begin{tikzpicture}[scale=0.4, tdplot_main_coords,
+		declare function={r=3;l=5;}]
+		% \draw ({r*cos(0)}, l, {r*sin(0)}) -- ({r*cos(72)}, l, {r*sin(72)}) -- ({r*cos(144)}, l, {r*sin(144)}) -- ({r*cos(216)}, l, {r*sin(216)}) -- ({r*cos(288)}, l, {r*sin(288)});
+		
+		% front face
+		\draw[fill=gray,fill opacity=0.3] ({r*cos(18)}, -l, {r*sin(18)}) -- ({r*cos(90)}, -l, {r*sin(90)}) -- ({r*cos(162)}, -l, {r*sin(162)}) -- ({r*cos(234)}, -l, {r*sin(234)}) -- ({r*cos(306)}, -l, {r*sin(306)}) -- cycle;
+		
+		% back face
+		\draw ({r*cos(18)}, l, {r*sin(18)}) -- ({r*cos(18+72)}, l, {r*sin(18+72)});
+		\draw[dashed] ({r*cos(90)}, l, {r*sin(90)}) -- ({r*cos(90+72)}, l, {r*sin(90+72)});
+		\draw[dashed] ({r*cos(162)}, l, {r*sin(162)}) -- ({r*cos(162+72)}, l, {r*sin(162+72)});
+		\draw ({r*cos(234)}, l, {r*sin(234)}) -- ({r*cos(234+72)}, l, {r*sin(234+72)});
+		\draw ({r*cos(306)}, l, {r*sin(306)}) -- ({r*cos(306+72)}, l, {r*sin(306+72)});
+		
+		
+		% connect front and back faces
+		\draw ({r*cos(18)}, l, {r*sin(18)}) -- ({r*cos(18)}, -l, {r*sin(18)});
+		\draw ({r*cos(90)}, l, {r*sin(90)}) -- ({r*cos(90)}, -l, {r*sin(90)});
+		\draw[dashed] ({r*cos(162)}, l, {r*sin(162)}) -- ({r*cos(162)}, -l, {r*sin(162)});
+		\draw[dashed] ({r*cos(234)}, l, {r*sin(234)}) -- ({r*cos(234)}, -l, {r*sin(234)});
+		\draw ({r*cos(306)}, l, {r*sin(306)}) -- ({r*cos(306)}, -l, {r*sin(306)});
+		
+		% 2-fold axis
+		\draw[blue] (0,0,r+2) -- (0,0,r);
+		\draw[blue, dashed] (0,0,r) -- (0,0,-r);
+		\draw[blue] (0,0,-r) -- (0,0,-r-1);
+		
+		% 5-fold axis
+		\draw[orange, dashed] (0, l+2*r, 0) -- (0, -l, 0);
+		\draw[orange] (0, -l, 0) -- (0, -l-3*r, 0);
+		
+		
+		%draw the axes
+		% \draw[red] (0,0,0) -- (3,0,0) node[anchor=west]{$x$};
+		% \draw[green] (0,0,0) -- (0,3,0) node[anchor=west]{$y$};
+		% \draw[blue] (0,0,0) -- (0,0,3) node[anchor=west]{$z$};
+	\end{tikzpicture}
+	% D6
+	\begin{tikzpicture}[scale=0.4, tdplot_main_coords,
+		declare function={b=5;h=4.33;l=15;}]
+		\draw[dashed] (-b/2,-l/2,0) -- (-b/2,l/2,0) edge (b/2,l/2,0) -- (0,l/2,h);     
+		\draw (b/2,l/2,0) -- (0,l/2,h) -- (0,-l/2,h);
+		\draw[fill=gray,fill opacity=0.3] (b/2,-l/2,0)  -- (0,-l/2,h) -- (-b/2,-l/2,0);
+		\draw (b/2,-l/2,0)  -- (b/2,l/2,0);
+		\draw (b/2,-l/2,0)  --   (-b/2,-l/2,0);
+		% \draw (0,-l/2,0)  --  (0,-l/2,h);
+		\draw[orange,dashed] (0,-l/2,h/3) -- (0,l/2+5,h/3); % center to center aka 3 fold
+		\draw[orange] (0,-l/2-10,h/3) -- (0,-l/2,h/3);
+		% \node[fill=orange, circle, inner sep=3pt] at (0,-l/2,h/3) {};
+		% \node[draw=orange, circle, inner sep=3pt] at (0,l/2,h/3) {};
+		
+		\draw[blue] (0,0,h+2) -- (0,0,h); % top to bottom aka 2 fold
+		\draw[blue, dashed] (0,0,h) -- (0,0,-1.1); % top to bottom aka 2 fold
+		\draw[blue] (0,0,-1.1) -- (0,0,-2);
+		
+		%draw the axes
+		% \draw[red] (0,0,0) -- (3,0,0) node[anchor=west]{$x$};
+		% \draw[green] (0,0,0) -- (0,3,0) node[anchor=west]{$y$};
+		% \draw[blue] (0,0,0) -- (0,0,3) node[anchor=west]{$z$};
+	\end{tikzpicture}
+	\caption{A visual representation of the maximal subgroups. From left to right we have \(A_4\), \(D_{10}\), and \(D_6\). The two fold axes are labeled in blue while the 3 or 5 fold axis is labeled in orange.}
+	\label{fig:maximal_subgroups}
+\end{figure}
 
 \section{Point Arrays and Lattices}
 Icosahedral viruses are characterized by point arrays, which are a set of points in 3 dimensions.
