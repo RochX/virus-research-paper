@@ -110,7 +110,7 @@ Parallel computation allows for efficient identification of the symmetries that 
 
 \section{Group Theory}
 Group theory is a subset of abstract algebra.
-In particular, group theory studies the mathematical object known as a group, defined in definition \ref{def:group}
+In particular, group theory studies the mathematical object known as a group, defined in definition \ref{def:group}.
 \begin{Definition}[Group]
     \label{def:group}
     A group \(G\) is a set along with a binary operation \(*\) that satisfy the following properties:
@@ -122,6 +122,7 @@ In particular, group theory studies the mathematical object known as a group, de
     \end{enumerate}
 \end{Definition}
 Beyond the rigorous definition, groups can be thought of as symmetries of an object (one can think about this through group actions).
+The idea of groups representing symmetry is crucial to understanding the structure of icosahedral viruses.
 
 \subsection{Icosahedral Group}
 The set of symmetries on an icosahedral virus is the icosahedral group \(\mathcal{I}\).
@@ -355,39 +356,45 @@ Similar general matrix forms exist for matrices that are in \(Z(A_4)\), \(Z(D_{1
 
 \subsection{CCMV \(D_6\) Transition Example}
 The following is an example of an equation for the CCMV virus the preserves \(D_6\) symmetry:
-\[\begin{bmatrix}
-    u  & w  & -w & x  & s  & s  \\
-    -t & y  & v  & -v & z  & -t \\
-    t  & v  & y  & v  & t  & -z \\
-    z  & -v & v  & y  & -t & -t \\
-    s  & x  & -w & w  & u  & s  \\
-    s  & w  & -x & w  & s  & u 
-\end{bmatrix}
-\cdot
-\begin{bmatrix}
--1/2 & -3/2 \\
--1/2 & 1/2 \\
-1/2 & -1/2 \\
--1/2 & -1/2 \\
--1/2 & 1/2 \\
-1/2 & 1/2
-\end{bmatrix} 
-=
-\begin{bmatrix}
-0 & 0 \\
-0 & 0 \\
--1 & 0 \\
-0 & -1 \\
-0 & -1 \\
-0 & -1 \\
-\end{bmatrix}\]
+\begin{equation}
+	\begin{bmatrix}
+	    u  & w  & -w & x  & s  & s  \\
+	    -t & y  & v  & -v & z  & -t \\
+	    t  & v  & y  & v  & t  & -z \\
+	    z  & -v & v  & y  & -t & -t \\
+	    s  & x  & -w & w  & u  & s  \\
+	    s  & w  & -x & w  & s  & u 
+	\end{bmatrix}
+	\cdot
+	\begin{bmatrix}
+	-1/2 & -3/2 \\
+	-1/2 & 1/2 \\
+	1/2 & -1/2 \\
+	-1/2 & -1/2 \\
+	-1/2 & 1/2 \\
+	1/2 & 1/2
+	\end{bmatrix} 
+	=
+	\begin{bmatrix}
+	0 & 0 \\
+	0 & 0 \\
+	-1 & 0 \\
+	0 & -1 \\
+	0 & -1 \\
+	0 & -1 \\
+	\end{bmatrix}
+	\label{eq:ccmv_d6_example}
+\end{equation}
 
 \section{Computational Techniques}
 In order to find a solvable equation (or say such an equation doesn't exist) of the form \(TB_0 = B_1\), we must search through up to hundreds of thousands of these equations.
 This is infesible to do by hand, so we employ various programs to find solvable equations.
 
 \subsection{Brute Force in C++}
-As a first approach I used is to brute force every possible transition matrix.
+As a first approach, I brute force every possible transitions matrix.
+In order to do this, I take a set of values and create every possible transition matrix from those values.
+If we take the set \(E = \{0, \pm\frac{1}{2}, \pm 1\}\) as the set of values, then for our example equation (see equation \ref{eq:ccmv_d6_example}), then there will be \(\abs{E}^8 = 390625\) possible transition matrices to check.
+Because there are thousands of equations we need to check that look like our example, this approach quickly becomes infeasible.
 
 \subsection{Equation Solving in Python}
 The final approach to finding transitions is to use a linear matrix equation solver within the Python \texttt{sympy} package.
