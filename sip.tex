@@ -116,88 +116,41 @@ We define full icosahedral symmetry as a group defined by \(\mathcal{I} := \gene
 We then notice that \(A_4, D_{10}, \text{ and } D_6\) are maximal subgroups of \(\mathcal{I}\).
 To find transitions that preserve one of these symmetry groups, we solve matrix equations of the form \(TB_0 = B_1\) for \(T\), where \(T\) is a \(6\times6\) matrix that depends on either 2, 4, 6, or 8 real variables, depending on which symmetry we are looking at and \(B_0\) and \(B_1\) are representations of the point arrays.
 Note that actually finding transitions requires a large amount of computation.
-From this we are able to reproduce previously discovered transitions for the Cowpea chlorotic mottle virus that preserve \(D_6\) symmetry, and more importantly create a comprehesive list of what symmetries can be preserved between any possible combination of the \(55\) standard point arrays.
-
-\subsection{WMRUGS Abstract Oloo}
-%\todo[inline]{Redo/rewrite the above abstract into to something to submit for WMRUGS}
-Icosahedral viruses have the symmetries of an icosahedron, which involves 2-fold, 3-fold, and 5-fold rotational symmetries.
-We can approximate these virus capsids with finite sets of points (called point arrays) which we realize in 6D (not just 3D) for the purpose of crystallography: our 6D point arrays naturally fit inside 6D icosahedral lattices. There are \(55\) standard point arrays (called \emph{one-base}) from which we build all the others.
-We model virus maturation by 6D linear transformations (transitions) of point arrays that preserve all of  icosahedral symmetry or some of it - either  $A_4$ ($3$-fold and $2$-fold), $D_{10}$ ($5$-fold and $2$-fold) or $D_6$ ($3$-fold and $2$-fold) symmetry (these are the maximal subgroups of the icosahedral group).
-
-To find transitions that preserve one of these symmetry groups, we solve matrix equations of the form \(TB_0 = B_1\) for \(T\), where \(T\) is a \(6\times6\) matrix that depends on either 2, 4, 6, or 8 real variables, depending on which symmetry we are looking at and \(B_0\) and \(B_1\) are representations of the point arrays.
-Finding transitions requires a large amount of computation for which we have employed a supercomputing cluster and parallel computing techniques.
-
-We have reproduced previously discovered transitions for the Cowpea chlorotic mottle virus that preserve \(D_6\) symmetry, and more importantly have created a comprehensive list of what symmetries can be preserved between any possible combination of the \(55\) standard point arrays.
-
-\subsection{WMRUGS Abstract Oloo Wilson}
-\textbf{WMRUGS Abstract}
-Spherical virus capsids have icosahedral rotation symmetry, which includes 2-fold, 3-fold, and 5-fold rotations. These capsids can be characterized  by affine extended point arrays which are point sets that have icosahedral rotational symmetry at various radial levels. We use quasicrystallographic methods to embed these point arrays in 6D to classify their associated Bravais Lattice. There are \(55\) one-base point arrays from which we build all the others.
-
-We characterize native and mature viruses as point arrays and then search for 6D linear transformations (transitions) of the point arrays that preserve all of  icosahedral symmetry or some of it - either  $A_4$ ($3$-fold and $2$-fold), $D_{10}$ ($5$-fold and $2$-fold) or $D_6$ ($3$-fold and $2$-fold) symmetry to describe maturation. ($A_4$, $D_{10}$ and $D_6$ are the maximal subgroups of the icosahedral group).
-
-To find transitions that preserve one of these symmetry groups, we solve matrix equations of the form \(TB_0 = B_1\) for \(T\), where \(T\) is a \(6\times6\) matrix that depends on either 2, 4, 6, or 8 real variables, depending on which symmetry we are looking at and \(B_0\) and \(B_1\) are representations of the point arrays.
-Finding transitions requires a large amount of computation for which we have employed a supercomputing cluster and parallel computing techniques.
-
-We have reproduced previously discovered transitions for the Cowpea chlorotic mottle virus that preserve \(D_6\) symmetry, and more importantly have created a comprehensive list of what symmetries can be preserved between any possible combination of the \(55\) standard point arrays.
-
-
-% \todo[inline]{STUFF FROM POSTER BELOW}
-% \begin{itemize}
-% % The 2-fold rotational symmetries come about along the midpoints of the edges.
-% % The 3-fold rotational symmetries are rotations through the center of any given face.
-% % The 5-fold rotational symmetries are rotations about any vertex.
-% \item We wish to find transitions that preserve 
-% either full icosahedral, $A_4$ ($3$-fold and $2$-fold), $D_{10}$ ($5$-fold and $2$-fold) or $D_6$ ($3$-fold and $2$-fold) symmetry.
-% \item To find these transitions, we solve matrix equations of the form \(TB_0 = B_1\) for \(T\), where \(T\) is a \(6\times6\) matrix that depends on either 2, 4, 6, or 8 real variables, depending on which symmetry we are looking at.
-% The columns of $B_0$ and $B_1$ correspond to points of the start and end point arrays respectively.
-% \end{itemize}
-
-% The Kalamazoo College \textbf{supercomputer Jigwé} was used to perform all calculations.
-% First, we found some of these \(T\) matrices with a program written in \text{C++} that used \textbf{numerical approximation}. Then these equations were solved \textbf{symbolically} using a \text{Python} program.
-% \textbf{Parallel computation} was used in both programs since to find the transitions \textbf{hundreds of thousands} of equations of the form \(TB_0 = B_1\) had to be solved. Note that most of these equations did not have solutions.
-
-% Using the above methods produced the following results:
-% \begin{itemize}
-%     \item We were able to reproduce the transitions for CCMV found in \cite{indelicatoetal2012}.
-%     \item There do not exist any non-trivial transitions between our \(55\) standard point arrays that preserve full icosahedral symmetry.
-%     \item According to the data, if a virus preserves  \(A_4\) symmetry, then it will also preserve \(D_6\) symmetry.
-%     % \item There exist transitions between point arrays that cannot preserve any of the 2-fold, 3-fold, or 5-fold symmetries.
-% \end{itemize}
-
-% \newpage
+From this we are able to reproduce previously discovered transitions for the Cowpea Chlorotic Mottle Virus that preserve \(D_6\) symmetry, and more importantly create a comprehesive list of what symmetries can be preserved between any possible combination of the \(55\) standard point arrays.
 
 \section{Intro}
-This work is largely based upon the paper by Indelcanto et al. \cite{indelicatoetal2012}.
-
 Icosahedral viruses have the symmetries of an icosahedron, which involves 2-fold, 3-fold, and 5-fold rotational symmetries.
 We can approximate these virus capsids with finite sets of points (called a point array) which we realize in 6D (not just 3D) for the purpose of crystallography: our 6D point arrays naturally fit inside 6D icosahedral lattices. 
 There are \(55\) standard point arrays (called \emph{one-base}) from which we build all the others.
 We model virus maturation by 6D linear transformations (transitions) of point arrays that preserve some or all of icosahedral symmetry.
-
-{\color{red} TODO: add poster notes}
 
 
 % Viruses have a point cloud, we can then lift into 6D dimensions in a non-trivial way.
 % These point clouds will then fit into a \emph{lattice}.
 
 Relevant to our work the shape of the icosahedron, a shape with 2-fold, 3-fold, and 5-fold symmetry.
-The icosahedral group, which we denote by \(\mathcal{I}\), is the 60-element group given by \[\mathcal{I} := \generatedby{a, b | a^2 = b^3 = (ab)^5 = 1}.\]
-A 6D representation of the generators for \(\mathcal{I}\) are as follows:
-\[a = \begin{bmatrix}
-    -1 & 0  & 0 & 0 & 0 & 0 \\
-    0  & -1 & 0 & 0 & 0 & 0 \\
-    0  & 0  & 0 & 0 & 1 & 0 \\
-    0  & 0  & 0 & 0 & 0 & 1 \\
-    0  & 0  & 1 & 0 & 0 & 0 \\
-    0  & 0  & 0 & 1 & 0 & 0
-\end{bmatrix} \quad b = \begin{bmatrix}
-    0 & -1 & 0  & 0 & 0 & 0 \\
-    0 & 0  & -1 & 0 & 0 & 0 \\
-    1 & 0  & 0  & 0 & 0 & 0 \\
-    0 & 0  & 0  & 0 & 0 & 1 \\
-    0 & 0  & 0  & 1 & 0 & 0 \\
-    0 & 0  & 0  & 0 & 1 & 0
-\end{bmatrix}.\]
+\begin{Definition}[Icosahedral Group]
+	The icosahedral group, which we denote by \(\mathcal{I}\), is the 60-element group given by \[\mathcal{I} := \generatedby{a, b | a^2 = b^3 = (ab)^5 = 1}.\]
+\end{Definition}
+\noindent We realize the icosahedral group as a \( 6 \times 6 \) matrix group.
+\begin{Definition}[Generators of the Icosahedral Group]
+	A 6D representation of the generators for \(\mathcal{I}\) are as follows:
+	\[a = \begin{bmatrix}
+		-1 & 0  & 0 & 0 & 0 & 0 \\
+		0  & -1 & 0 & 0 & 0 & 0 \\
+		0  & 0  & 0 & 0 & 1 & 0 \\
+		0  & 0  & 0 & 0 & 0 & 1 \\
+		0  & 0  & 1 & 0 & 0 & 0 \\
+		0  & 0  & 0 & 1 & 0 & 0
+	\end{bmatrix} \quad b = \begin{bmatrix}
+		0 & -1 & 0  & 0 & 0 & 0 \\
+		0 & 0  & -1 & 0 & 0 & 0 \\
+		1 & 0  & 0  & 0 & 0 & 0 \\
+		0 & 0  & 0  & 0 & 0 & 1 \\
+		0 & 0  & 0  & 1 & 0 & 0 \\
+		0 & 0  & 0  & 0 & 1 & 0
+	\end{bmatrix}.\]
+\end{Definition}
 
 \section{The Problem}
 Viruses can be approximated by a point cloud, which can be represented by a set of vectors in \(\R^6\).
