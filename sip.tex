@@ -241,6 +241,50 @@ We can only say for certain that \( m \) is less than or equal to this value bec
 However, in general we can assume that \( m \) is equal to this value since in general all the generating vectors are distinct.
 
 \subsection{Mathematically Describing Transitions}
+We have defined what the \( B_0 \) and \( B_1 \) matrices look like, now we define the nature of the \( T \) matrix.
+A transition \(T\) that preserves all of icosahedral symmetry must have the form: \begin{equation} \label{eq:ico-transition}
+	T = \begin{bmatrix}
+		z  & x  & -x & -x & x  & x \\
+		x  & z  & x  & -x & -x & x \\
+		-x & x  & z  & x  & -x & x \\
+		-x & -x & x  & z  & x  & x \\
+		x  & -x & -x & x  & z  & x \\
+		x  & x  & x  & x  & x  & z
+\end{bmatrix}\end{equation}
+
+Our linear transformation \(T\) preserves icosahedral symmetry because it is in the centralizer of \(\mathcal{I}\) (or one its of maximal subgroups).
+\begin{Definition}[Centralizer]
+	The centralizer of a group \(G\), denoted by \(Z(G)\) is the set of elements that commute with all elements of \(G\).
+	That is, \[Z(G) = \{z\ |\ gz = zg\ \forall g \in G\}.\]
+\end{Definition}
+Any matrix of the form given in equation \ref{eq:ico-transition} is in \(Z(\mathcal{I})\), the centralizer of \(\mathcal{I}\).
+Below are the general matrix forms for \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\). \cite{indelicatoetal2012}
+\begin{align}
+	\begin{bmatrix}
+		z  & -x & -y & -t & t  & -x \\
+		t  & z  & t  & x  & x  & y  \\
+		-y & -x & z  & t  & -t & -x \\
+		x  & -t & -x & z  & y  & t  \\
+		-x & -t & x  & y  & z  & t  \\
+		t  & y  & t  & -x & -x & z
+	\end{bmatrix} \in Z(A_4) \\
+	\begin{bmatrix}
+		z & x & y & y & x & t \\
+		x & z & x & y & y & t \\
+		y & x & z & x & y & t \\
+		y & y & x & z & x & t \\
+		x & y & y & x & z & t \\
+		u & u & u & u & u & w
+	\end{bmatrix} \in Z(D_{10}) \\
+	\begin{bmatrix}
+		u  & w  & -w & x  & s  & s  \\
+		-t & y  & v  & -v & z  & -t \\
+		t  & v  & y  & v  & t  & -z \\
+		z  & -v & v  & y  & -t & -t \\
+		s  & x  & -w & w  & u  & s  \\
+		s  & w  & -x & w  & s  & u
+	\end{bmatrix} \in Z(D_{6})
+\end{align}
 
 \subsection{Transitions Preserving Symmetry}
 
