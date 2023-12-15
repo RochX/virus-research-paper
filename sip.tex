@@ -420,7 +420,47 @@ and simplifies to:
 	- More...?
 }
 
-\todo[inline]{Talk about how we can build up \( B0 \) and \( B1 \) matrices one vector at a time}
+\begin{Lemma}
+	Let \( M \) be an \( n \times n \) matrix with variables.
+	Let \( \vec{a_1}, \vec{a_2}, \vec{b_1} \text{ and } \vec{b_2} \) be \( n \)-dimensional vectors.
+	If the equation \[
+	M
+	\cdot
+	\begin{bmatrix}
+		| & | \\
+		\vec{a_1} & \vec{a_2} \\
+		| & |
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		| & | \\
+		\vec{b_1} & \vec{b_2} \\
+		| & |
+	\end{bmatrix}
+	\]
+	is solvable then the equations \[M\vec{a_1} = \vec{b_1} \text{ and } M\vec{a_2} = \vec{b_2}\] are solvable.
+\end{Lemma}
+\begin{Theorem}
+	Let \( M \) be an \( n \times n \) matrix with variables.
+	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_n}, \vec{b_1}, \vec{b_2}, \dots \vec{b_n} \) be \( n \)-dimensional vectors.
+	If the equation \[
+	M
+	\cdot
+	\begin{bmatrix}
+		| & | & \cdots & |\\
+		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_n} \\
+		| & |
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		| & | & \cdots & |\\
+		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_n} \\
+		| & | & \cdots & |
+	\end{bmatrix}
+	\]
+	is solvable then the equation \[M\vec{a_i} = \vec{b_i}\] is solvable for all \( i \in \{1, 2, \dots n\} \).
+\end{Theorem}
+\todo[inline]{Talk about how this theorm allows us to build up the \( B0 \) and \( B1 \) matrices one vector at a time}
 
 \subsection{C++ Program}
 \subsubsection{Entry Sampling}
