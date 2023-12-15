@@ -345,6 +345,53 @@ Therefore, to find an icosahedral symmetry preserving transition, we must find a
 	}
 
 \subsection{CCMV \( D_6 \) Transition Example}
+The following is an example of an equation for the CCMV virus the preserves \(D_6\) symmetry:
+\begin{equation}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{bmatrix}
+		u  & w  & -w & x  & s  & s  \\
+		-t & y  & v  & -v & z  & -t \\
+		t  & v  & y  & v  & t  & -z \\
+		z  & -v & v  & y  & -t & -t \\
+		s  & x  & -w & w  & u  & s  \\
+		s  & w  & -x & w  & s  & u
+	\end{bmatrix}
+	\cdot
+	\begin{bmatrix}
+		-\frac{1}{2} & -\frac{3}{2} \\
+		-\frac{1}{2} & \frac{1}{2} \\
+		\frac{1}{2} & -\frac{1}{2} \\
+		-\frac{1}{2} & -\frac{1}{2} \\
+		-\frac{1}{2} & \frac{1}{2} \\
+		\frac{1}{2} & \frac{1}{2}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0 & 0 \\
+		0 & 0 \\
+		-1 & 0 \\
+		0 & -1 \\
+		0 & -1 \\
+		0 & -1 \\
+	\end{bmatrix}
+	\label{eq:ccmv_d6_example}
+\end{equation}
+and simplifies to:
+\begin{equation}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{bmatrix}- \frac{u}{2} - w - \frac{x}{2} & s - \frac{3 u}{2} + w - \frac{x}{2}\\v - \frac{y}{2} - \frac{z}{2} & t + \frac{y}{2} + \frac{z}{2}\\- t - v + \frac{y}{2} - \frac{z}{2} & - t - \frac{y}{2} - \frac{z}{2}\\v - \frac{y}{2} - \frac{z}{2} & - t - v - \frac{y}{2} - \frac{3 z}{2}\\- \frac{u}{2} - w - \frac{x}{2} & - s + \frac{u}{2} + \frac{x}{2}\\- s + \frac{u}{2} - w - \frac{x}{2} & - s + \frac{u}{2} + \frac{x}{2}\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0 & 0 \\
+		0 & 0 \\
+		-1 & 0 \\
+		0 & -1 \\
+		0 & -1 \\
+		0 & -1 \\
+	\end{bmatrix}
+	\label{eq:ccmv_d6_example_simplified}
+	% solution to this equation is {s: 1, t: 0, u: 1, v: 0, w: 0, x: -1, y: -1, z: 1}
+\end{equation}
 
 
 \section{Computational Techniques}
