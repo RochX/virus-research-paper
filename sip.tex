@@ -201,8 +201,26 @@ This is shown visually in figure \ref{fig:point_array_construction}.
 \end{figure}
 
 \section{Transitions Between Point Arrays}
-\subsection{Viral Maturation}
 \todo[inline]{Give a less mathy description of the virus transition problem \\ describe goals about preserving symmetry}
+\subsection{Viral Maturation}
+Icosahedral viruses mature over time, and maturation is how they become infectous.
+For this paper we will focus on the Cowpea Chlorotic Mottle Virus (CCMV).
+This virus is characterized by one of the standard point arrays.
+How CCMV matures is shown by figure \ref{fig:CCMV_maturation}.
+Notice the points in orange, these points collectively are the point arrays that characterize the CCMV virus.
+We wish to see if there exists a linear transformation that maps the native point array to the mature point array while preserving icosahedral symmetry (or one of its maximal subgroups).
+
+\begin{figure}[!h]
+	\centering
+	\captionsetup{width=0.5\textwidth}
+	\includegraphics[width=0.5\textwidth]{images/CCMV_maturation.png}
+	\caption{
+		The above diagram shows CCMV in its native state (first row) and mature state (second row). 
+		Notice the points in orange are the points that characterize CCMV.
+		Graphics from Dr. Dave Wilson.
+	}
+	\label{fig:CCMV_maturation}
+\end{figure}
 
 \section{Mathematical View of the Problem}
 Our desire to find transitions between point arrays that preserving some or all of icosahedral symmetry.
