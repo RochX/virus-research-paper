@@ -468,7 +468,7 @@ The following lemma and theorem will help us determine when an equation cannot b
 	\begin{bmatrix}
 		| & | & \cdots & |\\
 		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_n} \\
-		| & |
+		| & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
@@ -478,7 +478,49 @@ The following lemma and theorem will help us determine when an equation cannot b
 	\end{bmatrix}
 	\]
 	is solvable then the equation \[M\vec{a_i} = \vec{b_i}\] is solvable for all \( i \in \{1, 2, \dots n\} \).
+	\label{thrm:matrix-equation-solving}
 \end{Theorem}
+\noindent While this is a useful if not a somewhat obvious theorem, what is more useful is the theorem's contrapositive.
+\begin{Theorem}[Contrapositive of Theorem \ref{thrm:matrix-equation-solving}]
+	Let \( M \) be an \( n \times n \) matrix with variables.
+	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_n}, \vec{b_1}, \vec{b_2}, \dots \vec{b_n} \) be \( n \)-dimensional vectors.
+	If there exists \( i \in \{1, 2, \dots n\} \) such that the equation \[M\vec{a_i} = \vec{b_i}\] cannot be solved,
+	then the equation \[
+	M
+	\cdot
+	\begin{bmatrix}
+		| & | & \cdots & |\\
+		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_n} \\
+		| & | & \cdots & |
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		| & | & \cdots & |\\
+		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_n} \\
+		| & | & \cdots & |
+	\end{bmatrix}
+	\]
+	cannot be solved.
+\end{Theorem}
+What this theorem tells us is that if we find two vectors \( \vec{v} \text{ and } \vec{u} \) such that \( T\vec{v} = \vec{u} \) cannot be solved,
+then any matrix equation of the form \[
+	T
+	\cdot
+	\begin{bmatrix}
+		| & | & \cdots & | & | & | & \cdots & |\\
+		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_{k-1}} & \vec{v} & \vec{a_{k+1}} & \cdots & \vec{a_n} \\
+		| & | & \cdots & | & | & | & \cdots & |
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		| & | & \cdots & | & | & | & \cdots & |\\
+		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_{k-1}} & \vec{u} & \vec{b_{k+1}} & \cdots & \vec{b_n} \\
+		| & | & \cdots & | & | & | & \cdots & |
+	\end{bmatrix}
+	\]
+cannot be solved.
+What we have done is by finding a simple matrix equation that cannot be solved, we can find a whole class of matrix equations that cannot be solved.
+
 \todo[inline]{Talk about how this theorm allows us to build up the \( B0 \) and \( B1 \) matrices one vector at a time}
 
 \subsection{C++ Program}
