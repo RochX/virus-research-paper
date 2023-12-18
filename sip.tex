@@ -524,7 +524,29 @@ What we have done is by finding a simple matrix equation that cannot be solved, 
 \todo[inline]{Talk about how this theorm allows us to build up the \( B0 \) and \( B1 \) matrices one vector at a time}
 
 \subsection{C++ Program}
+The first programming approach is to employ guess and check strategy.
+I used C++ along with the \texttt{Eigen} library for fast linear algebra.
+\todo{I might want to change this sentence}
+We must use guess and check since there are little well-documented C++ libraries that can do symbolic mathematics.
+\footnote{
+	At the time I did not know about the \href{https://www.ginac.de/}{GiNaC} framework for C++ and other similar libraries.
+	Many of the C++ symbolic do not have the greatest documentation in comparison to the Eigen library, which made it easier to quickly learn and implement and get results.
+	If I had known about it at the time, instead of two programs, there would've been likely only one in C++ using \href{https://www.ginac.de/}{GiNaC}.
+}
+The idea is that instead of solving the equation \( TB_0 = B_1 \), we create a set of candidate transition matrices, lets call this set \( \mathcal{T} \).
+Thus if we want to find a transition from point arrays \( P \to Q \) instead of solving equations that are represented by \( \pam(P) \times \pam(Q) \), we look at the set \( \mathcal{T} \times \pam(P) \) and see if the product \( TB_0 \in \pam(Q) \).
+\footnote{
+	While this method allows us to find transitions, it cannot tell us definitively whether a transition does not exist.
+	In order to do so with this method we would have to check if \( TB_0 \in \pam(Q) \) all possible transitions \( T \).
+	But there are an infinite number of transitions \( T \) and so we could not check this computationally.
+}
+The question is how do we decide what the set \( \mathcal{T} \) looks like.
+The answer is through entry sampling.
+
 \subsubsection{Entry Sampling}
+The idea for entry sampling is as follows:
+Since we are looking at the matrix equation \( TB_0 = B_1 \), then if \( B_0 \) and \( B_1 \) were invertible, then we could reframe the equation as \( T = B_1B_0^{-1} \).
+
 \subsubsection{Partial Transitions}
 \subsubsection{Contrapositive}
 \todo[inline]{- Norm checking\\
@@ -534,6 +556,15 @@ What we have done is by finding a simple matrix equation that cannot be solved, 
 \subsubsection{Parallelization}
 
 \subsection{Python Program}
+The next programming approach is to actually solve the matrix equations.
+For this we use the Python programming along with the \texttt{sympy} library, a symbolic mathematics library for Python.
+
+Another approach to solving this problem is to relax the requirements.
+In reality, the viruses have multiple radial levels.
+So there are multiple layers that each orbit is nested within.
+Therefore to simplify the problem we can look at whether there exists a transition at the top layer only.
+What this translates to in reality is that the outside of the virus has these symmetries preserves, but the insides might not preserve any form of symmetry.
+
 \subsubsection{Pair Checking}
 \todo[inline]{this will involve the subsets of \( \mathcal{I} \times \mathcal{I} \) idea}
 \subsubsection{Depth first search}
