@@ -548,6 +548,81 @@ The idea for entry sampling is as follows:
 Since we are looking at the matrix equation \( TB_0 = B_1 \), then if \( B_0 \) and \( B_1 \) were invertible, then we could reframe the equation as \( T = B_1B_0^{-1} \).
 
 \subsubsection{Partial Transitions}
+\begin{Definition}[Partial Transition]
+	Let \(\mathcal{G} = \mathcal{I}, A_4, D_{10}, \text{or } D_6\).
+	A \emph{partial transition} is a nonzero element of \(Z(\mathcal{G})\) where at least one row of the matrix is all zero.
+\end{Definition}
+Another way of thinking about this definition is that we are allowing ourselves to set some of the variables to zero.
+
+Notice that there do not exist any partial transitions for \(\mathcal{I}\) or \(A_4\), since forcing any row to be zero forces the matrix to be the zero matrix.
+\footnote{Recall we require our transition matrices to be invertible.}
+However, in the cases of \(D_{10}\) and \(D_6\), there do exist partial transitions, and they turn out to be useful in finding transitions.
+
+\noindent For \(D_{10}\) we notice the following:
+\[T = \begin{bmatrix}
+	z & x & y & y & x & t \\
+	x & z & x & y & y & t \\
+	y & x & z & x & y & t \\
+	y & y & x & z & x & t \\
+	x & y & y & x & z & t \\
+	u & u & u & u & u & w
+\end{bmatrix} = \begin{bmatrix}
+	z & x & y & y & x & t \\
+	x & z & x & y & y & t \\
+	y & x & z & x & y & t \\
+	y & y & x & z & x & t \\
+	x & y & y & x & z & t \\
+	0 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix} + \begin{bmatrix}
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	u & u & u & u & u & w
+\end{bmatrix}.\]
+And similarly for \(D_6\) we notice the following:
+\[T = \begin{bmatrix}
+	u  & w  & -w & x  & s  & s  \\
+	-t & y  & v  & -v & z  & -t \\
+	t  & v  & y  & v  & t  & -z \\
+	z  & -v & v  & y  & -t & -t \\
+	s  & x  & -w & w  & u  & s  \\
+	s  & w  & -x & w  & s  & u
+\end{bmatrix} = \begin{bmatrix}
+	u  & w  & -w & x  & s  & s  \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	s  & x  & -w & w  & u  & s  \\
+	s  & w  & -x & w  & s  & u
+\end{bmatrix} + \begin{bmatrix}
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	-t & y  & v  & -v & z  & -t \\
+	t  & v  & y  & v  & t  & -z \\
+	z  & -v & v  & y  & -t & -t \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix}.\]
+
+
+\begin{Theorem}[Norm Condition for Transitions]
+	If \( T \) is a transition from point array \( P \to Q \), then there exists \( \vec{v} \in P \) such that
+	\[\norm{T\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
+	where \( \norm{\vec{u}} \) is the standard Euclidean norm.
+	\label{thrm:norm-condition-for-transitions}
+\end{Theorem}
+\begin{Theorem}[Norm Condition for Partial Transitions]
+		Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
+		If \( T \) is a transition from point array \( P \to Q \), then there exists \( \vec{v} \in P \) such that
+		\[\norm{A\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}} \text{ and } \norm{B\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
+		where \( \norm{\vec{u}} \) is the standard Euclidean norm.
+\end{Theorem}
+\begin{proof}
+	Since partial transitions have at least one row of zeroes, then we will have that \( \norm{A\vec{v}} \leq \norm{T\vec{v}} \) and \( \norm{B\vec{v}} \leq \norm{T\vec{v}} \).
+	The result then follows from Theorem \ref{thrm:norm-condition-for-transitions}.
+\end{proof}
+
 \subsubsection{Contrapositive}
 \todo[inline]{- Norm checking\\
 - Checking mapping into the ending point array
