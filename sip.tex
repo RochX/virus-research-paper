@@ -610,28 +610,176 @@ And similarly for \(D_6\) we notice the following:
 	0 & 0 & 0 & 0 & 0 & 0 \\
 	0 & 0 & 0 & 0 & 0 & 0
 \end{bmatrix}.\]
-
-
-\begin{Theorem}[Norm Condition for Transitions]
+With this idea in mind, we can create a couple of useful theorems that use partial transitions.
+\begin{Lemma}[Norm Condition for Transitions]
 	If \( T \) is a transition from point array \( P \to Q \), then there exists \( \vec{v} \in P \) such that
 	\[\norm{T\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
 	where \( \norm{\vec{u}} \) is the standard Euclidean norm.
 	\label{thrm:norm-condition-for-transitions}
-\end{Theorem}
+\end{Lemma}
 \begin{Theorem}[Norm Condition for Partial Transitions]
-		Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
-		If \( T \) is a transition from point array \( P \to Q \), then there exists \( \vec{v} \in P \) such that
-		\[\norm{A\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}} \text{ and } \norm{B\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
-		where \( \norm{\vec{u}} \) is the standard Euclidean norm.
+	Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
+	If \( T \) is a transition from point array \( P \to Q \), then there exists \( \vec{v} \in P \) such that
+	\[\norm{A\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}} \text{ and } \norm{B\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
+	where \( \norm{\vec{u}} \) is the standard Euclidean norm.
+	\label{thrm:norm-condition-for-partial-transitions}
 \end{Theorem}
 \begin{proof}
 	Since partial transitions have at least one row of zeroes, then we will have that \( \norm{A\vec{v}} \leq \norm{T\vec{v}} \) and \( \norm{B\vec{v}} \leq \norm{T\vec{v}} \).
-	The result then follows from Theorem \ref{thrm:norm-condition-for-transitions}.
+	The result then follows from Lemma \ref{thrm:norm-condition-for-transitions}.
 \end{proof}
 
+\begin{Lemma}
+		If \( T \) is a transition from point array \( P \to Q \), then for every \( \vec{v} \in P \) there exists \( \vec{u} \in Q \) such that \( T\vec{v} = \vec{u} \).
+\end{Lemma}
+In order to state the next theorem, we need to understand how the partial transitions work with vector multiplication.
+Let us use the \( D_6 \) partial transition as an example.
+Suppose \( T \in Z(D_6) \) such that \( T\vec{v} = \vec{u} \).
+Then we obviously have that 
+\begin{equation*}
+	\begin{bmatrix}
+		u  & w  & -w & x  & s  & s  \\
+		-t & y  & v  & -v & z  & -t \\
+		t  & v  & y  & v  & t  & -z \\
+		z  & -v & v  & y  & -t & -t \\
+		s  & x  & -w & w  & u  & s  \\
+		s  & w  & -x & w  & s  & u
+	\end{bmatrix} 
+	\cdot
+	\begin{bmatrix}
+		v_1 \\
+		v_2 \\
+		v_3 \\
+		v_4 \\
+		v_5 \\
+		v_6
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		u_1 \\
+		u_2 \\
+		u_3 \\
+		u_4 \\
+		u_5 \\
+		u_6
+	\end{bmatrix}
+\end{equation*}
+If we use the partial transition decomposition then the previous equation turns into
+\begin{equation}
+	\left( 
+	\begin{bmatrix}
+		u  & w  & -w & x  & s  & s  \\
+		0 & 0 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 \\
+		s  & x  & -w & w  & u  & s  \\
+		s  & w  & -x & w  & s  & u
+	\end{bmatrix} 
+	+ 
+	\begin{bmatrix}
+		0 & 0 & 0 & 0 & 0 & 0 \\
+		-t & y  & v  & -v & z  & -t \\
+		t  & v  & y  & v  & t  & -z \\
+		z  & -v & v  & y  & -t & -t \\
+		0 & 0 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0
+	\end{bmatrix}
+	\right) 
+	\cdot
+	\begin{bmatrix}
+		v_1 \\
+		v_2 \\
+		v_3 \\
+		v_4 \\
+		v_5 \\
+		v_6
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		u_1 \\
+		u_2 \\
+		u_3 \\
+		u_4 \\
+		u_5 \\
+		u_6
+	\end{bmatrix}
+\end{equation}
+which simplifies to
+\begin{equation}
+	\begin{bmatrix}
+		a_1 \\
+		0 \\
+		0 \\
+		0 \\
+		a_5 \\
+		a_6
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+		0 \\
+		a_2 \\
+		a_3 \\
+		a_4 \\
+		0 \\
+		0
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		u_1 \\
+		u_2 \\
+		u_3 \\
+		u_4 \\
+		u_5 \\
+		u_6
+	\end{bmatrix}
+\end{equation}
+In addition to decomposing the transition matrix, they also decompose the result of any vector multiplied by the transition matrix!
+So we can check both decompositions separately.
+In order to state this mathematically, we need to create partial identity matrices, which are identity matrices which have zero rows in same places as the partial transition matrix.
+For \( D_6 \) we decompose the identity matrix as 
+\begin{equation}
+	 I_6 = I_A + I_B
+	 \iff
+	 \begin{bmatrix}
+	 	1 & 0 & 0 & 0 & 0 & 0 \\
+	 	0 & 1 & 0 & 0 & 0 & 0 \\
+	 	0 & 0 & 1 & 0 & 0 & 0 \\
+	 	0 & 0 & 0 & 1 & 0 & 0 \\
+	 	0 & 0 & 0 & 0 & 1 & 0 \\
+	 	0 & 0 & 0 & 0 & 0 & 1
+	 \end{bmatrix}
+	 =
+	 \begin{bmatrix}
+	 	1 & 0 & 0 & 0 & 0 & 0 \\
+	 	0 & 0 & 0 & 0 & 0 & 0 \\
+	 	0 & 0 & 0 & 0 & 0 & 0 \\
+	 	0 & 0 & 0 & 0 & 0 & 0 \\
+	 	0 & 0 & 0 & 0 & 1 & 0 \\
+	 	0 & 0 & 0 & 0 & 0 & 1
+	 \end{bmatrix}
+	 +
+	 \begin{bmatrix}
+	 	0 & 0 & 0 & 0 & 0 & 0 \\
+	 	0 & 1 & 0 & 0 & 0 & 0 \\
+	 	0 & 0 & 1 & 0 & 0 & 0 \\
+	 	0 & 0 & 0 & 1 & 0 & 0 \\
+	 	0 & 0 & 0 & 0 & 0 & 0 \\
+	 	0 & 0 & 0 & 0 & 0 & 0
+	 \end{bmatrix}.
+\end{equation}
+Therefore instead of checking whether \( T\vec{v} = \vec{u} \) can be solved, we check whether both \( A\vec{v} = I_A\vec{u} \) and \( B\vec{v} = I_B\vec{u} \) can be solved.
+
+\begin{Theorem}[Partial Transition Mapping Condition]
+	Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
+		If \( T \) is a transition from point array \( P \to Q \), then for every \( \vec{v} \in P \) there exists \( \vec{u} \in Q \) such that
+		\[A\vec{v} = I_A\vec{u} \text{ and } B\vec{v} = I_B\vec{u}.\]
+		\label{thrm:partial-transition-mapping-condition}
+\end{Theorem}
+
 \subsubsection{Contrapositive}
-\todo[inline]{- Norm checking\\
-- Checking mapping into the ending point array
+\todo[inline]{
+	State contrapositive of theorems \ref{thrm:norm-condition-for-partial-transitions} and \ref{thrm:partial-transition-mapping-condition}.
+	Talk about how they are useful in eliminating transition matrices.
 }
 
 \subsubsection{Parallelization}
