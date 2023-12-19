@@ -612,14 +612,14 @@ And similarly for \(D_6\) we notice the following:
 \end{bmatrix}.\]
 With this idea in mind, we can create a couple of useful theorems that use partial transitions.
 \begin{Lemma}[Norm Condition for Transitions]
-	If \( T \) is a transition from point array \( P \to Q \), then there exists \( \vec{v} \in P \) such that
+	If \( T \) is a transition from point array \( P \to Q \), then for all \( \vec{v} \in P \) we have that
 	\[\norm{T\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
 	where \( \norm{\vec{u}} \) is the standard Euclidean norm.
 	\label{thrm:norm-condition-for-transitions}
 \end{Lemma}
 \begin{Theorem}[Norm Condition for Partial Transitions]
 	Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
-	If \( T \) is a transition from point array \( P \to Q \), then there exists \( \vec{v} \in P \) such that
+	If \( T \) is a transition from point array \( P \to Q \), then for every \( \vec{v} \in P \) we have that
 	\[\norm{A\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}} \text{ and } \norm{B\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
 	where \( \norm{\vec{u}} \) is the standard Euclidean norm.
 	\label{thrm:norm-condition-for-partial-transitions}
@@ -777,10 +777,31 @@ Therefore instead of checking whether \( T\vec{v} = \vec{u} \) can be solved, we
 \end{Theorem}
 
 \subsubsection{Contrapositive}
+While theorems \ref{thrm:norm-condition-for-partial-transitions} and \ref{thrm:partial-transition-mapping-condition} are useful, they don't help us find transitions, since they both require us to have already found a transition.
+What is useful is their contrapositives, which will help us eliminate possible transitions.
+\begin{Theorem}[Contrapositive of Theorem \ref{thrm:norm-condition-for-partial-transitions}]
+	Suppose a transition matrix \( T \) decomposes into partial transitions such that \( T = A + B \).
+	If there exists \( \vec{v} \in P \) such that either
+	\[\norm{A\vec{v}} > \max_{\vec{u} \in Q}\norm{\vec{u}} \text{ or } \norm{B\vec{v}} > \max_{\vec{u} \in Q}\norm{\vec{u}}\]
+	then \( T \) is not a transition for \( P \to Q \).
+	\label{thrm:contrapositive-norm-condition-for-partial-transitions}
+\end{Theorem}
+\begin{Theorem}[Contrapositive of Theorem \ref{thrm:partial-transition-mapping-condition}]
+	Suppose a transition matrix \( T \) decomposes into partial transitions such that \( T = A + B \).
+	Let \( I_A \) and \( I_B \) be the corresponding identity decomposition such that \( I_AT + I_BT = A + B \).
+	If there exists \( \vec{v} \in P \) such that for every \( \vec{u} \in Q \) either
+	\[A\vec{v} \neq I_A\vec{u} \text{ or } B\vec{v} \neq I_B\vec{u}\]
+	then \( T \) is not a transition for \( P \to Q \).
+	\label{thrm:contrapositive-partial-transition-mapping-condition}
+\end{Theorem}
+Both of these theorems have the same idea in mind, we can say a matrix \( T \) cannot be a transition based upon what it does to a particular vector.
+Furthermore, by using the partial transition decomposition idea, we can elminate whole subsets of candidate transition matrices all at once.
+
 \todo[inline]{
 	State contrapositive of theorems \ref{thrm:norm-condition-for-partial-transitions} and \ref{thrm:partial-transition-mapping-condition}.
 	Talk about how they are useful in eliminating transition matrices.
 }
+
 
 \subsubsection{Parallelization}
 
