@@ -312,6 +312,12 @@ Below are the general matrix forms for \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\)
 		s  & w  & -x & w  & s  & u
 	\end{bmatrix} \in Z(D_{6})
 \end{align}
+Now we can precisely define the nature of our desire transition matrices.
+\begin{Definition}[Transition Matrix]
+	Let \(\mathcal{G} = \mathcal{I}, A_4, D_{10}, \text{or } D_6\).
+	Then a \emph{transition matrix} that preserves intermediate symmetry \( \mathcal{G} \) is an invertible matrix that is also an element of \( Z(\mathcal{G}) \).
+\end{Definition}
+We require our transitions to be invertible matrices because if we find a transition matrix \( T \) for \( P \to Q \), we want to be guarenteed that \( T^{-1} \) is a transition for \( Q \to P \).
 
 \subsection{Transitions Preserving Symmetry}
 \todo[inline]{Talk about why we want the centralizer here}
