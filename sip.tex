@@ -498,6 +498,14 @@ The following lemma and theorem will help us determine when an equation cannot b
 	\end{bmatrix}
 	\]
 	is solvable then the equation \[M\vec{a_i} = \vec{b_i}\] is solvable for all \( i \in \{1, 2, \dots n\} \).
+	\footnote{
+		The converse of this theorem is not true.
+		Consider the example where \(M = \begin{bmatrix} x \end{bmatrix} \),
+		\( \vec{a_1} = \vec{a_2} =  \begin{bmatrix} 1 \end{bmatrix}\),
+		\( \vec{b_1} =  \begin{bmatrix} 1 \end{bmatrix}\), and
+		\( \vec{b_2} = \begin{bmatrix} 2 \end{bmatrix} \).
+		Then \( M\cdot\vec{a_1} = \vec{b_1} \) and \( M\cdot\vec{a_2} =  \vec{b_2}\) can be solved, but \( M\cdot\begin{bmatrix} \vec{a_1} & \vec{a_2} \end{bmatrix} = \begin{bmatrix} \vec{b_1} & \vec{b_2} \end{bmatrix}\) cannot be solved.
+	}
 	\label{thrm:matrix-equation-solving}
 \end{Theorem}
 \noindent While this is a useful if not a somewhat obvious theorem, what is more useful is the theorem's contrapositive.
@@ -881,6 +889,20 @@ Therefore we will create many subsets of \( \mathcal{I} \times \mathcal{I} \).
 	&\vdots \\
 	TG_n\vec{v_n} = H_n\vec{u_n}  \implies& \{(G, H) \in \mathcal{I} \times \mathcal{I} \ |\ TG\vec{v_n} = H\vec{u_n} \text{ has a solution.}\}
 \end{align*}
+This gets our idea solidified, but our icosahedral orbits of vector (i.e. \( \mathcal{I}\vec{v} \)) are smaller than the icosahedral group.
+So it is more efficient to directly look at the cartesian product of icosahedral orbits.
+\begin{align*}
+	TG_0\vec{t} = H_0\vec{t'} \implies& \{(\vec{t_0}, \vec{t'_0}) \in \mathcal{I}\vec{t} \times \mathcal{I}\vec{t'} \ |\ T\vec{t_0} = \vec{t'_0} \text{ has a solution.}\} \\
+	TG_1\vec{v_1} = H_1\vec{u_1}  \implies& \{(\vec{v}, \vec{u}) \in \mathcal{I}\vec{v_1} \times \mathcal{I}\vec{u_1} \ |\ T\vec{v} = \vec{u} \text{ has a solution.}\} \\
+	&\vdots \\
+	TG_n\vec{v_n} = H_n\vec{u_n}  \implies& \{(\vec{v}, \vec{u}) \in \mathcal{I}\vec{v_n} \times \mathcal{I}\vec{u_n} \ |\ T\vec{v} = \vec{u} \text{ has a solution.}\}
+\end{align*}
+Let us make a definition for this new set we've constructed.
+\begin{Definition}[Icosahedral Vector Pair Set]
+	Let \(\mathcal{G} = \mathcal{I}, A_4, D_{10}, \text{or } D_6\) and \( T \) be the general form of \( Z(\mathcal{G}) \).
+	Then the \emph{icosahedral vector pair set} for vectors \( \vec{v} \) and \( \vec{u} \) is defined as
+	\[V(\vec{v}, \vec{u}) = \{(\vec{v'}, \vec{u'}) \in \mathcal{I}\vec{v} \times \mathcal{I}\vec{u} \ |\ T\vec{v'} = \vec{u'} \text{ has a solution.}\}\]
+\end{Definition}
 \todo[inline]{this will involve the subsets of \( \mathcal{I} \times \mathcal{I} \) idea \\
 	perhaps I should refer to section \ref{subsection:transitions-preserving-symmetry} in some way after I write that subsection?
 }
