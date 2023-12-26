@@ -982,6 +982,18 @@ This theorem essentially checks whether \( T\vec{v} = \vec{u} \) for every combi
 We want to do this last since otherwise we lose the speedup that the previous condition allows for by precomputing the maximal norm of a point array.
 
 \subsubsection{Parallelization}
+We can easily parallelize this problem.
+Since our approach here is to take a list of potential transition matrices, narrow it down through various conditions, and then attempt to find a \( B_0 \) and \( B_1 \) matrix, we can parallelize at this level.
+The idea is to use task-based parallelism.
+Each task for this program has the following form: ``For a potential transition matrix \( T \), see if there exists a \( B_0 \) and \( B_1 \) matrix such that \( TB_0 = B_1 \)."
+To actually parallelize this in C++ programming language we use the \texttt{OpenMP} API in order to implement task based parallelism.
+Therefore the C++ program has the following structure in order to find transitions from \( P \to Q \):
+\begin{enumerate}
+	\item Generate a list potential transition matrices called \( C \).
+	\item Create task for each matrix in \( C \).
+	\item Process all tasks. Each task will essentially be answering a yes/no question (Is \( T \) a transition matrix for \( P \to Q \)?).
+	\item Collect all data from tasks.
+\end{enumerate}
 
 \subsection{Python Program}
 The next programming approach is to actually solve the matrix equations.
@@ -1128,7 +1140,16 @@ We can drastically improve the efficiently of the program by implementing a dept
 	\arrow[from=2-3, to=3-3]
 	\arrow[from=2-3, to=3-4]
 \end{tikzcd}\]
+
 \subsubsection{Parallelization}
+Parallelizing the depth first approach in Python takes more thought than in the C++ approach.
+\todo{Add label to figure of DFS tree}
+What we can do for this approach is to split up the decision tree shown in the previous subsubsection.
+Because our goal is to search the entire tree, we split up the tree at the first level.
+Therefore in our example we would split into two trees.
+In general, we split at the first level, which means we split based on upon the number of elements in the icosahedral vector pair set \( V(\vec{t}, \vec{t'}) \).
+To implement this form of parallelism, we use the \texttt{multiprocessing} library within Python.
+In fact this parallelism is still task based parallelism, with the task being checking a given decision to see if there exists \( B_0 \) and \( B_1 \) matrices such that the equation \( TB_0 = B_1 \) can be solved for \( T \).
 
 \section{Results}
 After doing these computational methods, I found intriguing results, summarized by the following:
