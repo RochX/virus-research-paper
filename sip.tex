@@ -970,11 +970,16 @@ What is useful is their contrapositives, which will help us eliminate possible t
 Both of these theorems have the same idea in mind, we can say a matrix \( T \) cannot be a transition based upon what it does to a particular vector.
 Furthermore, by using the partial transition decomposition idea, we can elminate whole subsets of candidate transition matrices all at once.
 
-\todo[inline]{
-	State contrapositive of theorems \ref{thrm:norm-condition-for-partial-transitions} and \ref{thrm:partial-transition-mapping-condition}.
-	Talk about how they are useful in eliminating transition matrices.
-}
+Theorem \ref{thrm:contrapositive-norm-condition-for-partial-transitions} allows to determine when a matrix \( T \) cannot be a transition by using the fact that transition matrices must map one point array onto another.
+We could check whether \( T\vec{v} = \vec{u} \) for every combination of \( \vec{v} \in P \) and \( \vec{u} \in Q \) but in order to do this we must check \( \abs{P}\cdot\abs{Q} \) things.
+But we can make the following observation: If \( \norm{T\vec{v}} > \norm{\vec{u}} \) then \( T\vec{v} \neq \vec{u} \).
+Thus if \( \norm{T\vec{v}} > \max_{\vec{u} \in Q}\norm{\vec{u}} \) then \( T\vec{v} \neq \vec{u} \) for \emph{every} \( \vec{u} \in Q \) and so we cannot map \( P \) onto \( Q \).
+The advantage of this method is that we only need to check \( \abs{P} \) things since the \( \max_{\vec{u} \in Q}\norm{\vec{u}} \) is simply a constant for a given point array \( Q \).
+And since \( \norm{A\vec{v}} \leq \norm{T\vec{v}} \) and \( \norm{B\vec{v}} \leq \norm{T\vec{v}} \) we actually only need to check this with partial transitions.
 
+We use theorem \ref{thrm:contrapositive-partial-transition-mapping-condition} only if theorem \ref{thrm:contrapositive-norm-condition-for-partial-transitions} fails to tell us that \( T \) is not transition.
+This theorem essentially checks whether \( T\vec{v} = \vec{u} \) for every combination of \( \vec{v} \in P \) and \( \vec{u} \in Q \).
+We want to do this last since otherwise we lose the speedup that the previous condition allows for by precomputing the maximal norm of a point array.
 
 \subsubsection{Parallelization}
 
