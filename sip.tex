@@ -163,7 +163,6 @@ Relevant to our work the shape of the icosahedron, a shape with 2-fold, 3-fold, 
 		0 & 0  & 0  & 0 & 1 & 0
 	\end{bmatrix}.\]
 \end{Definition}
-
 \section{Point Arrays and Lattices}
 Icosahedral viruses are characterized by point arrays, which are a set of points in 3 dimensions.
 \begin{Definition}[Lifted Point Array]
@@ -240,11 +239,26 @@ This is shown visually in figure \ref{fig:point_array_construction}.
 \end{figure}
 
 \section{Transitions Between Point Arrays}
-\todo[inline]{Give a less mathy description of the virus transition problem \\ Describe goals about preserving symmetry:\\
-	Lattices encode the symmetry\\
-	Lattices have point groups (orthogonal transformation that preserve the lattice)\\
-	See Paper paper section 4.2. Preserving the lattice group the entire time.
-}
+Let us take an overall look at how we wish to use point arrays.
+Viruses are characterized by 3-dimensional point arrays.
+We want our point arrays to represent the symmetry and structure of the virus.
+Then we lift the point arrays into 6 dimensions, because we the point array to fit inside an icosahedral lattice.
+Lattices on a general level encode symmetry.
+When our point arrays fit inside lattices, we can use knowledge about lattices in order to describe symmetry of the point array.
+\todo{Add citation}
+Point arrays let us look at the most important structural points of a virus and can determine what potential modifications could be done to a particular virus.
+
+With point arrays, we can try to find linear transformations to map one point array onto another.
+In general, finding such a linear map is relatively easy.
+A more difficult challenge is to find such a linear map that preserves symmetry.
+Our point arrays have icosahedral symmetry.
+Therefore our desire is to find a linear map from one point array to another where the intermediate point arrays also have icosahedral symmetry.
+It may also be desirable to find a map that preserves a looser symmetry that fits inside icosahedral symmetry.
+
+Additionally, instead of mapping the point arrays directly onto each other, our linear transformations will transform one lattice into another.
+The consequence of doing this is that when we restrict our map to the point array, it becomes a map from one point array to another.
+
+The process of mathematically describing these symmetry preserving maps and how we find them will be the focus of the rest of this paper.
 \subsection{Viral Maturation}
 Icosahedral viruses mature over time, and maturation is how they become infectous.
 For this paper we will focus on the Cowpea Chlorotic Mottle Virus (CCMV).
