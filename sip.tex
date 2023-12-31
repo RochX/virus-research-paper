@@ -481,6 +481,18 @@ We require our transitions to be invertible matrices because if we find a transi
 }
 
 \subsection{Transitions Preserving Symmetry}\label{subsection:transitions-preserving-symmetry}
+The centralizer of a group has nice properties, especially in the context of preserving symmetry.
+Let us consider how the centralizer behaves on the equation \( T\icobar{v} = \icobar{u} \) where \( T \in Z(\mathcal{I})\).
+By definition of icosahedral bar notation, we have that \[T\icobar{v} = \icobar{u} \iff TG\vec{v} = H\vec{u}\]
+where \( G, H \in \mathcal{I} \).
+Thus by definition of the centralizer we can do the following:
+\begin{gather*}
+	TG\vec{v} = H\vec{u} \\
+	\Updownarrow \\
+	GT\vec{v} = H\vec{u} \\
+	\Updownarrow \\
+	T\vec{v} = G^{-1}H\vec{u}
+\end{gather*}
 \todo[inline]{Talk about why we want the centralizer here \\ 
 	See paper paper section 5
 }
