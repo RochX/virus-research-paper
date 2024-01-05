@@ -641,6 +641,69 @@ The following lemma and theorem will help us determine when an equation cannot b
 	\]
 	is solvable then the equations \[M\vec{a_1} = \vec{b_1} \text{ and } M\vec{a_2} = \vec{b_2}\] are solvable.
 \end{Lemma}
+\begin{proof}
+	Rewrite the equation we are assuming has a solution as
+	\begin{equation*}
+		\begin{bmatrix}
+			m_{11} & \dots & m_{1n} \\
+			\vdots & \ddots & \vdots \\
+			m_{n1} & \dots & m_{nn}
+		\end{bmatrix}
+		\cdot
+		\begin{bmatrix}
+			a_{11} & a_{21} \\
+			\vdots & \vdots \\
+			a_{1n} & a_{2n}
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			b_{11} & b_{21} \\
+			\vdots & \vdots \\
+			b_{1n} & b_{2n}
+		\end{bmatrix}
+	\end{equation*}
+	and simplifies into
+	\begin{equation*}
+		\begin{bmatrix}
+			m_{11}a_{11} + \dots + m_{1n}a_{1n} & m_{11}a_{21} + \dots + m_{1n}a_{2n} \\
+			\vdots & \vdots \\
+			m_{n1}a_{11} + \dots + m_{nn}a_{1n} & m_{n1}a_{21} + \dots + m_{nn}a_{2n} \\
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			b_{11} & b_{21} \\
+			\vdots & \vdots \\
+			b_{1n} & b_{2n}
+		\end{bmatrix}.
+	\end{equation*}
+	If we know that this equation has a solution, then both of the equations
+	\begin{equation*}
+		\begin{bmatrix}
+			m_{11}a_{11} + \dots + m_{1n}a_{1n}\\
+			\vdots\\
+			m_{n1}a_{11} + \dots + m_{nn}a_{1n}\\
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			b_{11}\\
+			\vdots\\
+			b_{1n}
+		\end{bmatrix}
+		\text{ and }
+		\begin{bmatrix}
+			m_{11}a_{21} + \dots + m_{1n}a_{2n} \\
+			\vdots \\
+			m_{n1}a_{21} + \dots + m_{nn}a_{2n} \\
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			b_{21} \\
+			\vdots \\
+			b_{2n}
+		\end{bmatrix}
+	\end{equation*}
+	can be solved with the same solution, which are also both equivalent to \( M\vec{a_1} = \vec{b_1} \text{ and } M\vec{a_2} = \vec{b_2} \).
+\end{proof}
 \begin{Theorem}[Matrix Equation Solving]
 	Let \( M \) be an \( n \times n \) matrix with variables.
 	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_n}, \vec{b_1}, \vec{b_2}, \dots \vec{b_n} \) be \( n \)-dimensional vectors.
