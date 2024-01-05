@@ -1140,6 +1140,46 @@ This method will find us a transition if one exists, however, this method is sti
 We can drastically improve the efficiently of the program by implementing a depth first search with pruning.
 
 \subsubsection{Depth first search}
+Our motivation for a depth first search is that we wish to build up the \( B_0 \) and \( B_1 \) matrices one vector at a time.
+Building up the matrices one vector at a time looks like the following procedure:
+If we have a equation of the form
+\begin{equation*}
+	T
+	\cdot
+	\begin{bmatrix}
+		| & | & | & \cdots & | \\
+		\vec{t} & \vec{v_1} & \vec{v_2} & \cdots & \vec{v_n} \\
+		| & | & | & \cdots & |
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		| & | & | & \cdots & | \\
+		\vec{t'} & \vec{u_1} & \vec{u_2} & \cdots & \vec{u_n} \\
+		| & | & | & \cdots & |
+	\end{bmatrix}
+\end{equation*}
+that can be solved, then in order to add one vector we need to figure out if the equation
+\begin{equation*}
+	T
+	\cdot
+	\begin{bmatrix}
+		| & | & | & \cdots & | & | \\
+		\vec{t} & \vec{v_1} & \vec{v_2} & \cdots & \vec{v_n} & \vec{v_{n+1}} \\
+		| & | & | & \cdots & | & |
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		| & | & | & \cdots & | & | \\
+		\vec{t'} & \vec{u_1} & \vec{u_2} & \cdots & \vec{u_n} & \vec{u_{n+1}} \\
+		| & | & | & \cdots & | & |
+	\end{bmatrix}
+\end{equation*}
+can be solved.
+When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v_{n+1}} \) and \( \vec{u_{n+1}} \) if the equation \( T\vec{v_{n+1}} = \vec{u_{n+1}}\) can be solved.
+However, even if this equation can be solved, adding the vector might not work.
+\footnote{
+	See theorem \ref{thrm:matrix-equation-solving} and footnote \ref{footnote:counterexample-to-converse-matrix-solving}.
+}
 
 % https://q.uiver.app/#q=WzAsNyxbMSwwLCJcXHRleHR7UHJvZ3JhbX0iXSxbMSwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9XFxlbmR7Ym1hdHJpeH0gPSBcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dCd9XFxlbmR7Ym1hdHJpeH0iXSxbMiwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3RfMH1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J18wfVxcZW5ke2JtYXRyaXh9Il0sWzAsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0fSAmIFxcdmVje3ZfMX1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J30gJiBcXHZlY3t1XzF9XFxlbmR7Ym1hdHJpeH0iXSxbMSwyLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9ICYgXFx2ZWN7dl8xJ31cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J30gJiBcXHZlY3t1XzEnfVxcZW5ke2JtYXRyaXh9Il0sWzIsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0XzB9ICYgXFx2ZWN7dl8xfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnXzB9ICYgXFx2ZWN7dV8xfVxcZW5ke2JtYXRyaXh9Il0sWzMsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0XzB9ICYgXFx2ZWN7dl8xJ31cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J18wfSAmIFxcdmVje3VfMSd9XFxlbmR7Ym1hdHJpeH0iXSxbMCwxXSxbMCwyXSxbMSwzXSxbMSw0XSxbMiw1XSxbMiw2XV0=
 \[\begin{tikzcd}[cramped,column sep=scriptsize]
