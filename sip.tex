@@ -706,23 +706,23 @@ The following lemma and theorem will help us determine when an equation cannot b
 \end{proof}
 \begin{Theorem}[Matrix Equation Solving]
 	Let \( M \) be an \( n \times n \) matrix with variables.
-	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_n}, \vec{b_1}, \vec{b_2}, \dots \vec{b_n} \) be \( n \)-dimensional vectors.
+	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_k}, \vec{b_1}, \vec{b_2}, \dots \vec{b_k} \) be \( n \)-dimensional vectors.
 	If the equation \[
 	M
 	\cdot
 	\begin{bmatrix}
 		| & | & \cdots & |\\
-		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_n} \\
+		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_k} \\
 		| & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & \cdots & |\\
-		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_n} \\
+		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_k} \\
 		| & | & \cdots & |
 	\end{bmatrix}
 	\]
-	is solvable then the equation \[M\vec{a_i} = \vec{b_i}\] is solvable for all \( i \in \{1, 2, \dots n\} \).
+	is solvable then the equation \[M\vec{a_i} = \vec{b_i}\] is solvable for all \( i \in \{1, 2, \dots k\} \).
 	\footnote{
 		The converse of this theorem is not true.
 		Consider the example where \(M = \begin{bmatrix} x \end{bmatrix} \),
@@ -737,20 +737,20 @@ The following lemma and theorem will help us determine when an equation cannot b
 \noindent While this is a useful if not a somewhat obvious theorem, what is more useful is the theorem's contrapositive.
 \begin{Theorem}[Contrapositive of Theorem \ref{thrm:matrix-equation-solving}]
 	Let \( M \) be an \( n \times n \) matrix with variables.
-	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_n}, \vec{b_1}, \vec{b_2}, \dots \vec{b_n} \) be \( n \)-dimensional vectors.
-	If there exists \( i \in \{1, 2, \dots n\} \) such that the equation \[M\vec{a_i} = \vec{b_i}\] cannot be solved,
+	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_k}, \vec{b_1}, \vec{b_2}, \dots \vec{b_k} \) be \( n \)-dimensional vectors.
+	If there exists \( i \in \{1, 2, \dots k\} \) such that the equation \[M\vec{a_i} = \vec{b_i}\] cannot be solved,
 	then the equation \[
 	M
 	\cdot
 	\begin{bmatrix}
 		| & | & \cdots & |\\
-		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_n} \\
+		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_k} \\
 		| & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & \cdots & |\\
-		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_n} \\
+		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_k} \\
 		| & | & \cdots & |
 	\end{bmatrix}
 	\]
@@ -763,13 +763,13 @@ then any matrix equation of the form \[
 	\cdot
 	\begin{bmatrix}
 		| & | & \cdots & | & | & | & \cdots & |\\
-		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_{k-1}} & \vec{v} & \vec{a_{k+1}} & \cdots & \vec{a_n} \\
+		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_{i-1}} & \vec{v} & \vec{a_{i+1}} & \cdots & \vec{a_k} \\
 		| & | & \cdots & | & | & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & \cdots & | & | & | & \cdots & |\\
-		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_{k-1}} & \vec{u} & \vec{b_{k+1}} & \cdots & \vec{b_n} \\
+		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_{i-1}} & \vec{u} & \vec{b_{i+1}} & \cdots & \vec{b_k} \\
 		| & | & \cdots & | & | & | & \cdots & |
 	\end{bmatrix}
 \]
