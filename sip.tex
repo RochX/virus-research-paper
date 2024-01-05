@@ -1238,29 +1238,41 @@ that can be solved, then in order to add one vector we need to figure out if the
 	\end{bmatrix}
 \end{equation*}
 can be solved.
-When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v_{n+1}} \) and \( \vec{u_{n+1}} \) if the equation \( T\vec{v_{n+1}} = \vec{u_{n+1}}\) can be solved.
+When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v_{n+1}} \) and \( \vec{u_{n+1}} \) if the equation \( T\vec{v_{n+1}} = \vec{u_{n+1}}\) can be solved, i.e. if these two vectors are in their corresponding icosahedral pair set.
 However, even if this equation can be solved, adding the vector might not work.
 \footnote{
 	See theorem \ref{thrm:matrix-equation-solving} and footnote \ref{footnote:counterexample-to-converse-matrix-solving}.
 }
-
-% https://q.uiver.app/#q=WzAsNyxbMSwwLCJcXHRleHR7UHJvZ3JhbX0iXSxbMSwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9XFxlbmR7Ym1hdHJpeH0gPSBcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dCd9XFxlbmR7Ym1hdHJpeH0iXSxbMiwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3RfMH1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J18wfVxcZW5ke2JtYXRyaXh9Il0sWzAsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0fSAmIFxcdmVje3ZfMX1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J30gJiBcXHZlY3t1XzF9XFxlbmR7Ym1hdHJpeH0iXSxbMSwyLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9ICYgXFx2ZWN7dl8xJ31cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J30gJiBcXHZlY3t1XzEnfVxcZW5ke2JtYXRyaXh9Il0sWzIsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0XzB9ICYgXFx2ZWN7dl8xfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnXzB9ICYgXFx2ZWN7dV8xfVxcZW5ke2JtYXRyaXh9Il0sWzMsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0XzB9ICYgXFx2ZWN7dl8xJ31cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J18wfSAmIFxcdmVje3VfMSd9XFxlbmR7Ym1hdHJpeH0iXSxbMCwxXSxbMCwyXSxbMSwzXSxbMSw0XSxbMiw1XSxbMiw2XV0=
-\[\begin{tikzcd}[cramped,column sep=scriptsize]
-	& {\text{Program}} \\
-	& {T\cdot\begin{bmatrix}\vec{t}\end{bmatrix} = \begin{bmatrix}\vec{t'}\end{bmatrix}} & {T\cdot\begin{bmatrix}\vec{t_0}\end{bmatrix} = \begin{bmatrix}\vec{t'_0}\end{bmatrix}} \\
-	{T\cdot\begin{bmatrix}\vec{t} & \vec{v_1}\end{bmatrix} = \begin{bmatrix}\vec{t'} & \vec{u_1}\end{bmatrix}} & {T\cdot\begin{bmatrix}\vec{t} & \vec{v_1'}\end{bmatrix} = \begin{bmatrix}\vec{t'} & \vec{u_1'}\end{bmatrix}} & {T\cdot\begin{bmatrix}\vec{t_0} & \vec{v_1}\end{bmatrix} = \begin{bmatrix}\vec{t'_0} & \vec{u_1}\end{bmatrix}} & {T\cdot\begin{bmatrix}\vec{t_0} & \vec{v_1'}\end{bmatrix} = \begin{bmatrix}\vec{t'_0} & \vec{u_1'}\end{bmatrix}}
-	\arrow[from=1-2, to=2-2]
-	\arrow[from=1-2, to=2-3]
-	\arrow[from=2-2, to=3-1]
-	\arrow[from=2-2, to=3-2]
-	\arrow[from=2-3, to=3-3]
-	\arrow[from=2-3, to=3-4]
-\end{tikzcd}\]
+Figure \ref{fig:depth-first-search} gives us a visual idea of how this idea of depth first search is used within the program to build up the \( B_0 \) and \( B_1 \) matrices.
+We want to traverse this tree in the most efficient way possible.
+In order to do so, we don't try every possible path and instead only continue down the tree if the equation can be solved with the smaller \( B_0 \) and \( B_1 \) matrices.
+If adding on a vector to the \( B_0 \) and \( B_1 \) matrices fails, we backtrack up the tree and try a different path.
+If we exhaust all possibilities within this search tree and do not find any \( B_0 \) and \( B_1 \) matrices, then we have shown there does not exist a transition between these point arrays.
+\begin{figure}[h]
+\centering
+	% https://q.uiver.app/#q=WzAsNyxbMSwwLCJcXHRleHR7UHJvZ3JhbX0iXSxbMSwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9XFxlbmR7Ym1hdHJpeH0gPSBcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dCd9XFxlbmR7Ym1hdHJpeH0iXSxbMiwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3RfMH1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J18wfVxcZW5ke2JtYXRyaXh9Il0sWzAsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0fSAmIFxcdmVje3ZfMX1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J30gJiBcXHZlY3t1XzF9XFxlbmR7Ym1hdHJpeH0iXSxbMSwyLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9ICYgXFx2ZWN7dl8xJ31cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J30gJiBcXHZlY3t1XzEnfVxcZW5ke2JtYXRyaXh9Il0sWzIsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0XzB9ICYgXFx2ZWN7dl8xfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnXzB9ICYgXFx2ZWN7dV8xfVxcZW5ke2JtYXRyaXh9Il0sWzMsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0XzB9ICYgXFx2ZWN7dl8xJ31cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J18wfSAmIFxcdmVje3VfMSd9XFxlbmR7Ym1hdHJpeH0iXSxbMCwxXSxbMCwyXSxbMSwzXSxbMSw0XSxbMiw1XSxbMiw2XV0=
+	\(\begin{tikzcd}[cramped,column sep=scriptsize]
+		& {\text{Program}} \\
+		& {T\cdot\begin{bmatrix}\vec{t}\end{bmatrix} = \begin{bmatrix}\vec{t'}\end{bmatrix}} & {T\cdot\begin{bmatrix}\vec{t_0}\end{bmatrix} = \begin{bmatrix}\vec{t'_0}\end{bmatrix}} \\
+		{T\cdot\begin{bmatrix}\vec{t} & \vec{v_1}\end{bmatrix} = \begin{bmatrix}\vec{t'} & \vec{u_1}\end{bmatrix}} & {T\cdot\begin{bmatrix}\vec{t} & \vec{v_1'}\end{bmatrix} = \begin{bmatrix}\vec{t'} & \vec{u_1'}\end{bmatrix}} & {T\cdot\begin{bmatrix}\vec{t_0} & \vec{v_1}\end{bmatrix} = \begin{bmatrix}\vec{t'_0} & \vec{u_1}\end{bmatrix}} & {T\cdot\begin{bmatrix}\vec{t_0} & \vec{v_1'}\end{bmatrix} = \begin{bmatrix}\vec{t'_0} & \vec{u_1'}\end{bmatrix}}
+		\arrow[from=1-2, to=2-2]
+		\arrow[from=1-2, to=2-3]
+		\arrow[from=2-2, to=3-1]
+		\arrow[from=2-2, to=3-2]
+		\arrow[from=2-3, to=3-3]
+		\arrow[from=2-3, to=3-4]
+	\end{tikzcd}\)
+	\caption{
+		Diagram showing how the idea of a depth first search in this context.
+		This example splits into only two possibilities per level, but in reality the number of branches is equal to the size of the corresponding icosahedral pair set.
+	}
+	\label{fig:depth-first-search}
+\end{figure}
 
 \subsubsection{Parallelization}
 Parallelizing the depth first approach in Python takes more thought than in the C++ approach.
 \todo{Add label to figure of DFS tree}
-What we can do for this approach is to split up the decision tree shown in the previous subsubsection.
+What we can do for this approach is to split up the depth first search tree shown in the previous subsubsection.
 Because our goal is to search the entire tree, we split up the tree at the first level.
 Therefore in our example we would split into two trees.
 In general, we split at the first level, which means we split based on upon the number of elements in the icosahedral vector pair set \( V(\vec{t}, \vec{t'}) \).
