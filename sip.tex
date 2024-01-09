@@ -623,23 +623,23 @@ In order to do this we need to be able to determine whether an equation can or c
 The following lemma and theorem will help us determine when an equation cannot be solved.
 \begin{Lemma}
 	Let \( M \) be an \( n \times n \) matrix with variables.
-	Let \( \vec{a_1}, \vec{a_2}, \vec{b_1} \text{ and } \vec{b_2} \) be \( n \)-dimensional vectors.
+	Let \( \vec{a}_1, \vec{a}_2, \vec{b}_1 \text{ and } \vec{b}_2 \) be \( n \)-dimensional vectors.
 	If the equation \[
 	M
 	\cdot
 	\begin{bmatrix}
 		| & | \\
-		\vec{a_1} & \vec{a_2} \\
+		\vec{a}_1 & \vec{a}_2 \\
 		| & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | \\
-		\vec{b_1} & \vec{b_2} \\
+		\vec{b}_1 & \vec{b}_2 \\
 		| & |
 	\end{bmatrix}
 	\]
-	is solvable then the equations \[M\vec{a_1} = \vec{b_1} \text{ and } M\vec{a_2} = \vec{b_2}\] are solvable.
+	is solvable then the equations \[M\vec{a}_1 = \vec{b}_1 \text{ and } M\vec{a}_2 = \vec{b}_2\] are solvable.
 \end{Lemma}
 \begin{proof}
 	Rewrite the equation we are assuming has a solution as
@@ -702,34 +702,34 @@ The following lemma and theorem will help us determine when an equation cannot b
 			b_{2n}
 		\end{bmatrix}
 	\end{equation*}
-	can be solved with the same solution, which are also both equivalent to \( M\vec{a_1} = \vec{b_1} \text{ and } M\vec{a_2} = \vec{b_2} \).
+	can be solved with the same solution, which are also both equivalent to \( M\vec{a}_1 = \vec{b}_1 \text{ and } M\vec{a}_2 = \vec{b}_2 \).
 \end{proof}
 \begin{Theorem}[Matrix Equation Solving]
 	Let \( M \) be an \( n \times n \) matrix with variables.
-	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_k}, \vec{b_1}, \vec{b_2}, \dots \vec{b_k} \) be \( n \)-dimensional vectors.
+	Let \( \vec{a}_1, \vec{a}_2, \dots \vec{a}_k, \vec{b}_1, \vec{b}_2, \dots \vec{b}_k \) be \( n \)-dimensional vectors.
 	If the equation \[
 	M
 	\cdot
 	\begin{bmatrix}
 		| & | & \cdots & |\\
-		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_k} \\
+		\vec{a}_1 & \vec{a}_2 & \cdots & \vec{a}_k \\
 		| & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & \cdots & |\\
-		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_k} \\
+		\vec{b}_1 & \vec{b}_2 & \cdots & \vec{b}_k \\
 		| & | & \cdots & |
 	\end{bmatrix}
 	\]
-	is solvable then the equation \[M\vec{a_i} = \vec{b_i}\] is solvable for all \( i \in \{1, 2, \dots k\} \).
+	is solvable then the equation \[M\vec{a}_i = \vec{b}_i\] is solvable for all \( i \in \{1, 2, \dots k\} \).
 	\footnote{
 		The converse of this theorem is not true.
 		Consider the example where \(M = \begin{bmatrix} x \end{bmatrix} \),
-		\( \vec{a_1} = \vec{a_2} =  \begin{bmatrix} 1 \end{bmatrix}\),
-		\( \vec{b_1} =  \begin{bmatrix} 1 \end{bmatrix}\), and
-		\( \vec{b_2} = \begin{bmatrix} 2 \end{bmatrix} \).
-		Then \( M\cdot\vec{a_1} = \vec{b_1} \) and \( M\cdot\vec{a_2} =  \vec{b_2}\) can be solved, but \( M\cdot\begin{bmatrix} \vec{a_1} & \vec{a_2} \end{bmatrix} = \begin{bmatrix} \vec{b_1} & \vec{b_2} \end{bmatrix}\) cannot be solved.
+		\( \vec{a}_1 = \vec{a}_2 =  \begin{bmatrix} 1 \end{bmatrix}\),
+		\( \vec{b}_1 =  \begin{bmatrix} 1 \end{bmatrix}\), and
+		\( \vec{b}_2 = \begin{bmatrix} 2 \end{bmatrix} \).
+		Then \( M\cdot\vec{a}_1 = \vec{b}_1 \) and \( M\cdot\vec{a}_2 =  \vec{b}_2\) can be solved, but \( M\cdot\begin{bmatrix} \vec{a}_1 & \vec{a}_2 \end{bmatrix} = \begin{bmatrix} \vec{b}_1 & \vec{b}_2 \end{bmatrix}\) cannot be solved.
 		\label{footnote:counterexample-to-converse-matrix-solving}
 	}
 	\label{thrm:matrix-equation-solving}
@@ -737,20 +737,20 @@ The following lemma and theorem will help us determine when an equation cannot b
 \noindent While this is a useful if not a somewhat obvious theorem, what is more useful is the theorem's contrapositive.
 \begin{Theorem}[Contrapositive of Theorem \ref{thrm:matrix-equation-solving}]
 	Let \( M \) be an \( n \times n \) matrix with variables.
-	Let \( \vec{a_1}, \vec{a_2}, \dots \vec{a_k}, \vec{b_1}, \vec{b_2}, \dots \vec{b_k} \) be \( n \)-dimensional vectors.
-	If there exists \( i \in \{1, 2, \dots k\} \) such that the equation \[M\vec{a_i} = \vec{b_i}\] cannot be solved,
+	Let \( \vec{a}_1, \vec{a}_2, \dots \vec{a}_k, \vec{b}_1, \vec{b}_2, \dots \vec{b}_k \) be \( n \)-dimensional vectors.
+	If there exists \( i \in \{1, 2, \dots k\} \) such that the equation \[M\vec{a}_i = \vec{b}_i\] cannot be solved,
 	then the equation \[
 	M
 	\cdot
 	\begin{bmatrix}
 		| & | & \cdots & |\\
-		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_k} \\
+		\vec{a}_1 & \vec{a}_2 & \cdots & \vec{a}_k \\
 		| & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & \cdots & |\\
-		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_k} \\
+		\vec{b}_1 & \vec{b}_2 & \cdots & \vec{b}_k \\
 		| & | & \cdots & |
 	\end{bmatrix}
 	\]
@@ -763,13 +763,13 @@ then any matrix equation of the form \[
 	\cdot
 	\begin{bmatrix}
 		| & | & \cdots & | & | & | & \cdots & |\\
-		\vec{a_1} & \vec{a_2} & \cdots & \vec{a_{i-1}} & \vec{v} & \vec{a_{i+1}} & \cdots & \vec{a_k} \\
+		\vec{a}_1 & \vec{a}_2 & \cdots & \vec{a}_{i-1} & \vec{v} & \vec{a}_{i+1} & \cdots & \vec{a}_k \\
 		| & | & \cdots & | & | & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & \cdots & | & | & | & \cdots & |\\
-		\vec{b_1} & \vec{b_2} & \cdots & \vec{b_{i-1}} & \vec{u} & \vec{b_{i+1}} & \cdots & \vec{b_k} \\
+		\vec{b}_1 & \vec{b}_2 & \cdots & \vec{b}_{i-1} & \vec{u} & \vec{b}_{i+1} & \cdots & \vec{b}_k \\
 		| & | & \cdots & | & | & | & \cdots & |
 	\end{bmatrix}
 \]
@@ -1107,13 +1107,13 @@ Therefore this class of equations can also be described as
 	\cdot
 	\begin{bmatrix}
 		| & | & | & \cdots & | \\
-		G_0\vec{t} & G_1\vec{v_1} & G_2\vec{v_2} & \cdots & G_n\vec{v_n} \\
+		G_0\vec{t} & G_1\vec{v}_1 & G_2\vec{v}_2 & \cdots & G_n\vec{v}_n \\
 		| & | & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & | & \cdots & | \\
-		H_0\vec{t'} & H_1\vec{u_1} & H_2\vec{u_2} & \cdots & H_n\vec{u_n} \\
+		H_0\vec{t'} & H_1\vec{u}_1 & H_2\vec{u}_2 & \cdots & H_n\vec{u}_n \\
 		| & | & | & \cdots & |
 	\end{bmatrix}
 \end{equation*}
@@ -1121,25 +1121,25 @@ where \( G_i \) and \( H_i \) are all elements of \( \mathcal{I} \).
 But because of theorem \ref{thrm:matrix-equation-solving}, we should first look at the equations
 \begin{align*}
 	TG_0\vec{t} &= H_0\vec{t'} \\
-	TG_1\vec{v_1} &= H_1\vec{u_1} \\
+	TG_1\vec{v}_1 &= H_1\vec{u}_1 \\
 	&\vdots \\
-	TG_n\vec{v_n} &= H_n\vec{u_n}.
+	TG_n\vec{v}_n &= H_n\vec{u}_n.
 \end{align*}
-Because of the contrapositive of theorem \ref{thrm:matrix-equation-solving}, this tells us we ought to find pairs of \( (G_i, H_i) \) such that the equation \( TG_i\vec{v_i} = H_i\vec{u_i} \) has a solution (and of course changing substituting in the translation vectors if \( i = 0 \)).
+Because of the contrapositive of theorem \ref{thrm:matrix-equation-solving}, this tells us we ought to find pairs of \( (G_i, H_i) \) such that the equation \( TG_i\vec{v}_i = H_i\vec{u}_i \) has a solution (and of course changing substituting in the translation vectors if \( i = 0 \)).
 Therefore we will create many subsets of \( \mathcal{I} \times \mathcal{I} \).
 \begin{align*}
 	TG_0\vec{t} = H_0\vec{t'} \implies& \{(G, H) \in \mathcal{I} \times \mathcal{I} \ |\ TG\vec{t} = H\vec{t'} \text{ has a solution.}\} \\
-	TG_1\vec{v_1} = H_1\vec{u_1}  \implies& \{(G, H) \in \mathcal{I} \times \mathcal{I} \ |\ TG\vec{v_1} = H\vec{u_1} \text{ has a solution.}\} \\
+	TG_1\vec{v}_1 = H_1\vec{u}_1  \implies& \{(G, H) \in \mathcal{I} \times \mathcal{I} \ |\ TG\vec{v}_1 = H\vec{u}_1 \text{ has a solution.}\} \\
 	&\vdots \\
-	TG_n\vec{v_n} = H_n\vec{u_n}  \implies& \{(G, H) \in \mathcal{I} \times \mathcal{I} \ |\ TG\vec{v_n} = H\vec{u_n} \text{ has a solution.}\}
+	TG_n\vec{v}_n = H_n\vec{u}_n  \implies& \{(G, H) \in \mathcal{I} \times \mathcal{I} \ |\ TG\vec{v}_n = H\vec{u}_n \text{ has a solution.}\}
 \end{align*}
 This gets our idea solidified, but our icosahedral orbits of vector (i.e. \( \mathcal{I}\vec{v} \)) are smaller than the icosahedral group.
 So it is more efficient to directly look at the cartesian product of icosahedral orbits.
 \begin{align*}
-	TG_0\vec{t} = H_0\vec{t'} \implies& \{(\vec{t_0}, \vec{t'_0}) \in \mathcal{I}\vec{t} \times \mathcal{I}\vec{t'} \ |\ T\vec{t_0} = \vec{t'_0} \text{ has a solution.}\} \\
-	TG_1\vec{v_1} = H_1\vec{u_1}  \implies& \{(\vec{v}, \vec{u}) \in \mathcal{I}\vec{v_1} \times \mathcal{I}\vec{u_1} \ |\ T\vec{v} = \vec{u} \text{ has a solution.}\} \\
+	TG_0\vec{t} = H_0\vec{t'} \implies& \{(\vec{t}_0, \vec{t}_0') \in \mathcal{I}\vec{t} \times \mathcal{I}\vec{t'} \ |\ T\vec{t}_0 = \vec{t}_0' \text{ has a solution.}\} \\
+	TG_1\vec{v}_1 = H_1\vec{u}_1  \implies& \{(\vec{v}, \vec{u}) \in \mathcal{I}\vec{v}_1 \times \mathcal{I}\vec{u}_1 \ |\ T\vec{v} = \vec{u} \text{ has a solution.}\} \\
 	&\vdots \\
-	TG_n\vec{v_n} = H_n\vec{u_n}  \implies& \{(\vec{v}, \vec{u}) \in \mathcal{I}\vec{v_n} \times \mathcal{I}\vec{u_n} \ |\ T\vec{v} = \vec{u} \text{ has a solution.}\}
+	TG_n\vec{v}_n = H_n\vec{u}_n  \implies& \{(\vec{v}, \vec{u}) \in \mathcal{I}\vec{v}_n \times \mathcal{I}\vec{u}_n \ |\ T\vec{v} = \vec{u} \text{ has a solution.}\}
 \end{align*}
 Let us make a definition for this new set we've constructed.
 \begin{Definition}[Icosahedral Vector Pair Set]
@@ -1153,24 +1153,24 @@ Let us make a definition for this new set we've constructed.
 With this structure in mind, we can define how the Python program find transitions.
 Let \( P \) and \( Q \) be point arrays where  \( P \) is minimally generated by \((\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n)\) and \( Q \) is minimally generated by vectors \((\vec{t'}, \vec{u}_1, \vec{u}_2, \dots, \vec{u}_n)\).
 Let \( T \) be general form for whichever symmetry we wish to preserve.
-First, create all of the vector pair sets \( V(\vec{t}, \vec{t'}), V(\vec{v_1}, \vec{u_1}), \dots, V(\vec{v_n}, \vec{u_n})\).
-Now we want to search through \( V(\vec{t}, \vec{t'}) \times V(\vec{v_1}, \vec{u_1}) \times \dots \times V(\vec{v_n}, \vec{u_n}) \), since this cartesian product can be mapped onto all possible point array matrices for \( P \) and \( Q \) that can have a solution.
+First, create all of the vector pair sets \( V(\vec{t}, \vec{t'}), V(\vec{v}_1, \vec{u}_1), \dots, V(\vec{v}_n, \vec{u}_n)\).
+Now we want to search through \( V(\vec{t}, \vec{t'}) \times V(\vec{v}_1, \vec{u}_1) \times \dots \times V(\vec{v}_n, \vec{u}_n) \), since this cartesian product can be mapped onto all possible point array matrices for \( P \) and \( Q \) that can have a solution.
 \footnote{
 	Since by construction of the icosahedral vector pair sets, we eliminate all possible pairs of point array matrices for which theorem \ref{thrm:contrapositive-matrix-equation-solving} applies.
 }
 The mapping we use is \[
-	((\vec{t_0}, \vec{t'_0}), (\vec{v_1}, \vec{u_1}), \dots, (\vec{v_n}, \vec{u_n})) 
+	((\vec{t}_0, \vec{t}_0'), (\vec{v}_1, \vec{u}_1), \dots, (\vec{v}_n, \vec{u}_n)) 
 	\mapsto 
 	\left( 
 	\begin{bmatrix}
 		| & | & | & \cdots & | \\
-		\vec{t_0} & \vec{v_1} & \vec{v_2} & \cdots & \vec{v_n} \\
+		\vec{t}_0 & \vec{v}_1 & \vec{v}_2 & \cdots & \vec{v}_n \\
 		| & | & | & \cdots & |
 	\end{bmatrix}
 	,
 	\begin{bmatrix}
 		| & | & | & \cdots & | \\
-		\vec{t'_0} & \vec{u_1} & \vec{u_2} & \cdots & \vec{u_n} \\
+		\vec{t}_0' & \vec{u}_1 & \vec{u}_2 & \cdots & \vec{u}_n \\
 		| & | & | & \cdots & |
 	\end{bmatrix}
 	\right) 
@@ -1187,13 +1187,13 @@ Thus as a last step we need to check whether the equation
 	\cdot
 	\begin{bmatrix}
 		| & | & | & \cdots & | \\
-		\vec{t_0} & \vec{v_1} & \vec{v_2} & \cdots & \vec{v_n} \\
+		\vec{t}_0 & \vec{v}_1 & \vec{v}_2 & \cdots & \vec{v}_n \\
 		| & | & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & | & \cdots & | \\
-		\vec{t'_0} & \vec{u_1} & \vec{u_2} & \cdots & \vec{u_n} \\
+		\vec{t}_0' & \vec{u}_1 & \vec{u}_2 & \cdots & \vec{u}_n \\
 		| & | & | & \cdots & |
 	\end{bmatrix}
 \end{equation}
@@ -1211,13 +1211,13 @@ If we have a equation of the form
 	\cdot
 	\begin{bmatrix}
 		| & | & | & \cdots & | \\
-		\vec{t} & \vec{v_1} & \vec{v_2} & \cdots & \vec{v_n} \\
+		\vec{t} & \vec{v}_1 & \vec{v}_2 & \cdots & \vec{v}_n \\
 		| & | & | & \cdots & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & | & \cdots & | \\
-		\vec{t'} & \vec{u_1} & \vec{u_2} & \cdots & \vec{u_n} \\
+		\vec{t'} & \vec{u}_1 & \vec{u}_2 & \cdots & \vec{u}_n \\
 		| & | & | & \cdots & |
 	\end{bmatrix}
 \end{equation*}
@@ -1227,18 +1227,18 @@ that can be solved, then in order to add one vector we need to figure out if the
 	\cdot
 	\begin{bmatrix}
 		| & | & | & \cdots & | & | \\
-		\vec{t} & \vec{v_1} & \vec{v_2} & \cdots & \vec{v_n} & \vec{v_{n+1}} \\
+		\vec{t} & \vec{v}_1 & \vec{v}_2 & \cdots & \vec{v}_n & \vec{v}_{n+1} \\
 		| & | & | & \cdots & | & |
 	\end{bmatrix}
 	=
 	\begin{bmatrix}
 		| & | & | & \cdots & | & | \\
-		\vec{t'} & \vec{u_1} & \vec{u_2} & \cdots & \vec{u_n} & \vec{u_{n+1}} \\
+		\vec{t'} & \vec{u}_1 & \vec{u}_2 & \cdots & \vec{u}_n & \vec{u}_{n+1} \\
 		| & | & | & \cdots & | & |
 	\end{bmatrix}
 \end{equation*}
 can be solved.
-When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v_{n+1}} \) and \( \vec{u_{n+1}} \) if the equation \( T\vec{v_{n+1}} = \vec{u_{n+1}}\) can be solved, i.e. if these two vectors are in their corresponding icosahedral pair set.
+When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v}_{n+1} \) and \( \vec{u}_{n+1} \) if the equation \( T\vec{v}_{n+1} = \vec{u}_{n+1}\) can be solved, i.e. if these two vectors are in their corresponding icosahedral pair set.
 However, even if this equation can be solved, adding the vector might not work.
 \footnote{
 	See theorem \ref{thrm:matrix-equation-solving} and footnote \ref{footnote:counterexample-to-converse-matrix-solving}.
@@ -1254,8 +1254,8 @@ If we exhaust all possibilities within this search tree and do not find any \( B
 	% https://q.uiver.app/#q=WzAsNyxbMSwwLCJcXHRleHR7UHJvZ3JhbX0iXSxbMSwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9XFxlbmR7Ym1hdHJpeH0gPSBcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dCd9XFxlbmR7Ym1hdHJpeH0iXSxbMiwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3RfMH1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J18wfVxcZW5ke2JtYXRyaXh9Il0sWzAsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0fSAmIFxcdmVje3ZfMX1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J30gJiBcXHZlY3t1XzF9XFxlbmR7Ym1hdHJpeH0iXSxbMSwyLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9ICYgXFx2ZWN7dl8xJ31cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J30gJiBcXHZlY3t1XzEnfVxcZW5ke2JtYXRyaXh9Il0sWzIsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0XzB9ICYgXFx2ZWN7dl8xfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnXzB9ICYgXFx2ZWN7dV8xfVxcZW5ke2JtYXRyaXh9Il0sWzMsMiwiVFxcY2RvdFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0XzB9ICYgXFx2ZWN7dl8xJ31cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J18wfSAmIFxcdmVje3VfMSd9XFxlbmR7Ym1hdHJpeH0iXSxbMCwxXSxbMCwyXSxbMSwzXSxbMSw0XSxbMiw1XSxbMiw2XV0=
 	\(\begin{tikzcd}[cramped,column sep=scriptsize]
 		& {\text{Program}} \\
-		& {T\cdot\left[\vec{t}\right] = \left[\vec{t'}\right]} & {T\cdot\left[\vec{t_0}\right] = \left[\vec{t'_0}\right]} \\
-		{T\cdot\left[\vec{t} \quad \vec{v_1}\right] = \left[\vec{t'} \quad \vec{u_1}\right]} & {T\cdot\left[\vec{t} \quad \vec{v_1'}\right] = \left[\vec{t'} \quad \vec{u_1'}\right]} & {T\cdot\left[\vec{t_0} \quad \vec{v_1}\right] = \left[\vec{t'_0} \quad \vec{u_1}\right]} & {T\cdot\left[\vec{t_0} \quad \vec{v_1'}\right] = \left[\vec{t'_0} \quad \vec{u_1'}\right]}
+		& {T\cdot\left[\vec{t}\right] = \left[\vec{t'}\right]} & {T\cdot\left[\vec{t}_0\right] = \left[\vec{t}_0'\right]} \\
+		{T\cdot\left[\vec{t} \quad \vec{v}_1\right] = \left[\vec{t'} \quad \vec{u}_1\right]} & {T\cdot\left[\vec{t} \quad \vec{v}_1'\right] = \left[\vec{t'} \quad \vec{u}_1'\right]} & {T\cdot\left[\vec{t}_0 \quad \vec{v}_1\right] = \left[\vec{t}_0' \quad \vec{u}_1\right]} & {T\cdot\left[\vec{t}_0 \quad \vec{v}_1'\right] = \left[\vec{t}_0' \quad \vec{u}_1'\right]}
 		\arrow[from=1-2, to=2-2]
 		\arrow[from=1-2, to=2-3]
 		\arrow[from=2-2, to=3-1]
@@ -1280,10 +1280,10 @@ Therefore in our example we would split into two trees as shown in figure
 	\captionsetup{width=0.6\textwidth}
 % https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXHRleHR7UHJvY2VzcyAxfSJdLFsxLDIsIlRcXGNkb3RcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dH1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J31cXGVuZHtibWF0cml4fSJdLFsxLDAsIlRcXGNkb3RcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dF8wfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnXzB9XFxlbmR7Ym1hdHJpeH0iXSxbMSwzLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9ICYgXFx2ZWN7dl8xfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnfSAmIFxcdmVje3VfMX1cXGVuZHtibWF0cml4fSJdLFsyLDMsIlRcXGNkb3RcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dH0gJiBcXHZlY3t2XzEnfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnfSAmIFxcdmVje3VfMSd9XFxlbmR7Ym1hdHJpeH0iXSxbMSwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3RfMH0gJiBcXHZlY3t2XzF9XFxlbmR7Ym1hdHJpeH0gPSBcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dCdfMH0gJiBcXHZlY3t1XzF9XFxlbmR7Ym1hdHJpeH0iXSxbMiwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3RfMH0gJiBcXHZlY3t2XzEnfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnXzB9ICYgXFx2ZWN7dV8xJ31cXGVuZHtibWF0cml4fSJdLFswLDIsIlxcdGV4dHtQcm9jZXNzIDJ9Il0sWzEsM10sWzEsNF0sWzIsNV0sWzIsNl0sWzAsMl0sWzcsMV1d
 \(\begin{tikzcd}[cramped]
-	{\text{Process 1}} & {T\cdot\left[\vec{t_0}\right] = \left[\vec{t'_0}\right]} \\
-	& {T\cdot\left[\vec{t_0} \quad \vec{v_1}\right] = \left[\vec{t'_0} \quad \vec{u_1}\right]} & {T\cdot\left[\vec{t_0} \quad \vec{v_1'}\right] = \left[\vec{t'_0} \quad \vec{u_1'}\right]} \\
+	{\text{Process 1}} & {T\cdot\left[\vec{t}_0\right] = \left[\vec{t}_0'\right]} \\
+	& {T\cdot\left[\vec{t}_0 \quad \vec{v}_1\right] = \left[\vec{t}_0' \quad \vec{u}_1\right]} & {T\cdot\left[\vec{t}_0 \quad \vec{v}_1'\right] = \left[\vec{t}_0' \quad \vec{u}_1'\right]} \\
 	{\text{Process 2}} & {T\cdot\left[\vec{t}\right] = \left[\vec{t'}\right]} \\
-	& {T\cdot\left[\vec{t} \quad \vec{v_1}\right] = \left[\vec{t'} \quad \vec{u_1}\right]} & {T\cdot\left[\vec{t} \quad \vec{v_1'}\right] = \left[\vec{t'} \quad \vec{u_1'}\right]}
+	& {T\cdot\left[\vec{t} \quad \vec{v}_1\right] = \left[\vec{t'} \quad \vec{u}_1\right]} & {T\cdot\left[\vec{t} \quad \vec{v}_1'\right] = \left[\vec{t'} \quad \vec{u}_1'\right]}
 	\arrow[from=3-2, to=4-2]
 	\arrow[from=3-2, to=4-3]
 	\arrow[from=1-2, to=2-2]
@@ -1323,7 +1323,7 @@ After doing these computational methods, I found intriguing results, summarized 
 \label{section:appendix-point-arrays}
 When talking about point arrays in this paper, we only considered finding transitions between point arrays whose minimal generating tuples are of the same size for simplicity.
 However, it is often the case that we wish to find transitions between point arrays whose minimal generating tuples are not of the same size.
-Suppose \( P \) is minimally generated by \( (\vec{t}, \vec{v_1}, \vec{v_2}, \dots, \vec{v_n}) \) and \( Q \) is minimally generated by \( (\vec{t'}, \vec{u_1}, \vec{u_2}, \dots, \vec{u_m}) \) with \( n \neq m \).
+Suppose \( P \) is minimally generated by \( (\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n) \) and \( Q \) is minimally generated by \( (\vec{t'}, \vec{u}_1, \vec{u}_2, \dots, \vec{u}_m) \) with \( n \neq m \).
 What we need to do is add vectors to the generating tuple the smaller tuple until they have the same number of vectors.
 Let's suppose \( n < m \).
 Then to create a generating tuple for \( P \) of size \( m \), it must have the form \( (\vec{t}, \vec{v}_{i_1}, \vec{v}_{i_2}, \dots, \vec{v}_{i_m}) \) where \( i_j \in \{1, 2, \dots, n\} \) for all \( j \).
