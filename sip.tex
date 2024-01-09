@@ -283,9 +283,25 @@ However, we could define the same point array with more than two vectors, if we 
 Thus if \( \vec{u} \in \mathcal{I}\vec{v} \) we would have that 
 \todo{perhaps add more of a proof to this? Group actions and orbits would be needed here}
 \begin{equation}
-	\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) = \mathcal{I}\vec{v} \cup \mathcal{I}\vec{u} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) \cup (\mathcal{I}\vec{u} + \mathcal{I}\vec{t})
+	\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) = \mathcal{I}\vec{v} \cup \mathcal{I}\vec{u} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) \cup (\mathcal{I}\vec{u} + \mathcal{I}\vec{t}).
 	\label{eq:example-for-generating-tuples}
+\footnote{
+	A quick proof for this equation:
+	Let \( \text{LHS} = \mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t})\) and \( \text{RHS} = \mathcal{I}\vec{v} \cup \mathcal{I}\vec{u} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) \cup (\mathcal{I}\vec{u} + \mathcal{I}\vec{t})\)
+	It is obvious that \( \text{LHS} \subseteq \text{RHS} \).
+	Now take an element of the right hand side.
+	Let \( x \in \text{RHS} \).
+	If \( x \in \mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) \) we trivially have \( x \in \text{LHS} \).
+	So first let \( x \in \mathcal{I}\vec{u} \).
+	Then there exists \( G \in \mathcal{I} \) such that \( x = G\vec{u} \).
+	Since \( \vec{u} \in \mathcal{I}\vec{v} \) then there exists \( H \in \mathcal{I} \) such that \( \vec{u} = H\vec{v} \).
+	Thus \( x = GH\vec{v} \implies x \in \mathcal{I}\vec{v}\).
+	Using the same idea, we get that \( x \in (\mathcal{I}\vec{u} + \mathcal{I}\vec{t}) \implies x \in (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) \).
+	Therefore \( \text{LHS} \supseteq \text{RHS} \).
+	We get equality by double inclusion.
+}
 \end{equation}
+
 Therefore we have many ways of talking about the same point array. 
 \begin{Definition}[Minimal Generating Tuple]
 	A tuple of six dimensional vectors $ (\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n})$ is a \emph{minimal generating tuple}  and the union 
@@ -472,6 +488,9 @@ Now we can precisely define the nature of our desire transition matrices.
 	Then a \emph{transition matrix} that preserves intermediate symmetry \( \mathcal{G} \) is an invertible matrix that is also an element of \( Z(\mathcal{G}) \).
 \end{Definition}
 We require our transitions to be invertible matrices because if we find a transition matrix \( T \) for \( P \to Q \), we want to be guarenteed that \( T^{-1} \) is a transition for \( Q \to P \).
+\todo[inline]{
+	Should I include a proof that \( TB_0 = B_1 \implies B_0 = T^{-1}B_1 \) even if \( B_0 \) and \( B_1 \) aren't \( 6 \times 6 \)?
+}
 
 \todo[inline]{
 	Transitions in actuality map lattices onto lattices. But when restricted to the point array, it maps point array onto point array.
@@ -647,7 +666,6 @@ The following theorem will help us determine when an equation cannot be solved.
 		\label{footnote:counterexample-to-converse-matrix-solving}
 	}
 	\label{thrm:matrix-equation-solving}
-\end{Theorem}
 \begin{proof}
 	Rewrite the given matrix equation (the one which can be solved) as
 	\begin{equation*}
@@ -700,6 +718,7 @@ The following theorem will help us determine when an equation cannot be solved.
 	can be solved with the same solution (i.e. same choices for each \( m_{ij} \)).
 	All equations of this form are equivalent to \( M\vec{a}_i = \vec{b}_i \).
 \end{proof}
+\end{Theorem}
 \noindent While this is a useful if not a somewhat obvious theorem, what is more useful is the theorem's contrapositive.
 \begin{Theorem}[Contrapositive of Theorem \ref{thrm:matrix-equation-solving}]
 	Let \( M \) be an \( n \times n \) matrix with variables.
@@ -741,9 +760,9 @@ then any matrix equation of the form \[
 \]
 cannot be solved.
 What we have done is by finding a simple matrix equation that cannot be solved, we can find a whole class of matrix equations that cannot be solved.
-
-\todo[inline]{Talk about how this theorm allows us to build up the \( B0 \) and \( B1 \) matrices one vector at a time}
-
+This theorem will allow us to build up the \( B_0 \) and \( B_1 \) matrices one vector at time.
+\footnote{See sections \ref{subsection:python-pair-checking} and \ref{subsection:python-depth-first-search}.}
+\todo[color=red]{Fix footnotes not appearing on this page}
 \subsection{C++ Program}
 The first programming approach is to employ guess and check strategy.
 I used C++ along with the \texttt{Eigen} library for fast linear algebra.
@@ -1043,7 +1062,7 @@ For this we use the Python programming along with the \texttt{sympy} library, a 
 This program aims to solve the linear matrix equations in an efficient way that the C++ program couldn't do.
 The primary idea is that now that we can solve equations and determine if no solution exists, we can reduce the number of equations we need to check.
 
-\subsubsection{Pair Checking}
+\subsubsection{Pair Checking} \label{subsection:python-pair-checking}
 Recall theorem \ref{thrm:matrix-equation-solving} and its contrapositive.
 This theorem is telling us that what matters for solving a matrix is how the columns of \( B_0 \) and \( B_1 \) correspond with each other.
 Thus in a way, each column is in a way independent of each other column.
@@ -1113,9 +1132,6 @@ Let us make a definition for this new set we've constructed.
 	Then the \emph{icosahedral vector pair set} for vectors \( \vec{v} \) and \( \vec{u} \) is defined as
 	\[V(\vec{v}, \vec{u}) = \{(\vec{v'}, \vec{u'}) \in \mathcal{I}\vec{v} \times \mathcal{I}\vec{u} \ |\ T\vec{v'} = \vec{u'} \text{ has a solution.}\}\]
 \end{Definition}
-\todo[inline]{this will involve the subsets of \( \mathcal{I} \times \mathcal{I} \) idea \\
-	perhaps I should refer to section \ref{subsection:transitions-preserving-symmetry} in some way after I write that subsection?
-}
 With this structure in mind, we can define how the Python program find transitions.
 Let \( P \) and \( Q \) be point arrays where  \( P \) is minimally generated by \((\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n)\) and \( Q \) is minimally generated by vectors \((\vec{t'}, \vec{u}_1, \vec{u}_2, \dots, \vec{u}_n)\).
 Let \( T \) be general form for whichever symmetry we wish to preserve.
@@ -1168,7 +1184,7 @@ can be solved for \( T \).
 This method will find us a transition if one exists, however, this method is still largely a brute force approach and quickly becomes inefficient.
 We can drastically improve the efficiently of the program by implementing a depth first search with pruning.
 
-\subsubsection{Depth first search}
+\subsubsection{Depth first search} \label{subsection:python-depth-first-search}
 Our motivation for a depth first search is that we wish to build up the \( B_0 \) and \( B_1 \) matrices one vector at a time.
 Building up the matrices one vector at a time looks like the following procedure:
 If we have a equation of the form
@@ -1204,7 +1220,7 @@ that can be solved, then in order to add one vector we need to figure out if the
 	\end{bmatrix}
 \end{equation*}
 can be solved.
-When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v}_{n+1} \) and \( \vec{u}_{n+1} \) if the equation \( T\vec{v}_{n+1} = \vec{u}_{n+1}\) can be solved, i.e. if these two vectors are in their corresponding icosahedral pair set.
+When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v}_{n+1} \) and \( \vec{u}_{n+1} \) if the equation \( T\vec{v}_{n+1} = \vec{u}_{n+1}\) can be solved because of theorem \ref{thrm:contrapositive-matrix-equation-solving}.
 However, even if this equation can be solved, adding the vector might not work.
 \footnote{
 	See theorem \ref{thrm:matrix-equation-solving} and footnote \ref{footnote:counterexample-to-converse-matrix-solving}.
