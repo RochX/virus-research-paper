@@ -377,8 +377,10 @@ Thus if \( \vec{u} \in \mathcal{I}\vec{v} \) we would have that
 \begin{equation}
 	\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) = \mathcal{I}\vec{v} \cup \mathcal{I}\vec{u} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) \cup (\mathcal{I}\vec{u} + \mathcal{I}\vec{t}).
 	\label{eq:example-for-generating-tuples}
+\end{equation}
+Therefore we have many ways of talking about the same point array.
 \footnote{
-	A quick proof for this equation:
+	A quick proof for equation \ref{eq:example-for-generating-tuples}:
 	Let \( \text{LHS} = \mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t})\) and \( \text{RHS} = \mathcal{I}\vec{v} \cup \mathcal{I}\vec{u} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) \cup (\mathcal{I}\vec{u} + \mathcal{I}\vec{t})\)
 	It is obvious that \( \text{LHS} \subseteq \text{RHS} \).
 	Now take an element of the right hand side.
@@ -392,9 +394,6 @@ Thus if \( \vec{u} \in \mathcal{I}\vec{v} \) we would have that
 	Therefore \( \text{LHS} \supseteq \text{RHS} \).
 	We get equality by double inclusion.
 }
-\end{equation}
-
-Therefore we have many ways of talking about the same point array. 
 \begin{Definition}[Minimal Generating Tuple]
 	A tuple of six dimensional vectors $ (\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n})$ is a \emph{minimal generating tuple}  and the union 
 	\[
@@ -406,7 +405,10 @@ Therefore we have many ways of talking about the same point array.
 		\item The orbits $\mathcal{I} \; \vec{v}_i$, $\; 1 \leq i \leq n$, are all distinct.
 		\item $\displaystyle 
 		|\lpa{\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n}}| < \sum_{i=1}^{n} | \mathcal{I} \; \vec{v}_i| + | \mathcal{I} \; \vec{v}_i|| \mathcal{I} \; \vec{t}|. 
-		$ \todo{Ask Dr. Oloo about this condition}
+		$ \todo{Ask Dr. Oloo about this condition;
+			The translated orbits must intersect.
+			That is, there must exist \( G, H \in \mathcal{I} \) such that the sets \( \mathcal{I}\vec{v} + G\vec{t} \) and \( \mathcal{I}\vec{v} + H\vec{t} \) have a nonempty intersection.
+		}
 	\end{enumerate}
 	We say that a lifted point array is \emph{minimally generated} by \( (\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n}) \) if this tuple is a minimal generating tuple.
 \end{Definition}
@@ -586,6 +588,7 @@ Now we can precisely define the nature of our desired transition matrices.
 We require our transitions to be invertible matrices because if we find a transition matrix \( T \) for \( P \to Q \), we want to be guarenteed that \( T^{-1} \) is a transition for \( Q \to P \).
 \todo[inline]{
 	Should I include a proof that \( TB_0 = B_1 \implies B_0 = T^{-1}B_1 \) even if \( B_0 \) and \( B_1 \) aren't \( 6 \times 6 \)?
+	No its obvious, just apply \( T^{-1} \) on both sides.
 }
 
 \subsection{Transitions Preserving Symmetry}\label{subsection:transitions-preserving-symmetry}
@@ -601,7 +604,34 @@ Thus by definition of the centralizer we can do the following:
 	\Updownarrow \\
 	T\vec{v} = G^{-1}H\vec{u}
 \end{gather*}
-\todo[inline]{I am not sure how to best illustrate the reasoning behind why we want the centralizer and not some other mathematical thing...}
+\todo[inline]{I am not sure how to best illustrate the reasoning behind why we want the centralizer and not some other mathematical thing... \\ See paper paper sections 4.2, 4.3, 5 \\
+I will somewhere need include Definitions of 3 cubic lattices, Prop 4.7, Def 5.1}
+
+\todo[inline]{
+	\( D_6 \) is the point group of an equilateral triangle.
+	All point groups of equilateral triangles are isomorphic to each other and actually more powerfully they are conjugate in the orthogonal group (up to conjugacy).
+	Point group of a shape is the elements of the orthogonal group (distance preserving transformations) that preserve the shape.
+}
+
+\todo[inline]{
+	Now lattices.
+	Take 2D lattices as examples: square, rectangular, centered rectanglar.
+	Square has 4 rotations while rectangular only has 2 rotations.
+	So their point groups are different. 
+	However, rectangular and centered rectangular have the same point group, but are different.
+	Their lattice group is different.
+	Lattice group can be thought of as expressing the point group in the lattice basis.
+	When you choose a different basis for the same lattice, their lattice groups are the same up to conjugation in \( \Gl(2, \Z) \).
+	\\
+	We like lattices because it has all this symmetry but also an abelian group.
+	Discrete arthimetic nature is very useful. \\
+	I will need to add an entire subsection for this 2D lattice example.
+}
+
+\todo[inline]{
+	The point array fits into its minimal lattice, then you look at the point group of its lattice.
+	The centralizer will then commute with its point group (but actually its lattice group).
+}
 
 % order of these two sections?
 \subsection{How To Find Transitions}
@@ -1162,7 +1192,7 @@ Therefore the C++ program has the following structure in order to find transitio
 	\item Process all tasks. Each task will essentially be answering a yes/no question (Is \( T \) a transition matrix for \( P \to Q \)?).
 	\item Collect all data from tasks.
 \end{enumerate}
-
+\todo[inline]{Add part about with C++ approach wasn't the greatest...}
 \subsection{Python Program}
 The next programming approach is to actually solve the matrix equations.
 For this we use the Python programming along with the \texttt{sympy} library, a symbolic mathematics library for Python.
