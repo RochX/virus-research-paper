@@ -105,6 +105,7 @@
 \newcommand\abs[1]{\left|#1\right|}
 \newcommand\Gl{\text{Gl}}
 \DeclareMathOperator{\pam}{pam}
+\DeclareMathOperator{\Ent}{Ent}
 %lifted point array
 \newcommand{\lpa}[1]{\Sigma({#1})}
 
@@ -873,16 +874,18 @@ The answer is through entry sampling.
 \subsubsection{Entry Sampling}
 The idea for entry sampling is as follows:
 Since we are looking at the matrix equation \( TB_0 = B_1 \), then if \( B_0 \) and \( B_1 \) were invertible, then we could reframe the equation as \( T = B_1B_0^{-1} \).
-Thus we could instead of solving for \( T \) we consider all products of the form \( B_1B_0^{-1} \) and see if they fit any of the general matrix forms given by \( Z(\mathcal{I}), Z(A_4), Z(D_{10}), \text{ or } Z(D_6) \).
-This way of finding transitions is completely ineffective.
-However, because we have \( TB_0 = B_1 \iff T = B_1B_0^{-1} \) then we notice that the entries of the \( T \) matrix must be a subset of the entries of the product \( B_1B_0^{-1} \).
-If we take a random sample of matrices \( (B_0, B_1) \in \pam(P) \times \pam(Q) \), then we can look at the set of all entries that are in the products \( B_1B_0^{-1} \).
-\todo[inline]{I might want to make some notation here about Ent(\( M \)) (entries of \( M \)) or something?}
+Thus instead of solving for \( T \) we could consider all products of the form \( B_1B_0^{-1} \) and see if they fit any of the general matrix forms given by \( Z(\mathcal{I}), Z(A_4), Z(D_{10}), \text{ or } Z(D_6) \).
+This way of finding transitions by itself is completely ineffective.
+However, because we have \( T = B_1B_0^{-1} \), we notice that the entries of the \( T \) matrix must be a equal to the entries of the product \( B_1B_0^{-1} \).
+If we take a random sample of matrices \( \mathcal{B} \subseteq \pam(P) \times \pam(Q) \), then we can look at the union of all entries that occur in the products \( B_1B_0^{-1} \).
+This would be formulated as \[ \bigcup_{(B_0, B_1) \in \mathcal{B}} \Ent(B_1B_0^{-1}) \] where \( \Ent(M) \) is the set of entries of a matrix \( M \).
+This union would be the set of entries that could make up a transition matrix.
 
 Now that we have an idea of what possible values the \( T \) matrix could have, we can now generate the \( \mathcal{T} \) set by taking a cartesian product of the entries.
 Let's say we wanted to generate a list of candidate matrices that preserve icosahedral symmetry with the entries \( \{-1, -\frac{1}{2}, 0, \frac{1}{2}, 1\} \).
 Then we take the cartesian product \( \{-1, -\frac{1}{2}, 0, \frac{1}{2}, 1\} \times \{-1, -\frac{1}{2}, 0, \frac{1}{2}, 1\} \) and generate transition matrices of the correct form (since the icosahedral general form has two variables, we only multiply the set twice).
-In this case we would have that the set \( \mathcal{T} \times \pam(P) \) is significantly smaller than \( \pam(P) \times \pam(Q) \), which means that we have significantly less equations to check.
+Now that we have our set \( \mathcal{T} \) we perform the multiplication \( TB_0 \) for each \( (T, B_0) \in \mathcal{T} \times \pam(P) \) and check whether \( TB_0 \in \pam(Q) \).
+In this case the set \( \mathcal{T} \times \pam(P) \) is significantly smaller than \( \pam(P) \times \pam(Q) \), which means that we have significantly less equations to check.
 
 While this is nice in the case of preserving icosahedral symmetry, we run into problems when we wish to preserve symmetries of the maximal subgroups.
 Since the general form for \( Z(A_4), Z(D_{10}), \text{ and } Z(D_6) \) have more variables, then the size of \( \mathcal{T} \) grows exponentially.
