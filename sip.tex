@@ -1866,8 +1866,8 @@ After doing these computational methods, the results can be summarized as follow
 \end{itemize}
 
 \appendix
-\addcontentsline{toc}{section}{Appendices}
-\section{Extra Information on Point Arrays}
+\section{Appendix}
+\subsection{Extra Information on Point Arrays}
 \label{section:appendix-point-arrays}
 When talking about point arrays in this paper, we only considered finding transitions between point arrays whose minimal generating tuples are of the same size for simplicity.
 However, it is often the case that we wish to find transitions between point arrays whose minimal generating tuples are not of the same size.
@@ -1877,6 +1877,10 @@ Let's suppose \( n < m \).
 Then to create a generating tuple for \( P \) of size \( m \), it must have the form \( (\vec{t}, \vec{v}_{i_1}, \vec{v}_{i_2}, \dots, \vec{v}_{i_m}) \) where \( i_j \in \{1, 2, \dots, n\} \) for all \( j \).
 Essentially we choose \( m \) vectors of the form \( \vec{v}_k \) such that the generating tuple creates the point array \( P \).
 The same idea occurs when \( n > m \).
+
+\subsection{The Code}
+The C++ and Python code referred to in section \ref{section:computational-techniques} can be found at \url{https://github.com/RochX/virus-research} and \url{https://github.com/RochX/virus-research-python} respectively.
+The \LaTeX\ code used to create this paper can be found at \url{https://github.com/RochX/virus-research-paper}.
 
 \medskip
 \bibliographystyle{unsrt}%Used BibTeX style is unsrt
