@@ -1391,7 +1391,10 @@ With this idea in mind, we can create a couple of useful theorems that use parti
 	where \( \norm{\vec{u}} \) is the standard Euclidean norm.
 	\label{thrm:norm-condition-for-transitions}
 \end{Lemma}
-\todo[inline]{Add proof...}
+\begin{proof}
+	Since \( T \) is a transition from \( P \) to \( Q \), therefore for each \( \vec{v} \in P \) we have that \( T\vec{v} = \vec{u} \) for some \( \vec{u} \in Q \).
+	Thus \( \norm{T\vec{v}} = \norm{\vec{u}} \) and so \(\norm{T\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\).
+\end{proof}
 \begin{Theorem}[Norm Condition for Partial Transitions]
 	Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
 	If \( T \) is a transition from point array \( P \to Q \), then for every \( \vec{v} \in P \) we have that
@@ -1400,7 +1403,7 @@ With this idea in mind, we can create a couple of useful theorems that use parti
 	\label{thrm:norm-condition-for-partial-transitions}
 \end{Theorem}
 \begin{proof}
-	Since partial transitions have at least one row of zeroes, then we will have that \( \norm{A\vec{v}} \leq \norm{T\vec{v}} \) and \( \norm{B\vec{v}} \leq \norm{T\vec{v}} \).
+	Since partial transitions have at least one row of zeroes, we have that \( \norm{A\vec{v}} \leq \norm{T\vec{v}} \) and \( \norm{B\vec{v}} \leq \norm{T\vec{v}} \).
 	The result then follows from Lemma \vref{thrm:norm-condition-for-transitions}.
 \end{proof}
 
@@ -1413,7 +1416,7 @@ With this idea in mind, we can create a couple of useful theorems that use parti
 In order to state the next theorem, we need to understand how the partial transitions work with vector multiplication.
 Let us use the \( D_6 \) partial transition as an example.
 Suppose \( T \in Z(D_6) \) such that \( T\vec{v} = \vec{u} \).
-Then we obviously have that 
+Then we have that 
 \begin{equation*}
 	\begin{bmatrix}
 		u  & w  & -w & x  & s  & s  \\
@@ -1548,26 +1551,32 @@ For \( D_6 \) we decompose the identity matrix as
 Therefore instead of checking whether \( T\vec{v} = \vec{u} \) can be solved, we check whether both \( A\vec{v} = I_A\vec{u} \) and \( B\vec{v} = I_B\vec{u} \) can be solved.
 
 \begin{Theorem}[Partial Transition Mapping Condition]
+	\label{thrm:partial-transition-mapping-condition}
 	Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
+	Let \( I_A \) and \( I_B \) be the corresponding identity decomposition such that \( I_AT = A  \) and \( I_BT = B \).
 	If \( T \) is a transition from point array \( P \to Q \), then for every \( \vec{v} \in P \) there exists \( \vec{u} \in Q \) such that
 	\[A\vec{v} = I_A\vec{u} \text{ and } B\vec{v} = I_B\vec{u}.\]
-	\label{thrm:partial-transition-mapping-condition}
 \end{Theorem}
-\todo[inline]{Add proof...}
+\begin{proof}
+	Since \( T \) is a transition from \( P \) to \( Q \), then for each \( \vec{v} \in P \) there exists \( \vec{u} \in Q \) such that \( T\vec{v} = \vec{u} \).
+	Because our transition \( T \) decomposes into two partial transitions \( A \) and \( B \), we have that \( (A+B)\vec{v} = \vec{u} \).
+	Taking the corresponding partial identity matrices \( I_A \) and \( I_B \), we have that \( (A+B)\vec{v} = A\vec{v} + B\vec{v} = I_A\vec{u} + I_B\vec{u} \).
+	We then must have that \( A\vec{v} = I_A\vec{u} \) and \( B\vec{v} = I_B\vec{u} \) because the \( I_A \) and \( I_B \) matrices have the same zero rows as \( A \) and \( B \) by construction.
+\end{proof}
 
 \subsubsection{Contrapositive}
-While theorems\vref{thrm:norm-condition-for-partial-transitions} and theorem \vref{thrm:partial-transition-mapping-condition} are useful, they don't help us find transitions, since they both require us to have already found a transition.
+While the previous two theorems are useful, they don't help us find transitions, since they both require us to have already found a transition.
 What is useful is their contrapositives, which will help us eliminate possible transitions.
-\begin{Theorem}[Contrapositive of Theorem \vref{thrm:norm-condition-for-partial-transitions}]
+\begin{Theorem}[Contrapositive of Theorem \ref{thrm:norm-condition-for-partial-transitions}]
 	Suppose a transition matrix \( T \) decomposes into partial transitions such that \( T = A + B \).
 	If there exists \( \vec{v} \in P \) such that either
 	\[\norm{A\vec{v}} > \max_{\vec{u} \in Q}\norm{\vec{u}} \text{ or } \norm{B\vec{v}} > \max_{\vec{u} \in Q}\norm{\vec{u}}\]
 	then \( T \) is not a transition for \( P \to Q \).
 	\label{thrm:contrapositive-norm-condition-for-partial-transitions}
 \end{Theorem}
-\begin{Theorem}[Contrapositive of Theorem \vref{thrm:partial-transition-mapping-condition}]
+\begin{Theorem}[Contrapositive of Theorem \ref{thrm:partial-transition-mapping-condition}]
 	Suppose a transition matrix \( T \) decomposes into partial transitions such that \( T = A + B \).
-	Let \( I_A \) and \( I_B \) be the corresponding identity decomposition such that \( I_AT + I_BT = A + B \).
+	Let \( I_A \) and \( I_B \) be the corresponding identity decomposition such that \( I_AT = A  \) and \( I_BT = B \).
 	If there exists \( \vec{v} \in P \) such that for every \( \vec{u} \in Q \) either
 	\[A\vec{v} \neq I_A\vec{u} \text{ or } B\vec{v} \neq I_B\vec{u}\]
 	then \( T \) is not a transition for \( P \to Q \).
