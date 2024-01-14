@@ -537,65 +537,6 @@ We can only say for certain that \( m \) is less than or equal to this value bec
 \footnote{If we have that \( \vec{t} = \vec{v}_i \) for some \( i \), then there are matrices of the correct form that are not linearly independent.}
 However, in general, we can assume that \( m \) is equal to this value since all the generating vectors are distinct.
 
-\subsection{Mathematically Describing Transitions}
-We have defined what the \( B_0 \) and \( B_1 \) matrices look like, now we define the nature of the \( T \) matrix.
-A transition \(T\) that preserves all of icosahedral symmetry must have the form: \begin{equation} \label{eq:ico-transition}
-	T = \begin{bmatrix}
-		z  & x  & -x & -x & x  & x \\
-		x  & z  & x  & -x & -x & x \\
-		-x & x  & z  & x  & -x & x \\
-		-x & -x & x  & z  & x  & x \\
-		x  & -x & -x & x  & z  & x \\
-		x  & x  & x  & x  & x  & z
-\end{bmatrix}\end{equation}
-
-Our linear transformation \(T\) preserves icosahedral symmetry because it is in the centralizer of \(\mathcal{I}\).
-\begin{Definition}[Centralizer]
-	The centralizer of a group \(G\), denoted by \(Z(G)\) is the set of elements that commute with all elements of \(G\).
-	That is, \[Z(G) = \{z\ |\ gz = zg\ \forall g \in G\}.\]
-\end{Definition}
-Any matrix of the form given in equation \vref{eq:ico-transition} is in \(Z(\mathcal{I})\), the centralizer of \(\mathcal{I}\).
-Below are the general matrix forms for \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\). \cite{indelicatoetal2012}
-\begin{align*}
-	\begin{bmatrix}
-		z  & -x & -y & -t & t  & -x \\
-		t  & z  & t  & x  & x  & y  \\
-		-y & -x & z  & t  & -t & -x \\
-		x  & -t & -x & z  & y  & t  \\
-		-x & -t & x  & y  & z  & t  \\
-		t  & y  & t  & -x & -x & z
-	\end{bmatrix} \in Z(A_4) \\
-	\begin{bmatrix}
-		z & x & y & y & x & t \\
-		x & z & x & y & y & t \\
-		y & x & z & x & y & t \\
-		y & y & x & z & x & t \\
-		x & y & y & x & z & t \\
-		u & u & u & u & u & w
-	\end{bmatrix} \in Z(D_{10}) \\
-	\begin{bmatrix}
-		u  & w  & -w & x  & s  & s  \\
-		-t & y  & v  & -v & z  & -t \\
-		t  & v  & y  & v  & t  & -z \\
-		z  & -v & v  & y  & -t & -t \\
-		s  & x  & -w & w  & u  & s  \\
-		s  & w  & -x & w  & s  & u
-	\end{bmatrix} \in Z(D_{6})
-\end{align*}
-These general matrix forms give us linear transformations that preserve the symmetry of one of the maximal subgroups.
-Notice that with particular choices of variables, all three of these general forms can be equal to general form for icosahedral symmetry.
-This tells us that \( Z(\mathcal{I}) \) is a subset of the sets \( Z(A_4), Z(D_{10}), Z(D_6) \).
-Now we can precisely define the nature of our desired transition matrices.
-\begin{Definition}[Transition Matrix]
-	Let \(\mathcal{G} = \mathcal{I}, A_4, D_{10}, \text{or } D_6\).
-	A \emph{transition matrix} that preserves intermediate symmetry \( \mathcal{G} \) is an invertible matrix that is also an element of \( Z(\mathcal{G}) \).
-\end{Definition}
-We require our transitions to be invertible matrices because if we find a transition matrix \( T \) for \( P \to Q \), we want to be guarenteed that \( T^{-1} \) is a transition for \( Q \to P \).
-\todo[inline]{
-	Should I include a proof that \( TB_0 = B_1 \implies B_0 = T^{-1}B_1 \) even if \( B_0 \) and \( B_1 \) aren't \( 6 \times 6 \)?
-	No its obvious, just apply \( T^{-1} \) on both sides.
-}
-
 \subsection{Lattices} \label{section:lattices}
 In order to understand the nature of the transition matrix, we must understand lattices and how point arrays work with them.
 For our point arrays, we use 6-dimensional icosahedral lattices.
@@ -960,7 +901,7 @@ So by using lattice groups, we can clearly distinguish between different lattice
 	The lattice groups associated to bases of the same lattice may be different but they are always $\Gl(n,\mathbb{Z})$ conjugate. This is because if $B$, $B'$ are basis matrices of the same lattice then there is an invertible integer matrix $N$ such that 
 	\[BN = B'.\]
 \end{Remark}
-\todo[inline]{Create example "point arrays" in 2D.}
+\todo[inline]{Should I create example ``point arrays" in 2D? It may not be necessary but this is the place to put them...}
 Now that we understand the nature of these 2-dimensional lattices and their related structures, we can define the 6-dimensional icosahedral relevant to our point arrays.
 We want the lattices in which our point arrays to sit in to be invariant under the icosahedral group \( \mathcal{I} \).
 There are three 6-dimensional icosahedral lattices that are relevant to us:
@@ -977,60 +918,112 @@ When considering our point arrays, we want to know which these lattices they fit
 	A \emph{minimal lattice}, denoted \( \mathcal{L}_\mathcal{I}(P) \) is an icosahedral lattice containing \( P \) that is contained in every other icosahedral lattice containing \( P \).
 \end{Definition}
 A minimal lattice can also be thought of the smallest lattice that contains \( P \).
-The following proposition tells what the minimal lattice is for a set of point is:
+The following proposition tells what the minimal lattice is for a set of points in 6-dimensions.
 \begin{Proposition}
 	Given vectors \( \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n \in \R^6 \) all contained in some 6-dimensional icosahedral lattice \( \mathcal{L} \), the \( \Z \)-span of the union \( \mathcal{O} := \mathcal{I}\vec{v}_1 \cup \mathcal{I}\vec{v}_2 \cup \dots \cup \mathcal{I}\vec{v}_n \), which is defined as
 	\[\mathcal{L}_\mathcal{I}(\vec{v}_1, \vec{v}_2, \dots, \vec{v}_n) := \left\{\sum_{\vec{w} \in \mathcal{O}} c_\vec{w}\vec{w} \;\bigg|\; c_\vec{w} \in \Z \right\},\]
 	is the minimal icosahedral lattice containing the vectors \( \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n \).
 \end{Proposition}
-This proposition directly leads us to another proposition, telling what the minimal lattice is for a given point array:
+\noindent This proposition directly leads us to another proposition, telling what the minimal lattice is for a given point array.
 \begin{Proposition}
-	If a lifted point array is generated by the vectors \( \vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n \), then the minimal lattice containing that point array is \( \mathcal{L}_\mathcal{I}(\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n) \)
+	If a lifted point array is generated by the vectors \( \vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n \), then the minimal lattice containing that point array is \( \mathcal{L}_\mathcal{I}(\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n) \).
 \end{Proposition}
-\todo[inline]{Motivate and state paper paper Prop 4.7 and Definition 5.1 (Indelicato transitions)}
-\todo[inline]{Then point arrays:
-	The point array fits into its minimal lattice, then you look at the point group of its lattice.
-	The centralizer will then commute with its point group (but actually its lattice group).
-}
 
-\subsection{Transitions Preserving Symmetry}\label{subsection:transitions-preserving-symmetry}
-The centralizer of a group has nice properties, especially in the context of preserving symmetry.
-Let us consider how the centralizer behaves on the equation \( T\overline{\vec{v}} = \overline{\vec{u}} \) where \( T \in Z(\mathcal{I})\).
-By definition of icosahedral bar notation, we have that \[T\overline{\vec{v}} = \overline{\vec{u}} \iff TG\vec{v} = H\vec{u}\]
-where \( G, H \in \mathcal{I} \).
-Thus by definition of the centralizer we can do the following:
-\begin{gather*}
-	TG\vec{v} = H\vec{u} \\
-	\Updownarrow \\
-	GT\vec{v} = H\vec{u} \\
-	\Updownarrow \\
-	T\vec{v} = G^{-1}H\vec{u}
-\end{gather*}
-\todo[inline]{I am not sure how to best illustrate the reasoning behind why we want the centralizer and not some other mathematical thing... \\ See paper paper sections 4.2, 4.3, 5 \\
-I will somewhere need include Definitions of 3 cubic lattices, Prop 4.7, Def 5.1}
+\subsection{Transitions Between Lifted Point Arrays}
+Now that we have an understanding of lattices, we have the tools necessary to mathematically describe transitions between our point arrays.
+The symmetries of our point arrays are encoded within its minimal lattice and its corresponding lattice group.
+Thus we want our transitions to not only be a map from one point array to another, but also a map of their minimal lattices that preserves some form of symmetry (in our case it will be a subgroup of \( \mathcal{I} \)).
+The following definition gives us a description of a transformation that does this:
+\begin{Definition}[Definitions 4 and 5 from \cite{indelicatoetal2012}]
+	\label{def:transitions-indelicato}
+	Let \( \mathcal{L}_0 \) and \( \mathcal{L}_1 \) be icosahedral lattices and \( \mathcal{G}_0 \) be a subgroup of \( \mathcal{I} \).
+	\begin{enumerate}
+		\item A \emph{transition} from \( \mathcal{L}_0 \) and \( \mathcal{L}_1 \) with intermediate symmetry \( \mathcal{G}_0 \) is a continuous function \begin{gather*}
+			B\colon [0, 1] \to \Gl(n, \R) \\
+			\sigma \mapsto B_\sigma
+		\end{gather*}
+		\todo[color=red]{What to do about this? We no longer require $B_0$ and $B_1$ to be basis matrices...}
+		such that \( B_0 \) is a basis matrix of \( \mathcal{L}_0 \), \( B_1 \) is a basis matrix of \( \mathcal{L}_1 \), and letting
+		\[\mathcal{G} := B_0^{-1}\mathcal{G}_0B_0 \subset \Lambda(B_0)\]
+		we have
+		\[\mathcal{G} \subset \Lambda(B_\sigma) \text{ for all } \sigma \in [0, 1].\]
+		
+		\item Additionally a transition \( B \) from \( \mathcal{L}_0 \) to \( \mathcal{L}_1 \) with intermediate symmetry \( \mathcal{G}_0 \) is compatible with projection if 
+		\[B_\sigma\mathcal{G}B_\sigma^{-1} \subset \mathcal{P}(\mathcal{L}(B_\sigma)) \text{ for all } \sigma \in [0, 1].\]
+	\end{enumerate}
+	We refer to \[T(\sigma) := B_\sigma B_0^{-1} \text{ and } T := T(1) = B_1B_0^{-1}\] as the \emph{transition path} and the \emph{transition} respectively.
+\end{Definition}
+\noindent This definition tells us that our transformation from one lattice to another have the following properties:
+\begin{enumerate}
+	\item All intermediate lattices have at least \( \mathcal{G}_0 \) symmetry;
+	\item The intermediate lattices are actually \( \mathcal{G}_0 \) invariant.
+\end{enumerate}
+Additionally, because we want our transitions to both describe a continuous path and preserve \( \mathcal{G}_0 \) symmetry, it turns out that our transition must be in the centralizer of \( \mathcal{G}_0 \) \cite{indelicatoetal2012}.
+\begin{Definition}[Centralizer]
+	The centralizer of a group \(G\), denoted by \(Z(G)\) is the set of elements that commute with all elements of \(G\).
+	That is, \[Z(G) = \{z\ |\ gz = zg\ \forall g \in G\}.\]
+\end{Definition}
+Since these transitions belong to the centralizer of our symmetry groups, the matrices that describe our transitions will also commute with the lattice's point group and lattice group.
 
-\todo[inline]{
-	\( D_6 \) is the point group of an equilateral triangle.
-	All point groups of equilateral triangles are isomorphic to each other and actually more powerfully they are conjugate in the orthogonal group (up to conjugacy).
-	Point group of a shape is the elements of the orthogonal group (distance preserving transformations) that preserve the shape.
-}
+\subsection{The Form of Transitions}
+In the previous section we built up the necessary background in order to arrive to the conclusion that our transitions must be in the centralizer of \( \mathcal{I} \) or the centralizer of one its maximal subgroups.
+Luckily for us, \cite{indelicatoetal2012} have explicitly calculated what the centralizer is for our symmetry groups.
+Let's first start with the icosahedral group.
+A transition \(T\) that preserves all of icosahedral symmetry must have the form: \begin{equation*}
+	T = \begin{bmatrix}
+		z  & x  & -x & -x & x  & x \\
+		x  & z  & x  & -x & -x & x \\
+		-x & x  & z  & x  & -x & x \\
+		-x & -x & x  & z  & x  & x \\
+		x  & -x & -x & x  & z  & x \\
+		x  & x  & x  & x  & x  & z
+\end{bmatrix}\end{equation*}
+Any matrix of the form given in the above equation is in \(Z(\mathcal{I})\), the centralizer of \(\mathcal{I}\) and thus mathematically describes a transition that preserves icosahedral symmetry.
+Now we can look at the maximal subgroups of \( \mathcal{I} \).
+Below are the general matrix forms for \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\). \cite{indelicatoetal2012}
+\begin{align*}
+	\begin{bmatrix}
+		z  & -x & -y & -t & t  & -x \\
+		t  & z  & t  & x  & x  & y  \\
+		-y & -x & z  & t  & -t & -x \\
+		x  & -t & -x & z  & y  & t  \\
+		-x & -t & x  & y  & z  & t  \\
+		t  & y  & t  & -x & -x & z
+	\end{bmatrix} \in Z(A_4) \\
+	\begin{bmatrix}
+		z & x & y & y & x & t \\
+		x & z & x & y & y & t \\
+		y & x & z & x & y & t \\
+		y & y & x & z & x & t \\
+		x & y & y & x & z & t \\
+		u & u & u & u & u & w
+	\end{bmatrix} \in Z(D_{10}) \\
+	\begin{bmatrix}
+		u  & w  & -w & x  & s  & s  \\
+		-t & y  & v  & -v & z  & -t \\
+		t  & v  & y  & v  & t  & -z \\
+		z  & -v & v  & y  & -t & -t \\
+		s  & x  & -w & w  & u  & s  \\
+		s  & w  & -x & w  & s  & u
+	\end{bmatrix} \in Z(D_{6})
+\end{align*}
+These general matrix forms give us linear transformations that preserve the symmetry of one of the maximal subgroups.
+Notice that with particular choices of variables, all three of these general forms can be equal to general form for icosahedral symmetry.
+This tells us that \( Z(\mathcal{I}) \) is a subset of the sets \( Z(A_4), Z(D_{10}), Z(D_6) \).
 
-\todo[inline]{
-	Now lattices.
-	Take 2D lattices as examples: square, rectangular, centered rectanglar.
-	Square has 4 rotations while rectangular only has 2 rotations.
-	So their point groups are different. 
-	We like lattices because it has all this symmetry but also an abelian group.
-	Discrete arthimetic nature is very useful. \\
-	I will need to add an entire subsection for this 2D lattice example.
-}
+Definition \ref{def:transitions-indelicato} gives us a rigorous definition of a transition between point arrays. 
+However, for the purposes of computing transitions between point arrays, we will only need to work with the following definition, which we will be using for the rest of this paper.
+\begin{Definition}[Transition Matrix]
+	Let \(\mathcal{G} = \mathcal{I}, A_4, D_{10}, \text{or } D_6\).
+	A \emph{transition matrix} that preserves intermediate symmetry \( \mathcal{G} \) is an invertible matrix 
+	\footnote{
+		Note that we require our transitions to be invertible matrices because if we find a transition matrix \( T \) for \( P \to Q \), we want to be guarenteed that \( T^{-1} \) is a transition for \( Q \to P \).
+	}
+	that is also an element of \( Z(\mathcal{G}) \).
+\end{Definition}
+\todo[color=red]{Does the Indelicato transition automatically give us that the $T$ matrix must be invertible?}
+\noindent This simple definition will give us a strong start in finding and computing transitions between point arrays.
 
-\todo[inline]{
-	The point array fits into its minimal lattice, then you look at the point group of its lattice.
-	The centralizer will then commute with its point group (but actually its lattice group).
-}
-
-% order of these two sections?
 \subsection{How To Find Transitions}
 We now understand the mathematical structures of the problem.
 The question now is what procedure should we use in order to find transitions that preserve symmetry.
@@ -1073,7 +1066,7 @@ Therefore, to find an icosahedral symmetry preserving transition, we must find a
 	One may notice that by how this equation is setup, the order of the generators matters.
 	This is in constrast to the definition of an lifted point array, where the order doesn't matter.
 	In truth, the permutation of the columns of both \( B_0 \) and \( B_1 \) do not matter (except for the first columns, which must remain first) and so the true number of equations is multiplied by \( n!^2 \).
-	Thus the true number of equations that must be checked for the transition \( P \to Q \) is \( n!^2\cdot\abs{\pam(P)}\cdot\abs{\pam(Q)} \).
+	The true number of equations that must be checked for the transition \( P \to Q \) is \( n!^2\cdot\abs{\pam(P)}\cdot\abs{\pam(Q)} \).
 	However, when I actually compute these transitions, I consider the various permutations of the generators as separate cases entirely and thus can forgo talking about permutations when finding transitions.
 }
 
