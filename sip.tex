@@ -1124,6 +1124,18 @@ and simplifies to:
 	\label{eq:ccmv_d6_example_simplified}
 	% solution to this equation is {s: 1, t: 0, u: 1, v: 0, w: 0, x: -1, y: -1, z: 1}
 \end{equation*}
+This equation can be solved and gives us the transition matrix:
+\begin{equation*}
+	T =
+	\begin{bmatrix}
+		1  & 0  & 0 & -1  & 1  & 1  \\
+		0 & -1  & 0  & 0 & 1  & 0 \\
+		0  & 0  & -1  & 0  & 0  & -1 \\
+		1  & 0 & 0  & -1  & 0 & 0 \\
+		1  & -1  & 0 & 0  & 1  & 1  \\
+		1  & 0  & 1 & 0  & 1  & 1
+	\end{bmatrix}
+\end{equation*}
 In this case, these particular \( B_0 \) and \( B_1 \) matrices make the equation such that it can be solved for \( T \).
 However, there are many other choices for \( B_0 \) and \( B_1 \) for which the equation cannot be solved for \( T \).
 
