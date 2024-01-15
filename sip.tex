@@ -1890,24 +1890,34 @@ In fact this parallelism is still task based parallelism, with the task being ch
 \newpage
 
 \section{Results}
-After doing these computational methods, the results can be summarized as follows:
-\begin{enumerate}
-	\item These methods produce the same four \( D_6 \) transition matrices for CCMV given in \cite{indelicatoetal2012}.
-	
-	\item These methods allow us to find all symmetry preserving transitions exist between all of the 55 standard one-base point arrays. Larger point arrays must be built from these 55, so this data also helps in determining what transitions are and are not possible between bigger point arrays.
-	
-	\item There cannot exist any transition that preserves all of icosahedral symmetry between any different point arrays, since no such icosahedral symmetry preserving transition exists between any of the 55 standard point arrays.
-	We can only find transitions that preserve the maximal subgroups \(D_6, D_{10}, \text{ and } A_4\).
-	
-	\item \todo[inline]{Talk about 2+ base results; comprehensive 2 base running on Jigwe currently}
-\end{enumerate}
+These computational methods have allowed us to find transitions between point arrays that characterize real viruses.
+An important result we had found early in this process is that we were able to reproduce the same four \( D_6 \) transition matrices for the CCMV virus given in \cite{indelicatoetal2012}.
+We also attempted to find transitions between viruses with larger point arrays than CCMV.
+In most cases, it is impossible to find a transition between the native and mature point arrays of viruses with large point arrays.
+However, what can do is instead see if there exists a transition between the outer layer of these point arrays.
+The outer layers are themselves point arrays, so we can use the same methodology on these smaller point arrays.
+
+The most important result from these methods is that we are able to determine whether any symmetry preserving transitions exist between any of the possible 55 standard one-base point arrays.
+\footnote{
+See section \ref{section:all-one-base-point-arrays} for the list of all 55 one-base point arrays.
+}
+\todo{reword this sentence??}
+There are \( 55^2 = 3025 \) different one-base to one-base point array cases, since we can freely choose any one of the 55 standard for \( P \) and for \( Q \).
+From determining all possible transitions we make the following conclusions for the 55 one-base point arrays:
+\begin{itemize}
+	\item It is impossible to have a nontrivial transition that preserves icosahedral symmetry. We can only have an icosahedral transition if the two point arrays are the same (and so \( T \) is the identity matrix).
+	\item There exists \( D_6 \) transitions for a majority of the possible one-base transitions (3001 out of 3025). All cases where there a \( D_6 \) transition does not involve the point array 24.
+	\item Transitions for \( D_{10} \) and \( A_4 \) are much less common, with transitions existing only in 1277 out of 3025 for \( D_{10} \) and 309 out of 3025 existing for \( A_4 \).
+\end{itemize}
+While these results are strong, we can actually create the stronger that there do not exist any nontrivial icosahedral transitions between any point arrays.
+Any lifted point arrays with any number of base vectors must be built up from these one-base point arrays.
+Theorem \ref{thrm:matrix-equation-solving} then tells us that in order to have transition between two point arrays, there must exist transitions between all of the one-base point arrays that make up the larger point arrays.
+This allows us to conclude that there cannot exist any nontrivial icosahedral transitions.
 
 \section{Acknowledgements}
-\begin{itemize}
-	\item Heyl Scholarship Research Fund
-	\item Dr. Stephen Oloo and Dr. Dave Wilson
-	\item Dr. Dave Wilson and Dr. Sandino Vargas-Perez for allowing me to use the Kalamazoo College supercomputer Jigwe.
-\end{itemize}
+I would like to acknowledge the funding from the Heyl Scholarship Research Fund that allowed to me do this research.
+I would also like to thank research mentors Dr. Stephen Oloo and Dr. Dave Wilson for their help and support during the research process.
+Finally, I would like to thank Dr. Dave Wilson and Dr. Sandino Vargas-Perez for allowing me to use the Kalamazoo College supercomputer Jigwe in order to run my code.
 
 \appendix
 \section{Appendix}
@@ -1921,6 +1931,94 @@ Let's suppose \( n < m \).
 Then to create a generating tuple for \( P \) of size \( m \), it must have the form \( (\vec{t}, \vec{v}_{i_1}, \vec{v}_{i_2}, \dots, \vec{v}_{i_m}) \) where \( i_j \in \{1, 2, \dots, n\} \) for all \( j \).
 Essentially we choose \( m \) vectors of the form \( \vec{v}_k \) such that the generating tuple creates the point array \( P \).
 The same idea occurs when \( n > m \).
+
+\subsection{List of All One-Base Point Arrays} \label{section:all-one-base-point-arrays}
+We have stated in this paper that there exist exactly 55 one-base point arrays (i.e. point arrays of the form \( \mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t}) \)).
+In this section we will explicitly list these 55 point arrays.
+Let the vectors \( \vec{s}, \vec{b}, \text{and } \vec{f} \) be given by \[\vec{s} := \begin{bmatrix}
+	1\\0\\0\\0\\0\\0
+\end{bmatrix}\quad
+\vec{b} := \begin{bmatrix}
+	\frac{1}{2}\\-\frac{1}{2}\\\frac{1}{2}\\\frac{1}{2}\\-\frac{1}{2}\\\frac{1}{2}
+\end{bmatrix}\quad
+\vec{f} := \begin{bmatrix}
+	\frac{1}{2}\\0\\0\\-\frac{1}{2}\\0\\0
+\end{bmatrix}
+\]
+and the matrix \( D \) be given by
+\[D = \frac{1}{2}\begin{bmatrix}
+	1 & 1 & -1 & -1 & 1 & 1 \\
+	1 & 1 & 1 & -1 & -1 & 1 \\
+	-1 & 1 & 1 & 1 & -1 & 1 \\
+	-1 & -1 & 1 & 1 & 1 & 1 \\
+	1 & -1 & -1 & 1 & 1 & 1 \\
+	1 & 1 & 1 & 1 & 1 & 1
+\end{bmatrix}.\]
+Then the following table gives the list of all 55 one-base point arrays.
+\todo[inline]{Split this in 2 and make it two column}
+\begin{table}[h]
+	\centering
+	\( \begin{array}{c|c}
+		\text{Point Array Number} & \text{Minimal Generating Tuple} \\
+		\hline
+		1 & (\vec{f}, D\vec{s}) \\
+		2 & (\vec{f}, \frac{1}{2}D^2\vec{s}) \\
+		3 & (\vec{f}, \vec{s}) \\
+		4 & (\vec{f}, \frac{1}{2}D\vec{s}) \\
+		5 & (\vec{f}, \frac{1}{2}\vec{s}) \\
+		6 & (\vec{f}, \frac{1}{2}D^{-1}\vec{s}) \\
+		7 & (\vec{b}, D\vec{s}) \\
+		8 & (\vec{b}, \vec{s}) \\
+		9 & (\vec{b}, D^{-1}\vec{s}) \\
+		10 & (\vec{b}, D^{-2}\vec{s}) \\
+		11 & (\vec{s}, D\vec{s}) \\
+		12 & (\vec{s}, \vec{s}) \\
+		13 & (\vec{s}, D^{-1}\vec{s}) \\
+		14 & (\vec{f}, D^2\vec{b}) \\
+		15 & (\vec{f}, \frac{1}{2}D^3\vec{b}) \\
+		16 & (\vec{f}, D\vec{b}) \\
+		17 & (\vec{f}, \frac{1}{2}D^2\vec{b}) \\
+		18 & (\vec{f}, \vec{b}) \\
+		19 & (\vec{f}, \frac{1}{2}D\vec{b}) \\
+		20 & (\vec{f}, \frac{1}{2}\vec{b}) \\
+		21 & (\vec{f}, \frac{1}{2}D^{-1}\vec{b}) \\
+		22 & (\vec{b}, D^2\vec{b}) \\
+		23 & (\vec{b}, D\vec{b}) \\
+		24 & (\vec{b}, \vec{b}) \\
+		25 & (\vec{b}, D^{-1}\vec{b}) \\
+		26 & (\vec{b}, D^{-2}\vec{b}) \\
+		27 & (\vec{s}, D^2\vec{b}) \\
+		28 & (\vec{s}, D\vec{b}) \\
+		29 & (\vec{s}, \vec{b}) \\
+		30 & (\vec{s}, D^{-1}\vec{b}) \\
+		31 & (\vec{f}, 2D\vec{f}) \\
+		32 & (\vec{f}, D^2\vec{f}) \\
+		33 & (\vec{f}, 2\vec{f}) \\
+		34 & (\vec{f}, D\vec{f}) \\
+		35 & (\vec{f}, 2D^{-1}\vec{f}) \\
+		36 & (\vec{f}, \vec{f}) \\
+		37 & (\vec{f}, \frac{1}{2}D\vec{f}) \\
+		38 & (\vec{f}, D^{-1}\vec{f}) \\
+		39 & (\vec{f}, \frac{1}{2}\vec{f}) \\
+		40 & (\vec{f}, D^{-2}\vec{f}) \\
+		41 & (\vec{f}, \frac{1}{2}D^{-1}\vec{f}) \\
+		42 & (\vec{b}, 2D\vec{f}) \\
+		43 & (\vec{b}, 2\vec{f}) \\
+		44 & (\vec{b}, 2D^{-1}\vec{f}) \\
+		45 & (\vec{b}, \vec{f}) \\
+		46 & (\vec{b}, 2D^{-2}\vec{f}) \\
+		47 & (\vec{b}, D^{-1}\vec{f}) \\
+		48 & (\vec{b}, 2D^{-3}\vec{f}) \\
+		49 & (\vec{b}, D^{-2}\vec{f}) \\
+		50 & (\vec{s}, 2D\vec{f}) \\
+		51 & (\vec{s}, 2\vec{f}) \\
+		52 & (\vec{s}, 2D^{-1}\vec{f}) \\
+		53 & (\vec{s}, \vec{f}) \\
+		54 & (\vec{s}, 2D^{-2}\vec{f}) \\
+		55 & (\vec{s}, D^{-1}\vec{f})
+	\end{array} \)
+	\caption{All 55 one-base point arrays}
+\end{table}
 
 \subsection{The Code}
 The C++ and Python code referred to in section \ref{section:computational-techniques} can be found at \url{https://github.com/RochX/virus-research} and \url{https://github.com/RochX/virus-research-python} respectively.
