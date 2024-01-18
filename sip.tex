@@ -113,8 +113,8 @@
 %lifted point array
 \newcommand{\lpa}[1]{\Sigma({#1})}
 
-\title{Virus Research \\ \large SIP}
-\author{Xavier Silva}
+\title{Icosahedral Virus Transitions: Computational Techniques \\ \large Kalamazoo College Senior Integrated Project}
+\author{Xavier Silva \\ \small Advisors: Dr. Stephen Oloo and Dr. Dave Wilson}
 
 \begin{document}
 
@@ -122,7 +122,7 @@
 
 \tableofcontents
 
-% \newpage
+\newpage
 
 \section{Abstract}
 
@@ -132,11 +132,11 @@ We model virus maturation by 6D linear transformations (transitions) of point ar
 The symmetries we wish to preserve are either full icosahedral, $A_4$ ($3$-fold and $2$-fold), $D_{10}$ ($5$-fold and $2$-fold) or $D_6$ ($3$-fold and $2$-fold) symmetry.
 We define full icosahedral symmetry as a group defined by \(\mathcal{I} := \generatedby{a, b | a^2 = b^3 = (ab)^5 = 1}\).
 We then notice that \(A_4, D_{10}, \text{ and } D_6\) are maximal subgroups of \(\mathcal{I}\).
-To find transitions that preserve one of these symmetry groups, we solve matrix equations of the form \(TB_0 = B_1\) for \(T\), where \(T\) is a \(6\times6\) matrix that depends on either 2, 4, 6, or 8 real variables, depending on which symmetry we are looking at and \(B_0\) and \(B_1\) are representations of the point arrays.
-Note that actually finding transitions requires a large amount of computation.
-From this we are able to reproduce previously discovered transitions for the Cowpea Chlorotic Mottle Virus that preserve \(D_6\) symmetry, and more importantly create a comprehesive list of what symmetries can be preserved between any possible combination of the \(55\) standard point arrays.
+To find transitions that preserve one of these symmetry groups, we solve matrix equations of the form \(TB_0 = B_1\) for \(T\), where \(T\) is a \(6\times6\) matrix that depends on either 2, 4, 6, or 8 real variables, depending on the current form of symmetry.  The \(B_0\) and \(B_1\) matrices are representations of the point arrays.
+We employ parallel computation techniques to efficiently find transitions between these point arrays.
+We are able to reproduce previously discovered transitions for the Cowpea Chlorotic Mottle Virus that preserve \(D_6\) symmetry, and more importantly create a comprehesive list of what symmetries can be preserved between any possible combination of the \(55\) standard point arrays.
 
-\section{Intro}
+\section{Introduction}
 Icosahedral viruses have the symmetries of an icosahedron, which involves 2-fold, 3-fold, and 5-fold rotational symmetries.
 We can approximate these virus capsids with finite sets of points (called a point array) which we realize in 6D (not just 3D) for the purpose of crystallography: our 6D point arrays naturally fit inside 6D icosahedral Bravais lattices. 
 There are \(55\) standard point arrays (called \emph{one-base}) from which we build all the others.
@@ -144,11 +144,6 @@ There are \(55\) standard point arrays (called \emph{one-base}) from which we bu
 	See section \ref{section:all-one-base-point-arrays} for the list of all 55 one-base point arrays.
 }
 We model virus maturation by 6D linear transformations (transitions) of point arrays that preserve some or all of icosahedral symmetry.
-
-
-% Viruses have a point cloud, we can then lift into 6D dimensions in a non-trivial way.
-% These point clouds will then fit into a \emph{lattice}.
-
 Relevant to our work the shape of the icosahedron, a shape with 2-fold, 3-fold, and 5-fold symmetry.
 % icosahedron shape
 \tdplotsetmaincoords{60}{45}
@@ -229,9 +224,6 @@ Relevant to our work the shape of the icosahedron, a shape with 2-fold, 3-fold, 
 	
 	\draw (K) -- (L);
 	
-	
-
-			
 	% Draw Icosahedron vertices
 	\foreach \vertex in {A, B, C, D, E, F, G, H, I, J, K, L}
 	\fill (\vertex) circle (2pt);
@@ -240,13 +232,15 @@ Relevant to our work the shape of the icosahedron, a shape with 2-fold, 3-fold, 
 \caption{The icosahedron.}
 \end{figure}
 
+While seeing the shape of the icosahedron is helpful, we can also represent its symmetries through groups.
+Here we define the icosahedral group, which represents the 2-fold, 3-fold, and 5-fold symmetries of the icosahedron.
 \begin{Definition}[Icosahedral Group]
 	The icosahedral group, which we denote by \(\mathcal{I}\), is the 60-element group given by \[\mathcal{I} := \generatedby{a, b | a^2 = b^3 = (ab)^5 = 1}.\]
 \end{Definition}
 \noindent We realize the icosahedral group as a \( 6 \times 6 \) matrix group.
-This group represents symmetries of the icosahedron.
+The generator \( a \) represents the 2-fold symmetry, the generator \( b \) represents the 3-fold symmetry, and the product \( ab \) represents the 5-fold symmetry.
 \begin{Definition}[Generators of the Icosahedral Group]
-	A 6D representation of the generators for \(\mathcal{I}\) are as follows:
+	A 6D representation of the generators for \(\mathcal{I}\) are given by the matrices:
 	\[a = \begin{bmatrix}
 		-1 & 0  & 0 & 0 & 0 & 0 \\
 		0  & -1 & 0 & 0 & 0 & 0 \\
@@ -269,7 +263,7 @@ These maximal subgroups represent the symmetries of the tetrahedron, pentagonal 
 This is shown in figure \vref{fig:maximal_subgroups}.
 Notice that these shapes can fit within the icosahedron.
 These maximal subgroups are subsets of \( \mathcal{I} \) that are themselves groups.
-\footnote{Like the icosahedral group, these subgroups are generated by two \( 6 \times 6 \) matrices.}
+\footnote{Like the icosahedral group, these subgroups are also generated by two \( 6 \times 6 \) matrices.}
 The maximal subgroups represent subsets of symmetries of the icosahedron.
 % maximal subgroup figures
 \tdplotsetmaincoords{82}{20}
@@ -364,8 +358,10 @@ The maximal subgroups represent subsets of symmetries of the icosahedron.
 	}
 	\label{fig:maximal_subgroups}
 \end{figure}
-\section{Point Arrays and Lattices}
+\section{Point Arrays}
 Icosahedral viruses are characterized by point arrays, which are a set of points in 3 dimensions.
+These sets of points approximate the structural features of the virus.
+When using point arrays to represent viruses, we investigate the 3-dimensional but also their \emph{lifted} versions.
 \begin{Definition}[Lifted Point Array]
 	Let \(\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n\) be 6 dimensional vectors.
 	Then the lifted point array generated by these vectors is \[\lpa{\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n} := \mathcal{I}\vec{v}_1 \cup \mathcal{I}\vec{v}_2 \cup \dots \cup \mathcal{I}\vec{v}_n \cup (\mathcal{I}\vec{v}_1 + \mathcal{I}\vec{t}) \cup (\mathcal{I}\vec{v}_2 + \mathcal{I}\vec{t}) \cup \dots \cup (\mathcal{I}\vec{v}_n + \mathcal{I}\vec{t}).\]
@@ -373,7 +369,7 @@ Icosahedral viruses are characterized by point arrays, which are a set of points
 Notice that while icosahedral viruses are characterized by 3 dimensional point arrays, \emph{lifted point arrays} are 6 dimensional.
 This is because we want lifted point arrays to fit inside icosahedral lattices, and no such lattices exist in dimensions lower than six.
 \footnote{Because lattices of dimension 5 and lower cannot preserve 5-fold rotational symmetry.}
-Note that for this paper, we will be treating Bravais lattices and ``lattices" as the same thing, despite ``lattice" having many possible definitions.
+Note that for this paper, we will be treating Bravais lattices and ``lattices" as the same thing, despite ``lattice" having many possible definitions in mathematics.
 \footnote{See definition \ref{definition:bravais-lattice} for the definition of a Bravais lattice.}
 %However, we can project lifted point arrays from 6 dimensions into 3 dimensions using the projection matrix given in \cite{indelicatoetal2012}.
 
@@ -408,18 +404,21 @@ Therefore we have many ways of talking about the same point array.
 	\[
 	\lpa{\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n}}: = \left(\bigcup_{i=1}^{n} \mathcal{I} \; \vec{v}_i \right) \cup \left( \bigcup_{i=1}^{n} \mathcal{I} \; \vec{v}_i + \mathcal{I} \; \vec{t} \right) 
 	\]
-	is called the \textbf{($\mathbf{n}$-base) lifted point array} generated by this tuple so long as 
+	is called the \emph{($n$-base) lifted point array} generated by this tuple so long as 
 	\begin{enumerate}
 		\item Each of the vectors $\vec{t}$, $\vec{v}_i$ in the tuple points along a $2$-fold, $3$-fold or $5$-fold rotational axis of the action of $\mathcal{I}$.
 		\item The orbits $\mathcal{I} \; \vec{v}_i$, $\; 1 \leq i \leq n$, are all distinct.
 		\item $\displaystyle 
 		|\lpa{\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n}}| < \sum_{i=1}^{n} | \mathcal{I} \; \vec{v}_i| + | \mathcal{I} \; \vec{v}_i|| \mathcal{I} \; \vec{t}|. 
-		$ \todo{Ask Dr. Oloo about this condition;
-			The translated orbits must intersect.
-			That is, there must exist \( G, H \in \mathcal{I} \) such that the sets \( \mathcal{I}\vec{v} + G\vec{t} \) and \( \mathcal{I}\vec{v} + H\vec{t} \) have a nonempty intersection.
-		}
+		$
 	\end{enumerate}
 	We say that a lifted point array is \emph{minimally generated} by \( (\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n}) \) if this tuple is a minimal generating tuple.
+	\footnote{
+		When looking at the 3rd condition for an $n$-base lifted point array, it may seem like we trivially have this condition.
+		However, it is not trivial because we require a strict inequality.
+		What this condition tells us is that the translated icosahedral orbits must intersect in some way.
+		That is, there must exist \( G, H \in \mathcal{I} \) such that the sets \( \mathcal{I}\vec{v} + G\vec{t} \) and \( \mathcal{I}\vec{v} + H\vec{t} \) have a nonempty intersection.
+	}
 \end{Definition}
 \begin{Definition}[Generating Tuple]
 	More generally, a tuple $ (\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n})$ is a \emph{generating tuple} if it has a sub-tuple $ (\vec{t}, \vec{v}_{i_1}, \vec{v}_{i_2}, ... , \vec{v}_{i_m})$, $1 \leq i_1 < i_2 < ... < i_m \leq n$, that is a minimal generating tuple and the unions
@@ -453,7 +452,7 @@ This is shown visually in figure \vref{fig:point_array_construction}.
 	\begin{subfigure}{0.35\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/p_arr_construction_3.pdf}
-		\caption{Reapply icosahedral symmetry, getting the final expression \(\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t})\).}
+		\caption{Reapply icosahedral symmetry, creating our one-base point array and getting the final expression \(\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t})\).}
 	\end{subfigure}
 	\caption{The process of creating a one-base point array. Graphics from Dr. Dave Wilson.}
 	\label{fig:point_array_construction}
@@ -463,30 +462,34 @@ This is shown visually in figure \vref{fig:point_array_construction}.
 Let us take an overall look at how we wish to use point arrays and their lifted counterparts.
 Viruses are characterized by 3-dimensional point arrays.
 We want our point arrays to represent the symmetry and structure of the virus.
-We then lift the point arrays into 6 dimensions, because we the point array to fit inside an icosahedral lattice.
+We then lift the point arrays into 6 dimensions, because we want the point array to fit inside an icosahedral lattice.
 Lattices on a general level encode symmetry (in particular they have both rotational and translational symmetry).
 We will go more into depth about lattices in section \ref{section:lattices}.
 By understanding the lattice structure, we can use the symmetries of a lattice in order to describe symmetry of the point array.
 \todo{Add citation}
 Point arrays let us look at the most important structural points of a virus and can determine what potential modifications could be done to a particular virus.
 
-With point arrays, we can try to find linear transformations to map one point array onto another.
+With point arrays, we can try to find linear transformations that map one point array onto another.
 These transformations represent how a virus's structure changes over time.
 In general, finding such a linear map is relatively easy.
 A more difficult challenge is to find such a linear map that preserves symmetry.
 Our point arrays have icosahedral symmetry.
 Therefore our desire is to find a linear map from one point array to another where the intermediate point arrays also have icosahedral symmetry.
-It may also be desirable to find a map that preserves a different symmetry that fits inside icosahedral symmetry.
+It may also be desirable to find a map that preserves the symmetries of one of the maximal subgroups of \( \mathcal{I} \).
 
 Additionally, instead of mapping the point arrays directly onto each other, our linear transformations will transform one lattice into another.
 The consequence of doing this is that when we restrict our map to the point array, it becomes a map from one point array to another.
-
 The process of mathematically describing these symmetry preserving maps and how we find them will be the focus of the rest of this paper.
+However, before we delve into the mathematics, we take a quick look at an example of virus that will be relevant to us.
 \subsection{Viral Maturation}
 Icosahedral viruses mature over time, and maturation is how they become infectous.
 For this paper we will focus on the Cowpea Chlorotic Mottle Virus (CCMV).
 This virus is characterized by one of the standard point arrays.
-How CCMV matures is shown by figure \vref{fig:CCMV_maturation}.
+\footnote{
+	The native state is characterized by the ne-base point array 10 and the mature state is characterized by the one-base point array 27.
+	See section \ref{section:all-one-base-point-arrays} for the definitions of these point arrays.
+}
+How CCMV matures is shown in figure \vref{fig:CCMV_maturation}.
 Notice the points in orange, these points collectively are the point arrays that characterize the CCMV virus.
 We wish to see if there exists a linear transformation that maps the native point array to the mature point array while preserving icosahedral symmetry (or one of its maximal subgroups).
 
@@ -516,7 +519,6 @@ Before we define a point array matrix, we introduce a new notation called \emph{
 	Let \(\vec{v}\) be a 6-dimensional vector.
 	Then we define that \(\overline{\vec{v}}\) is an element of the icosahedral orbit of \(\vec{v}\).
 	That is, \(\overline{\vec{v}} \in \mathcal{I}\vec{v}\).
-	\todo[inline, color=yellow]{Not entirely sure about this icobar notation}
 \end{Definition}
 This definition allows us to easily denote when we wish to represent an element of the icosahedral orbit of a vector.
 With this notation in hand, we can now define a point array matrix.
@@ -530,7 +532,7 @@ With this notation in hand, we can now define a point array matrix.
 	whose rank is either equal to the minimum of \( n+1 \) and 6.
 	Notice that because we are using the icosahedral bar notation defined earlier, this definition is representing a class of matrices that all correspond to the same point array.
 	That is, we are defining the form of any representative of the given point array \( P \).
-	Denote the set of point array matrices for \( P \) as \( \pam(P) \).
+	We denote the set of point array matrices for \( P \) as \( \pam(P) \).
 \end{Definition}
 The \( B_0 \) and \( B_1 \) matrices are both point array matrices and so both have this general form for their respective point arrays.
 
@@ -631,7 +633,7 @@ For both the rectangular and centered rectangular, we have 2 reflections (reflec
 These four transformations are the point group for both the rectangular and centered rectangular lattices.
 Despite the rectangular and centered rectangular lattices having the same point group we notice that the fundamental structure of the two lattices are different.
 Therefore there must be some way to distinguish them from each other by some other mathematical structure different from the point group.
-However, we don't want to entirely throw away the idea of the point group, since it allows us to distinguish the square lattice from both rectangular lattices.
+However, we don't want to entirely throw away the idea of the point group since it allows us to distinguish the square lattice from both rectangular lattices.
 The key difference between the rectangular and centered rectangular lattices is their basis vectors.
 So we need some way to combine the point group and basis vectors together.
 \begin{Definition}[Lattice Group]
@@ -907,8 +909,8 @@ So by using lattice groups, we can clearly distinguish between different lattice
 	\[BN = B'.\]
 \end{Remark}
 \todo[inline]{Should I create example ``point arrays" in 2D? It may not be necessary but this is the place to put them...}
-Now that we understand the nature of these 2-dimensional lattices and their related structures, we can define the 6-dimensional icosahedral relevant to our point arrays.
-We want the lattices in which our point arrays to sit in to be invariant under the icosahedral group \( \mathcal{I} \).
+Now that we understand the nature of these 2-dimensional lattices and their related structures, we can define the 6-dimensional icosahedral lattices relevant to our point arrays.
+We want the lattices in which our point arrays sit in to be invariant under the icosahedral group \( \mathcal{I} \).
 There are three 6-dimensional icosahedral lattices that are relevant to us:
 \begin{align*}
 	\mathcal{L}_{SC} &:= \{ (x_1,x_2, ...,x_n) \mid x_i \in \mathbb{Z} \} \\
@@ -924,7 +926,7 @@ When considering our point arrays, we want to know which these lattices they fit
 	A \emph{minimal lattice}, denoted \( \mathcal{L}_\mathcal{I}(P) \) is an icosahedral lattice containing \( P \) that is contained in every other icosahedral lattice containing \( P \).
 \end{Definition}
 A minimal lattice can also be thought of the smallest lattice that contains \( P \).
-The following proposition tells what the minimal lattice is for a set of points in 6-dimensions.
+The following proposition (which we will state without proof) tells what the minimal lattice is for a set of points in 6-dimensions.
 \begin{Proposition}
 	Given vectors \( \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n \in \R^6 \) all contained in some 6-dimensional icosahedral lattice \( \mathcal{L} \), the \( \Z \)-span of the union \( \mathcal{O} := \mathcal{I}\vec{v}_1 \cup \mathcal{I}\vec{v}_2 \cup \dots \cup \mathcal{I}\vec{v}_n \), which is defined as
 	\[\mathcal{L}_\mathcal{I}(\vec{v}_1, \vec{v}_2, \dots, \vec{v}_n) := \left\{\sum_{\vec{w} \in \mathcal{O}} c_\vec{w}\vec{w} \;\bigg|\; c_\vec{w} \in \Z \right\},\]
@@ -936,9 +938,9 @@ The following proposition tells what the minimal lattice is for a set of points 
 \end{Proposition}
 
 \subsection{Transitions Between Lifted Point Arrays}
-Now that we have an understanding of lattices, we have the tools necessary to mathematically describe transitions between our point arrays.
+Now that we have an understanding of lattices, we have the tools necessary to mathematically describe our symmetry preserving transformations between point arrays.
 The symmetries of our point arrays are encoded within its minimal lattice and its corresponding lattice group.
-Thus we want our transitions to not only be a map from one point array to another, but also a map of their minimal lattices that preserves some form of symmetry (in our case it will be a subgroup of \( \mathcal{I} \)).
+Thus we want our linear transformations to not only be a map from one point array to another, but also a map of their minimal lattices that will preserve some form of symmetry (in our case it will be a subgroup of \( \mathcal{I} \)).
 The following definition gives us a description of a transformation that does this.
 \begin{Definition}[Definitions 4 and 5 from \cite{indelicatoetal2012}]
 	\label{def:transitions-indelicato}
@@ -973,7 +975,7 @@ Since these transitions belong to the centralizer of our symmetry groups, the ma
 
 \subsection{The Form of Transitions}
 In the previous section, we built up the necessary background in order to arrive at the conclusion that our transitions must be in the centralizer of \( \mathcal{I} \) or in the centralizer of one its maximal subgroups.
-Luckily for us, \cite{indelicatoetal2012} have explicitly calculated what the centralizer is for our symmetry groups.
+Luckily for us, Indelicato et al. have explicitly calculated what the centralizers are for our symmetry groups \cite{indelicatoetal2012}.
 Let's first start with the icosahedral group.
 A transition \(T\) that preserves all of icosahedral symmetry must have the form: \begin{equation*}
 	T = \begin{bmatrix}
@@ -984,7 +986,7 @@ A transition \(T\) that preserves all of icosahedral symmetry must have the form
 		x  & -x & -x & x  & z  & x \\
 		x  & x  & x  & x  & x  & z
 \end{bmatrix}\end{equation*}
-Any matrix of the form given in the above equation is in \(Z(\mathcal{I})\), the centralizer of \(\mathcal{I}\) and thus mathematically describes a transition that preserves icosahedral symmetry.
+Any matrix of the form given in the above equation is in \(Z(\mathcal{I})\), the centralizer of \(\mathcal{I}\), and thus mathematically describes a transition that preserves icosahedral symmetry.
 Now we can look at the maximal subgroups of \( \mathcal{I} \).
 Below are the general matrix forms for \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\). \cite{indelicatoetal2012}
 \begin{align*}
@@ -1023,7 +1025,8 @@ Notice that with particular choices of variables, all three of these general for
 This tells us that \( Z(\mathcal{I}) \) is a subset of the sets \( Z(A_4), Z(D_{10}), Z(D_6) \).
 
 Definition \ref{def:transitions-indelicato} gives us a rigorous definition of a transition between point arrays. 
-However, for the purposes of computing transitions between point arrays, we will only need to work with the following definition, which we will be using for the rest of this paper.
+However, for the purposes of computing transitions between point arrays, we can vastly simplify our definitions.
+For transition matrices, we will only need to work with the following definition, which we will be using for the rest of this paper.
 \begin{Definition}[Transition Matrix]
 	Let \(\mathcal{G} = \mathcal{I}, A_4, D_{10}, \text{or } D_6\).
 	A \emph{transition matrix} that preserves intermediate symmetry \( \mathcal{G} \) is an invertible matrix 
@@ -1033,7 +1036,9 @@ However, for the purposes of computing transitions between point arrays, we will
 	that is also an element of \( Z(\mathcal{G}) \).
 \end{Definition}
 \todo[color=red]{Does the Indelicato transition automatically give us that the $T$ matrix must be invertible?}
-\noindent This simple definition will give us a strong start in finding and computing transitions between point arrays.
+\todo{Is there more intuition behind this?}
+\noindent Additionally while definition \ref{def:transitions-indelicato} requires us to find a continuous map from 0 to 1, we actually only need to find the final transition \( T \) in the transition path.
+By simplifying our definitions, it will give us a strong start in finding and computing transitions between point arrays.
 
 \subsection{How To Find Transitions}
 We now understand the mathematical structures of the problem.
@@ -1067,8 +1072,8 @@ Thus we if wish to find a transition preserving icosahedral symmetry, then our e
 \end{equation}
 where \( P \) is minimally generated by \((\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n)\) and \( Q \) is minimally generated by vectors \((\vec{t'}, \vec{u}_1, \vec{u}_2, \dots, \vec{u}_n)\).
 \footnote{
-	Is it possible that \( P \) and \( Q \) are generated by an unequal number vectors which would cause this equation to be invalid. 
-	There is a way to make the equation work when this is case and is described in appendix \vref{section:appendix-point-arrays}.
+	It is possible that \( P \) and \( Q \) are minimally generated by an unequal number vectors, which would cause this equation to be invalid. 
+	There is a way to make the equation work when this is case and is described in section \ref{section:appendix-point-arrays}.
 	\label{footnote:unequal-sized-point-arrays}
 }
 Because \( \pam(P) \) and \( \pam(Q) \) are sets of matrices, equation \vref{eq:general-ico-equation} describes a set of equations, whose cardinality is equal to \( \abs{\pam(P)}\cdot\abs{\pam(Q)}\).
@@ -1076,9 +1081,9 @@ Therefore, to find an icosahedral symmetry preserving transition, we must find a
 \footnote{
 	One may notice that by how this equation is setup, the order of the generators matters.
 	This is in constrast to the definition of an lifted point array, where the order doesn't matter.
-	In truth, the permutation of the columns of both \( B_0 \) and \( B_1 \) do not matter (except for the first columns, which must remain first) and so the true number of equations is multiplied by \( n!^2 \).
+	In truth, any permutation of the columns of both \( B_0 \) and \( B_1 \) is allowed (except for the first columns, which must remain first) and so the true number of equations is multiplied by \( n!^2 \).
 	The true number of equations that must be checked for the transition \( P \to Q \) is \( n!^2\cdot\abs{\pam(P)}\cdot\abs{\pam(Q)} \).
-	However, when I actually compute these transitions, I consider the various permutations of the generators as separate cases entirely and thus can forgo talking about permutations when finding transitions.
+	However, when we actually compute these transitions, we consider the various permutations of the generators as separate cases entirely and thus can forgo talking about permutations when finding transitions.
 }
 
 \subsection{CCMV \( D_6 \) Transition Example}
@@ -1154,7 +1159,8 @@ This description of how to solve the problem is the brute force approach.
 While the approach will give us the answer we desire, it may be very slow in finding transitions, especially if \( n \geq 3 \) since the size of the cartesian product grows exponentially with \( n \).
 \footnote{
 	The size of the icosahedral orbit of a 6-dimensional vector could in theory be any factor of 60, however in application they have sizes 12, 20, and 30.
-	If we assume they have all of size 20, then when \( n = 3 \), the size of the cartesian product is \( 20^{2(n+1)} = 25,600,000,000 \) which is completely infeasible for any computer to fully check.
+	If we assume they have all of size 20, then when \( n = 3 \), the size of the cartesian product is \( 20^{2(n+1)} = 25,600,000,000 \).
+	This is infeasible for any computer to fully check in a reasonable amount of time.
 }
 
 Despite this, we can speed up this computation even with this brute force approach through parallelization.
@@ -1252,7 +1258,7 @@ The following theorem will help us determine when an equation cannot be solved.
 \end{proof}
 \end{Theorem}
 \noindent While this is a useful if not somewhat obvious theorem, what is more useful is the theorem's contrapositive.
-\begin{Theorem}[Contrapositive of Theorem \vref{thrm:matrix-equation-solving}]
+\begin{Theorem}[Contrapositive of Matrix Equation Solving]
 	Let \( M \) be an \( n \times n \) matrix with variables.
 	Let \( \vec{a}_1, \vec{a}_2, \dots \vec{a}_k, \vec{b}_1, \vec{b}_2, \dots \vec{b}_k \) be \( n \)-dimensional vectors.
 	If there exists \( i \in \{1, 2, \dots k\} \) such that the equation \[M\vec{a}_i = \vec{b}_i\] cannot be solved,
@@ -1300,28 +1306,28 @@ I used C++ along with the \texttt{Eigen} library for fast linear algebra.
 \todo{I might want to change this sentence}
 We must use guess and check when using C++ since there are little well-documented C++ libraries that can do symbolic mathematics.
 \footnote{
-	At the time I did not know about the \href{https://www.ginac.de/}{GiNaC} framework for C++ and other similar libraries.
+	At the time of coding I did not know about the \href{https://www.ginac.de/}{GiNaC} framework for C++ and other similar libraries.
 	Many of the C++ symbolic do not have the greatest documentation in comparison to the Eigen library, which made it easier to quickly learn and implement and get results.
-	If I had known about it at the time, instead of two programs, there would've been likely only one in C++ using \href{https://www.ginac.de/}{GiNaC}.
+	If I had known about it at the time, instead of two programs, there would've been likely only one program in C++ using \href{https://www.ginac.de/}{GiNaC}.
 }
 The idea is that instead of solving the equation \( TB_0 = B_1 \), we create a set of candidate transition matrices, lets call this set \( \mathcal{T} \).
 Thus if we want to find a transition from point arrays \( P \to Q \) instead of solving equations that are represented by \( \pam(P) \times \pam(Q) \), we look at the set \( \mathcal{T} \times \pam(P) \) and see if the product \( TB_0 \in \pam(Q) \).
 \footnote{
 	While this method allows us to find transitions, it cannot tell us definitively whether a transition does not exist.
 	In order to do so with this method we would have to check if \( TB_0 \in \pam(Q) \) all possible transitions \( T \).
-	But there are an infinite number of transitions \( T \) and so we could not check this computationally.
+	But since there are an infinite number of transitions \( T \) we cannot check this computationally.
 }
-The question is how do we decide what the set \( \mathcal{T} \) looks like.
+The question is how do we decide what matrices to put in the set \( \mathcal{T} \).
 The answer is through entry sampling.
 
 \subsubsection{Entry Sampling}
 The idea for entry sampling is as follows:
-Since we are looking at the matrix equation \( TB_0 = B_1 \), then if \( B_0 \) and \( B_1 \) were invertible, then we could reframe the equation as \( T = B_1B_0^{-1} \).
+Since we are looking at the matrix equation \( TB_0 = B_1 \), if we had that \( B_0 \) and \( B_1 \) were invertible, then we could reframe the equation as \( T = B_1B_0^{-1} \).
 Thus instead of solving for \( T \) we could consider all products of the form \( B_1B_0^{-1} \) and see if they fit any of the general matrix forms given by \( Z(\mathcal{I}), Z(A_4), Z(D_{10}), \text{ or } Z(D_6) \).
 This way of finding transitions by itself is completely ineffective.
 However, because we have \( T = B_1B_0^{-1} \), we notice that the entries of the \( T \) matrix must be a equal to the entries of the product \( B_1B_0^{-1} \).
 If we take a random sample of matrices \( \mathcal{B} \subseteq \pam(P) \times \pam(Q) \), then we can look at the union of all entries that occur in the products \( B_1B_0^{-1} \).
-This would be formulated as \[ \bigcup_{(B_0, B_1) \in \mathcal{B}} \Ent(B_1B_0^{-1}) \] where \( \Ent(M) \) is the set of entries of a matrix \( M \).
+This would be formulated as \[ \Ent(T) \subseteq \bigcup_{(B_0, B_1) \in \mathcal{B}} \Ent(B_1B_0^{-1}) \] where \( \Ent(M) \) is the set of entries of a matrix \( M \).
 This union would be the set of entries that could make up a transition matrix.
 
 Now that we have an idea of what possible values the \( T \) matrix could have, we can now generate the \( \mathcal{T} \) set by taking a cartesian product of the entries.
@@ -1341,7 +1347,7 @@ However, in the cases of \( Z(D_{10}), \text{ and } Z(D_6) \), we can reduce the
 Another way of thinking about this definition is that we are allowing ourselves to set some of the variables to zero.
 Notice that there do not exist any partial transitions for \(\mathcal{I}\) or \(A_4\), since forcing any row to be zero forces the matrix to be the zero matrix.
 \footnote{Recall we require our transition matrices to be invertible.}
-However, in the cases of \(D_{10}\) and \(D_6\), there do exist partial transitions, and they turn out to be useful in finding transitions.
+However, in the cases of \(D_{10}\) and \(D_6\), there do exist partial transitions, and they turn out to be useful in finding which transitions to put in our set \( \mathcal{T} \).
 
 \noindent For \(D_{10}\) we notice the following:
 \[T = \begin{bmatrix}
@@ -1566,7 +1572,7 @@ Therefore instead of checking whether \( T\vec{v} = \vec{u} \) can be solved, we
 	Since \( T \) is a transition from \( P \) to \( Q \), then for each \( \vec{v} \in P \) there exists \( \vec{u} \in Q \) such that \( T\vec{v} = \vec{u} \).
 	Because our transition \( T \) decomposes into two partial transitions \( A \) and \( B \), we have that \( (A+B)\vec{v} = \vec{u} \).
 	Taking the corresponding partial identity matrices \( I_A \) and \( I_B \), we have that \( (A+B)\vec{v} = A\vec{v} + B\vec{v} = I_A\vec{u} + I_B\vec{u} \).
-	We then must have that \( A\vec{v} = I_A\vec{u} \) and \( B\vec{v} = I_B\vec{u} \) because the \( I_A \) and \( I_B \) matrices have the same zero rows as \( A \) and \( B \) by construction.
+	We then must have that \( A\vec{v} = I_A\vec{u} \) and \( B\vec{v} = I_B\vec{u} \) because the \( I_A \) and \( I_B \) matrices have the same zero rows as \( A \) and \( B \) respectively by construction.
 \end{proof}
 
 \subsubsection{Contrapositive}
@@ -1588,7 +1594,7 @@ What is useful is their contrapositives, which will help us eliminate possible t
 	\label{thrm:contrapositive-partial-transition-mapping-condition}
 \end{Theorem}
 Both of these theorems have the same idea in mind, we can say a matrix \( T \) cannot be a transition based upon what it does to a particular vector.
-Furthermore, by using the partial transition decomposition idea, we can elminate whole subsets of candidate transition matrices all at once.
+Furthermore, by using the partial transition decomposition idea, we can determine subsets of candidate transition matrices that cannot be transitions.
 
 Theorem \vref{thrm:contrapositive-norm-condition-for-partial-transitions} allows to determine when a matrix \( T \) cannot be a transition by using the fact that transition matrices must map one point array onto another.
 We could check whether \( T\vec{v} = \vec{u} \) for every combination of \( \vec{v} \in P \) and \( \vec{u} \in Q \) but in order to do this we must check \( \abs{P}\cdot\abs{Q} \) things.
@@ -1603,21 +1609,25 @@ We want to do this last since otherwise we lose the speedup that the previous co
 
 \subsubsection{Parallelization}
 We can easily parallelize this problem.
-Since our approach here is to take a list of potential transition matrices, narrow it down through various conditions, and then attempt to find a \( B_0 \) and \( B_1 \) matrix, we can parallelize at this level.
+Since our approach here is to take a list of potential transition matrices, narrow it down through various conditions, and then attempt to find a \( B_0 \) and \( B_1 \) matrix, we can parallelize when attempting to find a \( B_0 \) and \( B_1 \) matrix.
 The idea is to use task-based parallelism.
 Each task for this program has the following form: ``For a potential transition matrix \( T \), see if there exists a \( B_0 \) and \( B_1 \) matrix such that \( TB_0 = B_1 \)."
 To actually parallelize this in C++ programming language we use the \texttt{OpenMP} API in order to implement task based parallelism.
 Therefore the C++ program has the following structure in order to find transitions from \( P \to Q \):
 \begin{enumerate}
 	\item Generate a list potential transition matrices called \( C \).
-	\item Create task for each matrix in \( C \).
-	\item Process all tasks. Each task will essentially be answering a yes/no question (Is \( T \) a transition matrix for \( P \to Q \)?).
-	\item Collect all data from tasks.
+	\item Create task for each \( T \) matrix in \( C \). Each task will essentially be answering a yes/no question (Is \( T \) a transition matrix for \( P \to Q \)?).
+	\item Process all tasks. 
+	\item Collect all data from tasks and output for which \( T \) matrices (if any) we were able to find a \( B_0 \) and \( B_1 \) matrix.
 \end{enumerate}
-\todo[inline]{Add part about with C++ approach wasn't the greatest...}
+The C++ program allowed us to get a basic understanding of the problem and generate some transitions between real point arrays.
+However, this program is not entirely optimal.
+The primary issue is that this program cannot say for certain whether no transition exists or if we simply haven't found a transition yet.
+Additionally, it still is slow in many cases despite all of the speed ups gaining from our conditions and parallelization.
+These issues will be largely fixed by our program in Python.
 \subsection{Python Program}
 The next programming approach is to actually solve the matrix equations.
-For this we use the Python programming along with the \texttt{sympy} library, a symbolic mathematics library for Python.
+For this we use the Python programming language along with the \texttt{sympy} library, a symbolic mathematics library for Python.
 This program aims to solve the linear matrix equations in an efficient way that the C++ program couldn't do.
 The primary idea is that now that we can solve equations and determine if no solution exists, we can reduce the number of equations we need to check.
 
@@ -1689,13 +1699,14 @@ Let us make a definition for these new sets we've constructed.
 \begin{Definition}[Icosahedral Vector Pair Set]
 	Let \(\mathcal{G} = \mathcal{I}, A_4, D_{10}, \text{or } D_6\) and \( T \) be the general form of \( Z(\mathcal{G}) \).
 	Then the \emph{icosahedral vector pair set} for vectors \( \vec{v} \) and \( \vec{u} \) is defined as
-	\[V(\vec{v}, \vec{u}) = \{(\vec{v'}, \vec{u'}) \in \mathcal{I}\vec{v} \times \mathcal{I}\vec{u} \ |\ T\vec{v'} = \vec{u'} \text{ has a solution.}\}\]
+	\[V(\vec{v}, \vec{u}) := \{(\vec{v'}, \vec{u'}) \in \mathcal{I}\vec{v} \times \mathcal{I}\vec{u} \ |\ T\vec{v'} = \vec{u'} \text{ has a solution.}\}\]
 \end{Definition}
-With this structure in mind, we can define how the Python program find transitions.
+With this structure in mind, we can describe how the Python program finds transitions.
 Let \( P \) and \( Q \) be point arrays where  \( P \) is minimally generated by \((\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n)\) and \( Q \) is minimally generated by vectors \((\vec{t'}, \vec{u}_1, \vec{u}_2, \dots, \vec{u}_n)\).
 Let \( T \) be general form for whichever symmetry we wish to preserve.
 First, create all of the vector pair sets \( V(\vec{t}, \vec{t'}), V(\vec{v}_1, \vec{u}_1), \dots, V(\vec{v}_n, \vec{u}_n)\).
-Now we want to search through \( V(\vec{t}, \vec{t'}) \times V(\vec{v}_1, \vec{u}_1) \times \dots \times V(\vec{v}_n, \vec{u}_n) \), since this cartesian product can be mapped onto all possible point array matrices for \( P \) and \( Q \) that can have a solution.
+Now we want to search through the cartesian product \( V(\vec{t}, \vec{t'}) \times V(\vec{v}_1, \vec{u}_1) \times \dots \times V(\vec{v}_n, \vec{u}_n) \). 
+This cartesian product can be mapped onto all possible point array matrices for \( P \) and \( Q \) that can have a solution.
 \footnote{
 	Since by construction of the icosahedral vector pair sets, we eliminate all possible pairs of point array matrices for which theorem \vref{thrm:contrapositive-matrix-equation-solving} applies.
 }
@@ -1722,6 +1733,10 @@ This means we might not actually map onto a true point array matrix (recall the 
 Therefore when generating all point array matrices for \( P \) and \( Q \) that might have a solution, we also need to check for linear independence.
 Beyond checking for linear indepence, the last thing we need to check is that whether there is a shared solution by all the vector pairs.
 By construction of the icosahedral vector pair sets we are guaranteed that each column can be mapped to its corresponding column with a \( T \) matrix, but it is not guaranteed that there exists a shared \( T \) matrix that can map every column to its corresponding column.
+\footnote{
+	See theorem \vref{thrm:matrix-equation-solving} and footnote \vref{footnote:counterexample-to-converse-matrix-solving}.
+	\label{footnote:see-matrix-equation-solving-counterexample}
+}
 Thus as a last step we need to check whether the equation
 \begin{equation}
 	T
@@ -1779,14 +1794,14 @@ that can be solved, then in order to add one vector we need to figure out if the
 	\end{bmatrix}
 \end{equation*}
 can be solved.
-When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v}_{n+1} \) and \( \vec{u}_{n+1} \) if the equation \( T\vec{v}_{n+1} = \vec{u}_{n+1}\) can be solved because of theorem \vref{thrm:contrapositive-matrix-equation-solving}.
+When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v}_{n+1} \) and \( \vec{u}_{n+1} \) if the equation \( T\vec{v}_{n+1} = \vec{u}_{n+1}\) can be solved because of the Matrix Equation Solving Theorem (theorem \ref{thrm:matrix-equation-solving}).
 However, even if this equation can be solved, adding the vector might not work.
 \footnote{
-	See theorem \vref{thrm:matrix-equation-solving} and footnote \vref{footnote:counterexample-to-converse-matrix-solving}.
+	See footnote \ref{footnote:see-matrix-equation-solving-counterexample}.
 }
 Figure \vref{fig:depth-first-search-complicated} gives us a visual idea of how this idea of depth first search is used within the program to build up the \( B_0 \) and \( B_1 \) matrices.
 We want to traverse this tree in the most efficient way possible.
-In order to do so, we don't try every possible path and instead only continue down the tree if the equation can be solved with the smaller \( B_0 \) and \( B_1 \) matrices.
+In order to do so, we don't try every possible path and instead only continue down the tree if the equation can be solved with the smaller \( B_0 \) and \( B_1 \) matrices (this is the ``pruning" part of depth first search with pruning).
 If adding on a vector to the \( B_0 \) and \( B_1 \) matrices fails, we backtrack up the tree and try a different path.
 If we exhaust all possibilities within this search tree and do not find any \( B_0 \) and \( B_1 \) matrices, then we have shown there does not exist a transition between these point arrays.
 %\begin{figure}[h]
@@ -1833,36 +1848,15 @@ If we exhaust all possibilities within this search tree and do not find any \( B
 		\arrow[from=6-2, to=6-3]
 		\arrow[from=6-2, to=7-3]
 	\end{tikzcd}\]
-	\caption{Diagram showing how the idea of a depth first search in this context.}
+	\caption{Diagram showing the idea of a depth first search for finding a transition matrix and its point array matrices.}
 	\label{fig:depth-first-search-complicated}
 \end{figure}
-
-%\todo[inline]{Decide between figure \ref{fig:depth-first-search} and figure \ref{fig:depth-first-search-complicated}.}
 
 \subsubsection{Parallelization}
 Parallelizing the depth first approach in Python takes more thought than in the C++ approach.
 What we can do for this approach is to split up the depth first search tree as shown in figure \vref{fig:depth-first-search-complicated-parallelization}.
 Because our goal is to search the entire tree, we split up the tree at the first level.
-Therefore in our example we would split into two trees as shown in figure
-%\begin{figure}[h]
-%	\centering
-%	\captionsetup{width=0.6\textwidth}
-%% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXHRleHR7UHJvY2VzcyAxfSJdLFsxLDIsIlRcXGNkb3RcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dH1cXGVuZHtibWF0cml4fSA9IFxcYmVnaW57Ym1hdHJpeH1cXHZlY3t0J31cXGVuZHtibWF0cml4fSJdLFsxLDAsIlRcXGNkb3RcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dF8wfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnXzB9XFxlbmR7Ym1hdHJpeH0iXSxbMSwzLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3R9ICYgXFx2ZWN7dl8xfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnfSAmIFxcdmVje3VfMX1cXGVuZHtibWF0cml4fSJdLFsyLDMsIlRcXGNkb3RcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dH0gJiBcXHZlY3t2XzEnfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnfSAmIFxcdmVje3VfMSd9XFxlbmR7Ym1hdHJpeH0iXSxbMSwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3RfMH0gJiBcXHZlY3t2XzF9XFxlbmR7Ym1hdHJpeH0gPSBcXGJlZ2lue2JtYXRyaXh9XFx2ZWN7dCdfMH0gJiBcXHZlY3t1XzF9XFxlbmR7Ym1hdHJpeH0iXSxbMiwxLCJUXFxjZG90XFxiZWdpbntibWF0cml4fVxcdmVje3RfMH0gJiBcXHZlY3t2XzEnfVxcZW5ke2JtYXRyaXh9ID0gXFxiZWdpbntibWF0cml4fVxcdmVje3QnXzB9ICYgXFx2ZWN7dV8xJ31cXGVuZHtibWF0cml4fSJdLFswLDIsIlxcdGV4dHtQcm9jZXNzIDJ9Il0sWzEsM10sWzEsNF0sWzIsNV0sWzIsNl0sWzAsMl0sWzcsMV1d
-%\(\begin{tikzcd}[cramped]
-%	{\text{Process 1}} & {T\cdot\left[\vec{t}_0\right] = \left[\vec{t}_0'\right]} \\
-%	& {T\cdot\left[\vec{t}_0 \quad \vec{v}_1\right] = \left[\vec{t}_0' \quad \vec{u}_1\right]} & {T\cdot\left[\vec{t}_0 \quad \vec{v}_1'\right] = \left[\vec{t}_0' \quad \vec{u}_1'\right]} \\
-%	{\text{Process 2}} & {T\cdot\left[\vec{t}\right] = \left[\vec{t'}\right]} \\
-%	& {T\cdot\left[\vec{t} \quad \vec{v}_1\right] = \left[\vec{t'} \quad \vec{u}_1\right]} & {T\cdot\left[\vec{t} \quad \vec{v}_1'\right] = \left[\vec{t'} \quad \vec{u}_1'\right]}
-%	\arrow[from=3-2, to=4-2]
-%	\arrow[from=3-2, to=4-3]
-%	\arrow[from=1-2, to=2-2]
-%	\arrow[from=1-2, to=2-3]
-%	\arrow[from=1-1, to=1-2]
-%	\arrow[from=3-1, to=3-2]
-%\end{tikzcd}\)
-%\caption{The above shows a visualization of how the tree in figure \vref{fig:depth-first-search} is parallelized.}
-%\label{fig:depth-first-search-parallelization}
-%\end{figure}
+Therefore in our example we would split into multiple trees as shown in figure \ref{fig:depth-first-search-complicated-parallelization}.
 \begin{figure}
 	\centering
 	% https://q.uiver.app/#q=WzAsMTMsWzEsNSwiVFxcY2RvdFxcbGVmdFtHX25cXHZlY3t0fVxccmlnaHRdID0gXFxsZWZ0W0hfblxcdmVje3QnfVxccmlnaHRdIl0sWzEsMSwiVFxcY2RvdFxcbGVmdFtHXzBcXHZlY3t0fVxccmlnaHRdID0gXFxiZWdpbntibWF0cml4fUhfMFxcdmVje3QnfVxcZW5ke2JtYXRyaXh9Il0sWzIsNCwiVFxcY2RvdFxcbGVmdFtHX25cXHZlY3t0fSBcXHF1YWQgR18wJ1xcdmVje3Z9XFxyaWdodF0gPSBcXGxlZnRbSF9uXFx2ZWN7dCd9IFxccXVhZCBIXzAnXFx2ZWN7dX1cXHJpZ2h0XSJdLFsyLDIsIlRcXGNkb3RcXGxlZnRbR18wXFx2ZWN7dH0gXFxxdWFkIEdfbSdcXHZlY3t2fVxccmlnaHRdID0gXFxsZWZ0W0hfMFxcdmVje3QnfSBcXHF1YWQgSF9tJ1xcdmVje3V9XFxyaWdodF0iXSxbMiwwLCJUXFxjZG90XFxsZWZ0W0dfMFxcdmVje3R9IFxccXVhZCBHXzAnXFx2ZWN7dn1cXHJpZ2h0XSA9IFxcbGVmdFtIXzBcXHZlY3t0J30gXFxxdWFkIEhfMCdcXHZlY3t1fVxccmlnaHRdIl0sWzEsMywiXFx2ZG90cyJdLFsyLDEsIlxcdmRvdHMiXSxbMiw1LCJcXHZkb3RzIl0sWzIsNiwiVFxcY2RvdFxcbGVmdFtHX25cXHZlY3t0fSBcXHF1YWQgR19tJ1xcdmVje3ZfMX1cXHJpZ2h0XSA9IFxcbGVmdFtIX25cXHZlY3t0J30gXFxxdWFkIEhfbSdcXHZlY3t1fVxccmlnaHRdIl0sWzAsMSwiXFx0ZXh0e1Byb2Nlc3MgMH0iXSxbMCw1LCJcXHRleHR7UHJvY2VzcyB9IG4iXSxbMCwzLCJcXHZkb3RzIl0sWzIsMywiXFx2ZG90cyJdLFswLDJdLFsxLDNdLFsxLDRdLFsxLDZdLFswLDddLFswLDhdLFs5LDFdLFsxMCwwXSxbMTEsNV1d
@@ -1890,11 +1884,12 @@ Therefore in our example we would split into two trees as shown in figure
 %\todo[inline]{Decide between figure \ref{fig:depth-first-search-parallelization} and figure \ref{fig:depth-first-search-complicated-parallelization}...}
 In general, we split at the first level, which means we split based on upon the number of elements in the icosahedral vector pair set \( V(\vec{t}, \vec{t'}) \).
 To implement this form of parallelism, we use the \texttt{multiprocessing} library within Python.
-In fact this parallelism is still task based parallelism, with the task being checking a given decision to see if there exists \( B_0 \) and \( B_1 \) matrices such that the equation \( TB_0 = B_1 \) can be solved for \( T \).
+In fact this parallelism is still task based parallelism, with the task being checking a given depth first search tree to see if there exists \( B_0 \) and \( B_1 \) matrices such that the equation \( TB_0 = B_1 \) can be solved for \( T \).
 
 \section{Results}
 These computational methods have allowed us to find transitions between point arrays that characterize real viruses.
 An important result we had found early in this process is that we were able to reproduce the same four \( D_6 \) transition matrices for the CCMV virus given in \cite{indelicatoetal2012}.
+\todo{Say which viruses we also looked at}
 We also attempted to find transitions between viruses with larger point arrays than CCMV.
 In most cases, it is impossible to find a transition between the native and mature point arrays of viruses with large point arrays.
 However, what can do is instead see if there exists a transition between the outer layer of these point arrays.
@@ -1934,7 +1929,7 @@ While in theory there would be \( 55^2 = 3,025 \) two-base point arrays, in real
 Notice how the one-base point arrays can be categorized into three categories, based on if the share a translation vector, shown in table \ref{table:one-base-grouping}.
 \begin{table}[h]
 	\centering
-	\captionsetup{width=0.55\textwidth}
+	\captionsetup{width=0.40\textwidth}
 	\(\begin{array}{c|c|c}
 		\thead{\text{Translation} \\ \text{Vector}} & \text{Point Arrays} & \thead{\text{Total} \\ \text{Number}} \\
 		\hline
