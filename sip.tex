@@ -239,24 +239,23 @@ Here we define the icosahedral group, which represents the 2-fold, 3-fold, and 5
 \end{Definition}
 \noindent We realize the icosahedral group as a \( 6 \times 6 \) matrix group.
 The generator \( a \) represents the 2-fold symmetry, the generator \( b \) represents the 3-fold symmetry, and the product \( ab \) represents the 5-fold symmetry.
-\begin{Definition}[Generators of the Icosahedral Group]
-	A 6D representation of the generators for \(\mathcal{I}\) are given by the matrices:
-	\[a = \begin{bmatrix}
-		-1 & 0  & 0 & 0 & 0 & 0 \\
-		0  & -1 & 0 & 0 & 0 & 0 \\
-		0  & 0  & 0 & 0 & 1 & 0 \\
-		0  & 0  & 0 & 0 & 0 & 1 \\
-		0  & 0  & 1 & 0 & 0 & 0 \\
-		0  & 0  & 0 & 1 & 0 & 0
-	\end{bmatrix} \quad b = \begin{bmatrix}
-		0 & -1 & 0  & 0 & 0 & 0 \\
-		0 & 0  & -1 & 0 & 0 & 0 \\
-		1 & 0  & 0  & 0 & 0 & 0 \\
-		0 & 0  & 0  & 0 & 0 & 1 \\
-		0 & 0  & 0  & 1 & 0 & 0 \\
-		0 & 0  & 0  & 0 & 1 & 0
-	\end{bmatrix}.\]
-\end{Definition}
+A 6D representation of the generators for \(\mathcal{I}\) are given by the matrices:
+\[a = \begin{bmatrix}
+	-1 & 0  & 0 & 0 & 0 & 0 \\
+	0  & -1 & 0 & 0 & 0 & 0 \\
+	0  & 0  & 0 & 0 & 1 & 0 \\
+	0  & 0  & 0 & 0 & 0 & 1 \\
+	0  & 0  & 1 & 0 & 0 & 0 \\
+	0  & 0  & 0 & 1 & 0 & 0
+\end{bmatrix} \quad b = \begin{bmatrix}
+	0 & -1 & 0  & 0 & 0 & 0 \\
+	0 & 0  & -1 & 0 & 0 & 0 \\
+	1 & 0  & 0  & 0 & 0 & 0 \\
+	0 & 0  & 0  & 0 & 0 & 1 \\
+	0 & 0  & 0  & 1 & 0 & 0 \\
+	0 & 0  & 0  & 0 & 1 & 0
+\end{bmatrix}.\]
+We will be using this representation for the purpose of constructing point arrays.
 
 The icosahedral group has 3 maxmial subgroups, which we call \( A_4 \), \( D_{10} \), and \( D_6 \).
 These maximal subgroups represent the symmetries of the tetrahedron, pentagonal prism, and triangular prism respectively.
@@ -399,6 +398,7 @@ Therefore we have many ways of talking about the same point array.
 	Therefore \( \text{LHS} \supseteq \text{RHS} \).
 	We get equality by double inclusion.
 }
+\todo{change all instances of ``generating tuple" to ``generating list"}
 \begin{Definition}[Minimal Generating Tuple]
 	A tuple of six dimensional vectors $ (\vec{t}, \vec{v}_1, \vec{v}_2, ... , \vec{v}_{n})$ is a \emph{minimal generating tuple}  and the union 
 	\[
@@ -900,7 +900,9 @@ These series of computations tell us what the lattice groups are:
 	\end{bmatrix}
 	\right\}
 \end{gather*}
-Notice that the lattice groups for the rectangular and centered rectangular lattices are different!
+\todo{convince self that these lattice groups aren't \( \Gl(2, \Z) \) conjugate.}
+Notice that the lattice groups for the rectangular and centered rectangular lattices are not \( \Gl(2, \Z) \) conjugate!
+Because these lattice groups are not \( \Gl(2, \Z) \) conjugate, their structure is fundamentally different.
 So by using lattice groups, we can clearly distinguish between different lattices.
 
 \begin{Remark}
@@ -908,7 +910,6 @@ So by using lattice groups, we can clearly distinguish between different lattice
 	The lattice groups associated to bases of the same lattice may be different but they are always $\Gl(n,\mathbb{Z})$ conjugate. This is because if $B$, $B'$ are basis matrices of the same lattice then there is an invertible integer matrix $N$ such that 
 	\[BN = B'.\]
 \end{Remark}
-\todo[inline]{Should I create example ``point arrays" in 2D? It may not be necessary but this is the place to put them...}
 Now that we understand the nature of these 2-dimensional lattices and their related structures, we can define the 6-dimensional icosahedral lattices relevant to our point arrays.
 We want the lattices in which our point arrays sit in to be invariant under the icosahedral group \( \mathcal{I} \).
 There are three 6-dimensional icosahedral lattices that are relevant to us:
@@ -950,7 +951,7 @@ The following definition gives us a description of a transformation that does th
 			B\colon [0, 1] \to \Gl(n, \R) \\
 			\sigma \mapsto B_\sigma
 		\end{gather*}
-		\todo[color=red]{What to do about this? We no longer require $B_0$ and $B_1$ to be basis matrices...}
+		\todo[color=red]{What to do about this? We no longer require $B_0$ and $B_1$ to be basis matrices... \\ They are \emph{different} matrices from the point array matrices; just give them a different name throughout this definition.}
 		such that \( B_0 \) is a basis matrix of \( \mathcal{L}_0 \), \( B_1 \) is a basis matrix of \( \mathcal{L}_1 \), and letting
 		\[\mathcal{G} := B_0^{-1}\mathcal{G}_0B_0 \subset \Lambda(B_0)\]
 		we have
@@ -1035,9 +1036,10 @@ For transition matrices, we will only need to work with the following definition
 	}
 	that is also an element of \( Z(\mathcal{G}) \).
 \end{Definition}
-\todo[color=red]{Does the Indelicato transition automatically give us that the $T$ matrix must be invertible?}
-\todo{Is there more intuition behind this?}
 \noindent Additionally while definition \ref{def:transitions-indelicato} requires us to find a continuous map from 0 to 1, we actually only need to find the final transition \( T \) in the transition path.
+\footnote{
+	The transition path describes a straight line, so if we have the final transition matrix we can simply create a continuous linear map from the identity matrix to \( T \).
+}
 By simplifying our definitions, it will give us a strong start in finding and computing transitions between point arrays.
 
 \subsection{How To Find Transitions}
@@ -1616,9 +1618,9 @@ To actually parallelize this in C++ programming language we use the \texttt{Open
 Therefore the C++ program has the following structure in order to find transitions from \( P \to Q \):
 \begin{enumerate}
 	\item Generate a list potential transition matrices called \( C \).
-	\item Create task for each \( T \) matrix in \( C \). Each task will essentially be answering a yes/no question (Is \( T \) a transition matrix for \( P \to Q \)?).
+	\item Create task for each \( T \) matrix in \( C \). Each task will be answering the yes/no question: Is \( T \) a transition matrix for \( P \to Q \)?
 	\item Process all tasks. 
-	\item Collect all data from tasks and output for which \( T \) matrices (if any) we were able to find a \( B_0 \) and \( B_1 \) matrix.
+	\item Collect all data from tasks and output which \( T \) matrices (if any) are transitions for \( P \to Q \).
 \end{enumerate}
 The C++ program allowed us to get a basic understanding of the problem and generate some transitions between real point arrays.
 However, this program is not entirely optimal.
