@@ -18,7 +18,7 @@
 \usepackage{tablefootnote}
 \usepackage{makecell}
 % eventually make left/right margins equal
-\usepackage[top=0.6in,bottom=0.6in,left=0.1in,right=0.9in]{geometry}
+\usepackage[top=1in,bottom=1in,left=1.5in,right=1in]{geometry}
 \usepackage{dsfont}
 
 
@@ -561,7 +561,7 @@ Let us consider three 2-dimensional examples that will be relevant to understand
 	\centering
 	\captionsetup{width=0.8\textwidth}
 	% square lattice
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.32\textwidth}
 		\centering
 		\begin{adjustbox}{width=0.9\textwidth}
 		\begin{tikzpicture}
@@ -579,7 +579,7 @@ Let us consider three 2-dimensional examples that will be relevant to understand
 		\caption{Square Lattice}
 	\end{subfigure}
 	% rectangular lattice
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.32\textwidth}
 		\centering
 		\begin{adjustbox}{width=0.9\textwidth}
 			\begin{tikzpicture}
@@ -597,7 +597,7 @@ Let us consider three 2-dimensional examples that will be relevant to understand
 		\caption{Rectangular Lattice}
 	\end{subfigure}
 	% centered rectangular lattice
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.32\textwidth}
 		\centering
 		\begin{adjustbox}{width=0.9\textwidth}
 			\begin{tikzpicture}
@@ -691,176 +691,182 @@ In order to compute the lattice group, we first need the basis matrix for both l
 \end{gather*}
 Now in order to compute the lattice groups \( \Lambda(R) \) and \( \Lambda(CR) \), we will solve the equations \( B_RN = MB_R \) and \mbox{\( B_{CR}N = MB_{CR} \)} for \( N \) for each \( M \) in the point group.
 % showing computations in order to get lattice group
-\[\begin{array}{c|c}
-	\Lambda(R) & \Lambda(CR)\\
-	\hline
-	\\
-	% row 1
-	\begin{bmatrix}
-		4 & 0 \\
-		0 & 2
-	\end{bmatrix}
-	\cdot N
-	=
-	\begin{bmatrix}
-		1 & 0 \\
-		0 & 1
-	\end{bmatrix}
-	\begin{bmatrix}
-		4 & 0 \\
-		0 & 2
-	\end{bmatrix}
-	\implies N = 
-	\begin{bmatrix}
-		1 & 0 \\
-		0 & 1
-	\end{bmatrix}
-	&
-	 \begin{bmatrix}
-	 	2 & 0 \\
-	 	1 & 2
-	 \end{bmatrix}
-	 \cdot N
-	 =
-	 \begin{bmatrix}
-	 	1 & 0 \\
-	 	0 & 1
-	 \end{bmatrix}
-	  \begin{bmatrix}
-	 	2 & 0 \\
-	 	1 & 2
-	 \end{bmatrix}
-	 \implies N = 
-	 \begin{bmatrix}
-	 	1 & 0 \\
-	 	0 & 1
-	 \end{bmatrix}
-	\\\\
-	% row 2
-	\begin{bmatrix}
-		4 & 0 \\
-		0 & 2
-	\end{bmatrix}
-	\cdot N
-	=
-	\begin{bmatrix}
-		-1 & 0 \\
-		0 & -1
-	\end{bmatrix}
-	\begin{bmatrix}
-		4 & 0 \\
-		0 & 2
-	\end{bmatrix}
-	\implies N = 
-	\begin{bmatrix}
-		-1 & 0 \\
-		0 & -1
-	\end{bmatrix}
-	&
-	\begin{bmatrix}
-		2 & 0 \\
-		1 & 2
-	\end{bmatrix}
-	\cdot N
-	=
-	\begin{bmatrix}
-		-1 & 0 \\
-		0 & -1
-	\end{bmatrix}
-	\begin{bmatrix}
-		2 & 0 \\
-		1 & 2
-	\end{bmatrix}
-	\implies N = 
-	\begin{bmatrix}
-		-1 & 0 \\
-		0 & -1
-	\end{bmatrix}
-	\\\\
-	% row 3
-	\begin{bmatrix}
-		4 & 0 \\
-		0 & 2
-	\end{bmatrix}
-	\cdot N
-	=
-	\begin{bmatrix}
-		-1 & 0 \\
-		0 & 1
-	\end{bmatrix}
-	\begin{bmatrix}
-		4 & 0 \\
-		0 & 2
-	\end{bmatrix}
-	\implies N = 
-	\begin{bmatrix}
-		-1 & 0 \\
-		0 & 1
-	\end{bmatrix}
-	&
-	\begin{bmatrix}
-		2 & 0 \\
-		1 & 2
-	\end{bmatrix}
-	\cdot N
-	=
-	\begin{bmatrix}
-		-1 & 0 \\
-		0 & 1
-	\end{bmatrix}
-	\begin{bmatrix}
-		2 & 0 \\
-		1 & 2
-	\end{bmatrix}
-	\implies N = 
-	\begin{bmatrix}
-		-1 & 0 \\
-		1 & 1 
-	\end{bmatrix}
-	\\\\
-	% row 4
-	\begin{bmatrix}
-		4 & 0 \\
-		0 & 2
-	\end{bmatrix}
-	\cdot N
-	=
-	\begin{bmatrix}
-		1 & 0 \\
-		0 & -1
-	\end{bmatrix}
-	\begin{bmatrix}
-		4 & 0 \\
-		0 & 2
-	\end{bmatrix}
-	\implies N = 
-	\begin{bmatrix}
-		1 & 0 \\
-		0 & -1
-	\end{bmatrix}
-	&
-	\begin{bmatrix}
-		2 & 0 \\
-		1 & 2
-	\end{bmatrix}
-	\cdot N
-	=
-	\begin{bmatrix}
-		1 & 0 \\
-		0 & -1
-	\end{bmatrix}
-	\begin{bmatrix}
-		2 & 0 \\
-		1 & 2
-	\end{bmatrix}
-	\implies N = 
-	\begin{bmatrix}
-		1 & 0 \\
-		-1 & -1 
-	\end{bmatrix}
-	\\
-\end{array}\]
-These series of computations tell us what the lattice groups are:
+\begin{table*}[h]
+	\centering
+	\begin{adjustbox}{width=\textwidth}	
+		\(\begin{array}{c|c}
+			\Lambda(R) & \Lambda(CR)\\
+			\hline
+			\\
+			% row 1
+			\begin{bmatrix}
+				4 & 0 \\
+				0 & 2
+			\end{bmatrix}
+			\cdot N
+			=
+			\begin{bmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}
+			\begin{bmatrix}
+				4 & 0 \\
+				0 & 2
+			\end{bmatrix}
+			\implies N = 
+			\begin{bmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}
+			&
+			\begin{bmatrix}
+				2 & 0 \\
+				1 & 2
+			\end{bmatrix}
+			\cdot N
+			=
+			\begin{bmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}
+			\begin{bmatrix}
+				2 & 0 \\
+				1 & 2
+			\end{bmatrix}
+			\implies N = 
+			\begin{bmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}
+			\\\\
+			% row 2
+			\begin{bmatrix}
+				4 & 0 \\
+				0 & 2
+			\end{bmatrix}
+			\cdot N
+			=
+			\begin{bmatrix}
+				-1 & 0 \\
+				0 & -1
+			\end{bmatrix}
+			\begin{bmatrix}
+				4 & 0 \\
+				0 & 2
+			\end{bmatrix}
+			\implies N = 
+			\begin{bmatrix}
+				-1 & 0 \\
+				0 & -1
+			\end{bmatrix}
+			&
+			\begin{bmatrix}
+				2 & 0 \\
+				1 & 2
+			\end{bmatrix}
+			\cdot N
+			=
+			\begin{bmatrix}
+				-1 & 0 \\
+				0 & -1
+			\end{bmatrix}
+			\begin{bmatrix}
+				2 & 0 \\
+				1 & 2
+			\end{bmatrix}
+			\implies N = 
+			\begin{bmatrix}
+				-1 & 0 \\
+				0 & -1
+			\end{bmatrix}
+			\\\\
+			% row 3
+			\begin{bmatrix}
+				4 & 0 \\
+				0 & 2
+			\end{bmatrix}
+			\cdot N
+			=
+			\begin{bmatrix}
+				-1 & 0 \\
+				0 & 1
+			\end{bmatrix}
+			\begin{bmatrix}
+				4 & 0 \\
+				0 & 2
+			\end{bmatrix}
+			\implies N = 
+			\begin{bmatrix}
+				-1 & 0 \\
+				0 & 1
+			\end{bmatrix}
+			&
+			\begin{bmatrix}
+				2 & 0 \\
+				1 & 2
+			\end{bmatrix}
+			\cdot N
+			=
+			\begin{bmatrix}
+				-1 & 0 \\
+				0 & 1
+			\end{bmatrix}
+			\begin{bmatrix}
+				2 & 0 \\
+				1 & 2
+			\end{bmatrix}
+			\implies N = 
+			\begin{bmatrix}
+				-1 & 0 \\
+				1 & 1 
+			\end{bmatrix}
+			\\\\
+			% row 4
+			\begin{bmatrix}
+				4 & 0 \\
+				0 & 2
+			\end{bmatrix}
+			\cdot N
+			=
+			\begin{bmatrix}
+				1 & 0 \\
+				0 & -1
+			\end{bmatrix}
+			\begin{bmatrix}
+				4 & 0 \\
+				0 & 2
+			\end{bmatrix}
+			\implies N = 
+			\begin{bmatrix}
+				1 & 0 \\
+				0 & -1
+			\end{bmatrix}
+			&
+			\begin{bmatrix}
+				2 & 0 \\
+				1 & 2
+			\end{bmatrix}
+			\cdot N
+			=
+			\begin{bmatrix}
+				1 & 0 \\
+				0 & -1
+			\end{bmatrix}
+			\begin{bmatrix}
+				2 & 0 \\
+				1 & 2
+			\end{bmatrix}
+			\implies N = 
+			\begin{bmatrix}
+				1 & 0 \\
+				-1 & -1 
+			\end{bmatrix}
+			\\
+		\end{array}\)
+	\end{adjustbox}
+\end{table*}
+
+\noindent These series of computations tell us what the lattice groups are:
 % listing the lattice groups for R and CR
 \begin{gather*}
 	\Lambda(R) = \left\{
@@ -990,7 +996,7 @@ A transition \(T\) that preserves all of icosahedral symmetry must have the form
 Any matrix of the form given in the above equation is in \(Z(\mathcal{I})\), the centralizer of \(\mathcal{I}\), and thus mathematically describes a transition that preserves icosahedral symmetry.
 Now we can look at the maximal subgroups of \( \mathcal{I} \).
 Below are the general matrix forms for \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\). \cite{indelicatoetal2012}
-\begin{align*}
+\begin{gather*}
 	\begin{bmatrix}
 		z  & -x & -y & -t & t  & -x \\
 		t  & z  & t  & x  & x  & y  \\
@@ -998,7 +1004,8 @@ Below are the general matrix forms for \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\)
 		x  & -t & -x & z  & y  & t  \\
 		-x & -t & x  & y  & z  & t  \\
 		t  & y  & t  & -x & -x & z
-	\end{bmatrix} \in Z(A_4) \\
+	\end{bmatrix} \in Z(A_4)
+	\quad \quad
 	\begin{bmatrix}
 		z & x & y & y & x & t \\
 		x & z & x & y & y & t \\
@@ -1015,7 +1022,7 @@ Below are the general matrix forms for \(Z(A_4)\), \(Z(D_{10})\), and \(Z(D_6)\)
 		s  & x  & -w & w  & u  & s  \\
 		s  & w  & -x & w  & s  & u
 	\end{bmatrix} \in Z(D_{6})
-\end{align*}
+\end{gather*}
 These general matrix forms give us linear transformations that preserve the symmetry of one of the maximal subgroups.
 Notice that with particular choices of variables, all three of these general forms can be equal to general form for icosahedral symmetry.
 \footnote{
@@ -1229,17 +1236,19 @@ The following theorem will help us determine when an equation cannot be solved.
 	\end{equation*}
 	Doing the matrix multiplication gives us the following equation:
 	\begin{equation*}
-		\begin{bmatrix}
-			m_{11}a_{11} + \dots + m_{1n}a_{1n} & m_{11}a_{21} + \dots + m_{1n}a_{2n} & \dots & m_{11}a_{k1} + \dots m_{1n}a_{kn}\\
-			\vdots & \vdots & \vdots & \vdots\\
-			m_{n1}a_{11} + \dots + m_{nn}a_{1n} & m_{n1}a_{21} + \dots + m_{nn}a_{2n} & \dots & m_{n1}a_{k1} + \dots + m_{nn}a_{kn}
-		\end{bmatrix}
-		=
-		\begin{bmatrix}
-			b_{11} & b_{21} & \dots & b_{k1}\\
-			\vdots & \vdots & \vdots & \vdots\\
-			b_{1n} & b_{2n} & \dots & b_{kn}
-		\end{bmatrix}.
+		\resizebox{\columnwidth}{!}{$
+			\begin{bmatrix}
+				m_{11}a_{11} + \dots + m_{1n}a_{1n} & m_{11}a_{21} + \dots + m_{1n}a_{2n} & \dots & m_{11}a_{k1} + \dots m_{1n}a_{kn}\\
+				\vdots & \vdots & \vdots & \vdots\\
+				m_{n1}a_{11} + \dots + m_{nn}a_{1n} & m_{n1}a_{21} + \dots + m_{nn}a_{2n} & \dots & m_{n1}a_{k1} + \dots + m_{nn}a_{kn}
+			\end{bmatrix}
+			=
+			\begin{bmatrix}
+				b_{11} & b_{21} & \dots & b_{k1}\\
+				\vdots & \vdots & \vdots & \vdots\\
+				b_{1n} & b_{2n} & \dots & b_{kn}
+			\end{bmatrix}.$
+		}
 	\end{equation*}
 	Since we know that this equation has a solution, then for any \( i \in \{1, 2, \dots, k\} \) the equation
 	\begin{equation*}
@@ -1428,7 +1437,7 @@ With this idea in mind, we can create a couple of useful theorems that use parti
 \end{proof}
 In order to state the next theorem, we need to understand how the partial transitions work with vector multiplication.
 Let us use the \( D_6 \) partial transition as an example.
-Suppose \( T \in Z(D_6) \) such that \( T\vec{v} = \vec{u} \).
+Suppose \mbox{\( T \in Z(D_6) \)} such that \( T\vec{v} = \vec{u} \).
 Then we have that 
 \begin{equation*}
 	\begin{bmatrix}
@@ -1459,7 +1468,7 @@ Then we have that
 	\end{bmatrix}
 \end{equation*}
 If we use the partial transition decomposition then the previous equation turns into
-\begin{equation}
+\begin{equation*}
 	\left( 
 	\begin{bmatrix}
 		u  & w  & -w & x  & s  & s  \\
@@ -1497,9 +1506,9 @@ If we use the partial transition decomposition then the previous equation turns 
 		u_5 \\
 		u_6
 	\end{bmatrix}
-\end{equation}
+\end{equation*}
 which simplifies to
-\begin{equation}
+\begin{equation*}
 	\begin{bmatrix}
 		a_1 \\
 		0 \\
@@ -1526,12 +1535,12 @@ which simplifies to
 		u_5 \\
 		u_6
 	\end{bmatrix}
-\end{equation}
+\end{equation*}
 In addition to decomposing the transition matrix, they also decompose the result of any vector multiplied by the transition matrix!
 So we can check both decompositions separately.
 In order to state this mathematically, we need to create partial identity matrices, which are identity matrices which have zero rows in same places as the partial transition matrix.
 For \( D_6 \) we decompose the identity matrix as 
-\begin{equation}
+\begin{equation*}
 	I_6 = I_A + I_B
 	\iff
 	\begin{bmatrix}
@@ -1560,7 +1569,7 @@ For \( D_6 \) we decompose the identity matrix as
 		0 & 0 & 0 & 0 & 0 & 0 \\
 		0 & 0 & 0 & 0 & 0 & 0
 	\end{bmatrix}.
-\end{equation}
+\end{equation*}
 Therefore instead of checking whether \( T\vec{v} = \vec{u} \) can be solved, we check whether both \( A\vec{v} = I_A\vec{u} \) and \( B\vec{v} = I_B\vec{u} \) can be solved.
 
 \begin{Theorem}[Partial Transition Mapping Condition]
@@ -1991,7 +2000,7 @@ and the matrix \( D \) be given by
 	1 & -1 & -1 & 1 & 1 & 1 \\
 	1 & 1 & 1 & 1 & 1 & 1
 \end{bmatrix}.\]
-Then the following table gives the list of all 55 one-base point arrays.
+Table \vref{table:one-base-point-arrays} gives the list of all 55 one-base point arrays.
 \begin{table}[h]
 	\centering
 	\( \begin{array}[t]{c|l}
