@@ -366,17 +366,19 @@ Note that for this paper, we will be treating Bravais lattices and ``lattices" a
 \footnote{See definition \ref{definition:bravais-lattice} for the definition of a Bravais lattice.}
 %However, we can project lifted point arrays from 6 dimensions into 3 dimensions using the projection matrix given in \cite{indelicatoetal2012}.
 
-\todo[inline, color=SkyBlue]{
-	FROM OLOO: You should probably have a paragraph saying that we have a projection (even give the projection matrix) mapping 6D down to 3D, so each lifted point array in 6D maps to a point array in 3D and it is those that approximate the virus capsids.
-	Feel free to borrow some language from the other paper explaining what is going on. 
-	And this doesn't have to be a drawn out super rigorous thing. Just a paragraph or two.  What is going on is that the representation of $\mathcal{I}$ that we chose above is a sum of two 3D representations. 
-	And so the projection is projecting down onto one of those 3D spaces.  
-	One thing worth mentioning that makes all this believable is we've set it up so that the ico orbit of $\langle 1, 0, 0, 0, 0, 0 \rangle$ in 6D projects down to an icosahedron.      At the end of this little discussion you can say that the rest of the paper is focused on working in 6D.
-}
-\todo[inline]{...add of the note before this...}
-Using the projection matrix, if we define $\vec{s} := \langle 1, 0, 0, 0, 0, 0 \rangle$, then the set $\mathcal{I}\vec{s}$ projects down to an icosahedron (see figure \ref{fig:icosahedron}).
+While the lifted point arrays are 6 dimensional, we can project them into 3 dimensions using the projection matrix
+\[\begin{bmatrix}
+	\phi & 0 & -1 & 0 & \phi & 1 \\
+	1 & \phi & 0 & -\phi & -1 & 0 \\
+	0 & 1 & \phi & 1 & 0 & \phi
+\end{bmatrix}\]
+where \( \phi \) is the golden ratio given by \( \phi = \frac{1}{2}(1+\sqrt{5}) \) \cite{indelicatoetal2012}.
+Our representation of \( \mathcal{I} \) decomposes \( \R^6 \) into two inequivalent $3$-dimensional irreducible decompositions, $\mathbb{R}^6 \simeq  E^\parallel \oplus E^\perp$, one of which, $E^\parallel$, is the standard representation. We refer to $E^\parallel$ as the physical (parallel) space and $E^\perp$ as the perpendicular space.
+The projection matrix maps \( \R^6 \) to the physical space \( E^\parallel \) and maps our lifted point arrays into point arrays that approximate the virus capsids.
+Using the projection matrix, if we define \[\vec{s} := \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \\ 0 \\0 \end{bmatrix}\] then the set $\mathcal{I}\vec{s}$ projects down to an icosahedron (see figure \ref{fig:icosahedron}).
+While our point arrays are fundamentally a set  of 3 dimensional points, for the rest of the paper we will focus on the 6 dimensional lifted point arrays.
 
-There are 55 standard point arrays from which we build all others. \cite{keeftwarock2009affine}
+There are 55 standard point arrays from which we build all others \cite{keeftwarock2009affine}.
 These are called the \emph{one-base} point arrays and take the form \(\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t})\). This form tells us that only one base vector is used to create the point array.
 Figure \vref{fig:point_array_construction} gives a visualization of the construction of a one base point array in 3D.
 
