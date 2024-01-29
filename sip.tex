@@ -110,7 +110,7 @@
 \newcommand{\id}{\text{id}}
 \DeclareMathOperator{\sgn}{sgn}
 \newcommand\abs[1]{\left|#1\right|}
-\newcommand\Gl{\text{Gl}}
+\newcommand\Gl{\text{GL}}
 \DeclareMathOperator{\pam}{pam}
 \DeclareMathOperator{\Ent}{Ent}
 %lifted point array
@@ -144,7 +144,6 @@ There are \(55\) standard point arrays (called \emph{one-base}) from which we bu
 	See section \ref{section:all-one-base-point-arrays} for the list of all 55 one-base point arrays.
 }
 We model virus maturation by 6D linear transformations (transitions) of point arrays that preserve some or all of icosahedral symmetry.
-\sout{Relevant to our work the shape of the icosahedron, a shape with 2-fold, 3-fold, and 5-fold symmetry.}
 % icosahedron shape
 \tdplotsetmaincoords{60}{45}
 \begin{figure}[h]
@@ -230,11 +229,12 @@ We model virus maturation by 6D linear transformations (transitions) of point ar
 	
 \end{tikzpicture}
 \caption{The icosahedron.}
+\label{fig:icosahedron}
 \end{figure}
 
 \noindent The symmetry group of the icosahedron is defined abstractly as follows.
 \begin{Definition}[Icosahedral Group]
-	The icosahedral group, which we denote by \todo[color=SkyBlue]{what is meant by ``the presentation"?}\olootodo{the presentation} \(\mathcal{I}\), is the 60-element group given by \[\mathcal{I} := \generatedby{a, b | a^2 = b^3 = (ab)^5 = 1}.\]
+	The icosahedral group, which we denote by \(\mathcal{I}\), is the 60-element group given by the presentation \[\mathcal{I} := \generatedby{a, b | a^2 = b^3 = (ab)^5 = 1}.\]
 \end{Definition}
 \noindent We will work with the explicit realization of the icosahedral group given by the following 6D representation.
 \[a = \begin{bmatrix}
@@ -346,7 +346,7 @@ These are subsets of the symmetries of an icosahedron, corresponding to the symm
 	\caption{
 		A visual representation of the maximal subgroups. From left to right we have \(A_4\), \(D_{10}\), and \(D_6\). 
 		The 2-fold axes are labeled in blue while the 3-fold and 5-fold axes are labeled in orange.
-		Note that \( A_4 \) has multiple 2-fold and 3-fold axes (by rotating the labeled axes such that the 3-fold is in the center of a different face) while \( D_6 \) only has one 3-fold axis. \todo[inline, color=SkyBlue]{OLOO NOTE: \( D_6 \) has multiple 2-fold axes but only one 3-fold axis. Similar thing with \( D_{10} \).}
+		Note that \( A_4 \) has multiple 2-fold and 3-fold axes (by rotating the labeled axes such that the 3-fold is in the center of a different face). \( D_6 \) has multiple 2-fold axes but only one 3-fold axis.
 	}
 	\label{fig:maximal_subgroups}
 \end{figure}
@@ -373,6 +373,8 @@ Note that for this paper, we will be treating Bravais lattices and ``lattices" a
 	And so the projection is projecting down onto one of those 3D spaces.  
 	One thing worth mentioning that makes all this believable is we've set it up so that the ico orbit of $\langle 1, 0, 0, 0, 0, 0 \rangle$ in 6D projects down to an icosahedron.      At the end of this little discussion you can say that the rest of the paper is focused on working in 6D.
 }
+\todo[inline]{...add of the note before this...}
+Using the projection matrix, if we define $\vec{s} := \langle 1, 0, 0, 0, 0, 0 \rangle$, then the set $\mathcal{I}\vec{s}$ projects down to an icosahedron (see figure \ref{fig:icosahedron}).
 
 There are 55 standard point arrays from which we build all others. \cite{keeftwarock2009affine}
 These are called the \emph{one-base} point arrays and take the form \(\mathcal{I}\vec{v} \cup (\mathcal{I}\vec{v} + \mathcal{I}\vec{t})\). This form tells us that only one base vector is used to create the point array.
@@ -480,9 +482,7 @@ The consequence of doing this is that when we restrict our map to the point arra
 The process of mathematically describing these symmetry preserving maps and how we find them will be the focus of the rest of this paper.
 However, before we delve into the mathematics, we take a quick look at an example of virus that will be relevant to us.
 \subsection{Viral Maturation}
-
 Icosahedral viruses mature over time, and maturation is how they become infectous.
-\todo[inline, color=SkyBlue]{FROM OLOO: Is this true? The bit about infectious. I honestly don't know and I'm not saying you are wrong. Just wondering.}
 For this paper we will focus on the Cowpea Chlorotic Mottle Virus (CCMV).
 This virus is characterized by one of the standard point arrays.
 \footnote{
@@ -924,8 +924,8 @@ There are three 6-dimensional icosahedral lattices that are relevant to us:
 \end{align*}
 which are referred to the standard simple cubic, body centered cubic, and face centered cubic lattices respectively.
 Notice that \( \mathcal{L}_{SC} \subset \mathcal{L}_{BCC} \subset \mathcal{L}_{FCC} \).
-\todo[color=SkyBlue]{Should I define equivalence of lattices?}
 All icosahedral lattices are equivalent to one of these three \cite{levitovrhyner1988crystallography}.
+\footnote{Roughly speaking, two lattices are equivalent if their lattice groups are conjugate in \( \Gl(n, \Z) \).}
 When considering our point arrays, we want to know which of these lattices they fit into best.
 \begin{Definition}[Minimal Lattice]
 	Let \( P \) be a lifted point array.
@@ -1316,7 +1316,7 @@ cannot be solved.
 What we have done is by finding a simple matrix equation that cannot be solved, we can find a whole class of matrix equations that cannot be solved.
 This theorem will allow us to build up the \( B_0 \) and \( B_1 \) matrices one vector at time.
 \footnote{See sections \vref{subsection:python-pair-checking} and \vref{subsection:python-depth-first-search}.}
-\subsection{C++ Program \olootodo{Try: A non-exhaustive approach using C++}}
+\subsection{A Non-Exhaustive Approach Using C++}
 \todo[color=yellow!50!orange]{Talk about how you first tried this non-exhaustive approach because the problem seemed intractable (and also because as you mention later we didn’t have the right libraries).}
 The first programming approach is to employ guess and check strategy.
 We used C++ along with the \texttt{Eigen} library for fast linear algebra.
@@ -1381,6 +1381,7 @@ If we take a random \( B_0 \) and \( B_1 \) for CCMV we get the following exampl
 Notice \( B_1B_0^{-1} \) does not have the correct form of any symmetry preserving transition.
 However, we notice that the entries of a transition matrix will likely have a nonempty intersection with the entries of \( B_1B_0^{-1}\).
 From this example we see that the set of entries of \( B_1B_0^{-1}\) is the set \( \{2, \pm1.5, \pm1, \pm0.5, 0\} \).
+\todo[inline]{Finish writing above...}
 
 Let's say we wanted to generate a list of candidate matrices that preserve icosahedral symmetry with the entries \( \{-1, -0.5, 0, 0.5, 1\} \).
 Then we take the cartesian product \( \{-1, -0.5, 0, 0.5, 1\} \times \{-1, -0.5, 0, 0.5, 1\} \) and generate transition matrices of the correct form (since the icosahedral general form has two variables, we only multiply the set twice).
@@ -1719,7 +1720,7 @@ However, this program is not entirely optimal.
 The primary issue is that this program cannot say for certain whether no transition exists or if we simply haven't found a transition yet.
 Additionally, it still is slow in many cases despite all of the speed ups gaining from our conditions and parallelization.
 These issues will be largely fixed by our program in Python.
-\subsection{Python Program}
+\subsection{An Exhaustive Approach Using Python}
 The next programming approach is to actually solve the matrix equations.
 For this we use the Python programming language along with the \texttt{sympy} library, a symbolic mathematics library for Python.
 This program aims to solve the linear matrix equations in an efficient way that the C++ program couldn't do.
