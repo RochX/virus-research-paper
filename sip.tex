@@ -1315,16 +1315,22 @@ What we have done is by finding a simple matrix equation that cannot be solved, 
 This theorem will allow us to build up the \( B_0 \) and \( B_1 \) matrices one vector at time.
 \footnote{See sections \vref{subsection:python-pair-checking} and \vref{subsection:python-depth-first-search}.}
 \subsection{A Non-Exhaustive Approach Using C++}
-\todo[color=yellow!50!orange]{Talk about how you first tried this non-exhaustive approach because the problem seemed intractable (and also because as you mention later we didn’t have the right libraries).}
 The first programming approach is to employ guess and check strategy.
 We used C++ along with the \texttt{Eigen} library for fast linear algebra.
-We use a guess and check approach when using C++ since there are few well-documented C++ libraries that can do symbolic mathematics.
-\footnote{
-	At the time of coding we did not know about the \href{https://www.ginac.de/}{GiNaC} framework for C++ and other similar libraries (see \url{https://en.cppreference.com/w/cpp/links/libs}).
-	Many of the C++ symbolic libraries do not have the greatest documentation in comparison to the \texttt{Eigen} library, which made it easier to quickly learn and implement and get results.
-	If {\color{magenta} weI} had known about it at the time, instead of two programs, there would've been likely only one program in C++ using \href{https://www.ginac.de/}{GiNaC}.
-}
-The idea is that instead of solving the equation \( TB_0 = B_1 \), we create a set of candidate transition matrices, lets call this set \( \mathcal{T} \).
+\footnote{See \cite{eigenweb} for more on the \texttt{Eigen} library.}
+We use a guess and check approach when using C++ for a few reasons:
+\begin{enumerate}
+	\item When first approaching the problem, it seemed intractable and difficult to solve with anything except a guess and check approach.
+		The approach that \cite{indelicatoetal2012} describe using is a brute force approach, and so this is where we started for computing transitions.
+	\item C++ is fast, especially when using code that can run in parallel.
+	\item There are few well-documented C++ libraries that can do symbolic mathematics.
+	\footnote{
+		At the time of coding we did not know about the \href{https://www.ginac.de/}{GiNaC} framework for C++ and other similar libraries (see \url{https://en.cppreference.com/w/cpp/links/libs}).
+		Many of the C++ symbolic libraries do not have the greatest documentation in comparison to the \texttt{Eigen} library, which made it easier to quickly learn and implement and get results.
+		If we had known about it at the time, instead of two programs, there would've been likely only one program in C++ using \href{https://www.ginac.de/}{GiNaC}.
+	}
+\end{enumerate}
+The idea with this approach is that instead of solving the equation \( TB_0 = B_1 \), we create a set of candidate transition matrices, lets call this set \( \mathcal{T} \).
 Thus if we want to find a transition from point arrays \( P \to Q \) instead of solving equations that are represented by \( \pam(P) \times \pam(Q) \), we look at the set \( \mathcal{T} \times \pam(P) \) and see if the product \( TB_0 \in \pam(Q) \).
 The question is how do we decide what matrices to put in the set \( \mathcal{T} \).
 The answer is through entry sampling.
@@ -1721,6 +1727,7 @@ These issues will be largely fixed by our program in Python.
 \subsection{An Exhaustive Approach Using Python}
 The next programming approach is to actually solve the matrix equations.
 For this we use the Python programming language along with the \texttt{sympy} library, a symbolic mathematics library for Python.
+\footnote{See \cite{10.7717/peerj-cs.103} for more on the \texttt{sympy} library.}
 This program aims to solve the linear matrix equations in an efficient way that the C++ program couldn't do.
 The primary idea is that now that we can solve equations and determine if no solution exists, we can reduce the number of equations we need to check.
 
@@ -2158,6 +2165,8 @@ Table \vref{table:one-base-point-arrays} gives the list of all 55 one-base point
 \subsection{The Code}
 The C++ and Python code referred to in section \ref{section:computational-techniques} can be found at \url{https://github.com/RochX/virus-research} and \url{https://github.com/RochX/virus-research-python} respectively.
 The \LaTeX\ code used to create this paper can be found at \url{https://github.com/RochX/virus-research-paper}.
+
+\newpage
 
 \medskip
 \bibliographystyle{alpha}%Used BibTeX style is unsrt
