@@ -1185,9 +1185,8 @@ Because this problem is easily parallelizable, it known as \emph{embarassingly p
 
 Another way to speed up this computation would be to reduce the number of equations we need to solve in order to decide whether a symmetry preserving transition exists.
 In order to do this we need to be able to determine whether an equation can or cannot be solved without actually fully solving the equation.
-The following theorem will help us determine when an equation cannot be solved.
-\todo[color=magenta]{It might be worth rewriting this and Thm 19. \\All they are saying is that we are looking for a solution to a matrix equation, which is actually a *system* of equations, but if there is no solution to just one of the equations in your system then there is no solution to the whole system.}
-\begin{Theorem}[Matrix Equation Solving]
+The following proposition will help us determine when a matrix equation can and cannot be solved.
+\begin{Proposition}[Matrix Equation Solving]
 	Let \( M \) be an \( n \times n \) matrix with variables.
 	Let \( \vec{a}_1, \vec{a}_2, \dots \vec{a}_k, \vec{b}_1, \vec{b}_2, \dots \vec{b}_k \) be \( n \)-dimensional vectors.
 	If the equation \[
@@ -1207,7 +1206,7 @@ The following theorem will help us determine when an equation cannot be solved.
 	\]
 	is solvable then the equation \[M\vec{a}_i = \vec{b}_i\] is solvable for all \( i \in \{1, 2, \dots k\} \).
 	\footnote{
-		The converse of this theorem is not true.
+		The converse of this proposition is not true.
 		Consider the example where \(M = \begin{bmatrix} x \end{bmatrix} \),
 		\( \vec{a}_1 = \vec{a}_2 =  \begin{bmatrix} 1 \end{bmatrix}\),
 		\( \vec{b}_1 =  \begin{bmatrix} 1 \end{bmatrix}\), and
@@ -1215,7 +1214,7 @@ The following theorem will help us determine when an equation cannot be solved.
 		Then \( M\cdot\vec{a}_1 = \vec{b}_1 \) and \( M\cdot\vec{a}_2 =  \vec{b}_2\) can be solved, but \( M\cdot\begin{bmatrix} \vec{a}_1 & \vec{a}_2 \end{bmatrix} = \begin{bmatrix} \vec{b}_1 & \vec{b}_2 \end{bmatrix}\) cannot be solved.
 		\label{footnote:counterexample-to-converse-matrix-solving}
 	}
-	\label{thrm:matrix-equation-solving}
+	\label{prop:matrix-equation-solving}
 \begin{proof}
 	Rewrite the given matrix equation (the one which can be solved) as
 	\begin{equation*}
@@ -1270,9 +1269,8 @@ The following theorem will help us determine when an equation cannot be solved.
 	can be solved with the same solution (i.e. same choices for each \( m_{ij} \)).
 	All equations of this form are equivalent to \( M\vec{a}_i = \vec{b}_i \).
 \end{proof}
-\end{Theorem}
-\noindent While this is a useful if not somewhat obvious theorem, what is more useful is the theorem's contrapositive.
-\begin{Theorem}[Contrapositive of Matrix Equation Solving]
+\end{Proposition}
+\begin{Proposition}[Contrapositive of Matrix Equation Solving]
 	Let \( M \) be an \( n \times n \) matrix with variables.
 	Let \( \vec{a}_1, \vec{a}_2, \dots \vec{a}_k, \vec{b}_1, \vec{b}_2, \dots \vec{b}_k \) be \( n \)-dimensional vectors.
 	If there exists \( i \in \{1, 2, \dots k\} \) such that the equation \[M\vec{a}_i = \vec{b}_i\] cannot be solved,
@@ -1293,8 +1291,8 @@ The following theorem will help us determine when an equation cannot be solved.
 	\]
 	cannot be solved.
 	\label{thrm:contrapositive-matrix-equation-solving}
-\end{Theorem}
-What this theorem tells us is that if we find two vectors \( \vec{v} \text{ and } \vec{u} \) such that \( T\vec{v} = \vec{u} \) cannot be solved,
+\end{Proposition}
+What this proposition tells us is that if we find two vectors \( \vec{v} \text{ and } \vec{u} \) such that \( T\vec{v} = \vec{u} \) cannot be solved,
 then any matrix equation of the form \[
 	T
 	\cdot
@@ -1312,7 +1310,7 @@ then any matrix equation of the form \[
 \]
 cannot be solved.
 What we have done is by finding a simple matrix equation that cannot be solved, we can find a whole class of matrix equations that cannot be solved.
-This theorem will allow us to build up the \( B_0 \) and \( B_1 \) matrices one vector at time.
+This proposition will allow us to build up the \( B_0 \) and \( B_1 \) matrices one vector at time.
 \footnote{See sections \vref{subsection:python-pair-checking} and \vref{subsection:python-depth-first-search}.}
 \subsection{A Non-Exhaustive Approach Using C++}
 The first programming approach is to employ guess and check strategy.
@@ -1493,7 +1491,7 @@ And similarly for \(D_6\) we notice the following:
 	0 & 0 & 0 & 0 & 0 & 0 \\
 	0 & 0 & 0 & 0 & 0 & 0
 \end{bmatrix}.\]
-With this idea in mind, we can create a couple of useful theorems that use partial transitions.
+With this idea in mind, we can create a couple of useful propositions that use partial transitions.
 \begin{Lemma}[Norm Condition for Transitions]
 	If \( T \) is a transition from point array \( P \to Q \), then for all \( \vec{v} \in P \) we have that
 	\[\norm{T\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
@@ -1504,13 +1502,13 @@ With this idea in mind, we can create a couple of useful theorems that use parti
 	Since \( T \) is a transition from \( P \) to \( Q \), therefore for each \( \vec{v} \in P \) we have that \( T\vec{v} = \vec{u} \) for some \( \vec{u} \in Q \).
 	Thus \( \norm{T\vec{v}} = \norm{\vec{u}} \) and so \(\norm{T\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\).
 \end{proof}
-\begin{Theorem}[Norm Condition for Partial Transitions]
+\begin{Proposition}[Norm Condition for Partial Transitions]
 	Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
 	If \( T \) is a transition from point array \( P \to Q \), then for every \( \vec{v} \in P \) we have that
 	\[\norm{A\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}} \text{ and } \norm{B\vec{v}} \leq \max_{\vec{u} \in Q}\norm{\vec{u}}\]
 	where \( \norm{\vec{u}} \) is the standard Euclidean norm.
-	\label{thrm:norm-condition-for-partial-transitions}
-\end{Theorem}
+	\label{prop:norm-condition-for-partial-transitions}
+\end{Proposition}
 \begin{proof}
 	Since partial transitions have at least one row of zeroes, we have that \( \norm{A\vec{v}} \leq \norm{T\vec{v}} \) and \( \norm{B\vec{v}} \leq \norm{T\vec{v}} \).
 	The result then follows from Lemma \vref{thrm:norm-condition-for-transitions}.
@@ -1522,7 +1520,7 @@ With this idea in mind, we can create a couple of useful theorems that use parti
 \begin{proof}
 	Since transitions map one point array onto another, it must be the case that for every \( \vec{v} \in P \) there exists \( \vec{u} \in Q \) such that \( T\vec{v} = \vec{u} \).
 \end{proof}
-In order to state the next theorem, we need to understand how the partial transitions work with vector multiplication.
+In order to state the next proposition, we need to understand how the partial transitions work with vector multiplication.
 Let us use the \( D_6 \) partial transition as an example.
 Suppose \mbox{\( T \in Z(D_6) \)} such that \( T\vec{v} = \vec{u} \).
 Then we have that 
@@ -1659,13 +1657,13 @@ For \( D_6 \) we decompose the identity matrix as
 \end{equation*}
 Therefore instead of checking whether \( T\vec{v} = \vec{u} \) can be solved, we check whether both \( A\vec{v} = I_A\vec{u} \) and \( B\vec{v} = I_B\vec{u} \) can be solved.
 
-\begin{Theorem}[Partial Transition Mapping Condition]
+\begin{Proposition}[Partial Transition Mapping Condition]
 	\label{thrm:partial-transition-mapping-condition}
 	Suppose a transition matrix \( T \) decomposes into two partial transitions such that \( T = A + B \).
 	Let \( I_A \) and \( I_B \) be the corresponding identity decomposition such that \( I_AT = A  \) and \( I_BT = B \).
 	If \( T \) is a transition from point array \( P \to Q \), then for every \( \vec{v} \in P \) there exists \( \vec{u} \in Q \) such that
 	\[A\vec{v} = I_A\vec{u} \text{ and } B\vec{v} = I_B\vec{u}.\]
-\end{Theorem}
+\end{Proposition}
 \begin{proof}
 	Since \( T \) is a transition from \( P \) to \( Q \), then for each \( \vec{v} \in P \) there exists \( \vec{u} \in Q \) such that \( T\vec{v} = \vec{u} \).
 	Because our transition \( T \) decomposes into two partial transitions \( A \) and \( B \), we have that \( (A+B)\vec{v} = \vec{u} \).
@@ -1674,35 +1672,35 @@ Therefore instead of checking whether \( T\vec{v} = \vec{u} \) can be solved, we
 \end{proof}
 
 \subsubsection{Contrapositive}
-While the previous two theorems are useful, they don't help us find transitions, since they both require us to have already found a transition.
+While the previous two propositions are useful, they don't help us find transitions, since they both require us to have already found a transition.
 What is useful is their contrapositives, which will help us eliminate possible transitions.
-\begin{Theorem}[Contrapositive of Theorem \ref{thrm:norm-condition-for-partial-transitions}]
+\begin{Proposition}[Contrapositive of Proposition \ref{prop:norm-condition-for-partial-transitions}]
 	Suppose a transition matrix \( T \) decomposes into partial transitions such that \( T = A + B \).
 	If there exists \( \vec{v} \in P \) such that either
 	\[\norm{A\vec{v}} > \max_{\vec{u} \in Q}\norm{\vec{u}} \text{ or } \norm{B\vec{v}} > \max_{\vec{u} \in Q}\norm{\vec{u}}\]
 	then \( T \) is not a transition for \( P \to Q \).
-	\label{thrm:contrapositive-norm-condition-for-partial-transitions}
-\end{Theorem}
-\begin{Theorem}[Contrapositive of Theorem \ref{thrm:partial-transition-mapping-condition}]
+	\label{prop:contrapositive-norm-condition-for-partial-transitions}
+\end{Proposition}
+\begin{Proposition}[Contrapositive of Proposition \ref{thrm:partial-transition-mapping-condition}]
 	Suppose a transition matrix \( T \) decomposes into partial transitions such that \( T = A + B \).
 	Let \( I_A \) and \( I_B \) be the corresponding identity decomposition such that \( I_AT = A  \) and \( I_BT = B \).
 	If there exists \( \vec{v} \in P \) such that for every \( \vec{u} \in Q \) either
 	\[A\vec{v} \neq I_A\vec{u} \text{ or } B\vec{v} \neq I_B\vec{u}\]
 	then \( T \) is not a transition for \( P \to Q \).
-	\label{thrm:contrapositive-partial-transition-mapping-condition}
-\end{Theorem}
-Both of these theorems have the same idea in mind, we can say a matrix \( T \) cannot be a transition based upon what it does to a particular vector.
+	\label{prop:contrapositive-partial-transition-mapping-condition}
+\end{Proposition}
+Both of these propositions have the same idea in mind, we can say a matrix \( T \) cannot be a transition based upon what it does to a particular vector.
 Furthermore, by using the partial transition decomposition idea, we can determine subsets of candidate transition matrices that cannot be transitions.
 
-Theorem \vref{thrm:contrapositive-norm-condition-for-partial-transitions} allows to determine when a matrix \( T \) cannot be a transition by using the fact that transition matrices must map one point array onto another.
+Proposition \vref{prop:contrapositive-norm-condition-for-partial-transitions} allows us to determine when a matrix \( T \) cannot be a transition by using the fact that transition matrices must map one point array onto another.
 We could check whether \( T\vec{v} = \vec{u} \) for every combination of \( \vec{v} \in P \) and \( \vec{u} \in Q \) but in order to do this we must check \( \abs{P}\cdot\abs{Q} \) things.
 But we can make the following observation: If \( \norm{T\vec{v}} > \norm{\vec{u}} \) then \( T\vec{v} \neq \vec{u} \).
 Thus if \( \norm{T\vec{v}} > \max_{\vec{u} \in Q}\norm{\vec{u}} \) then \( T\vec{v} \neq \vec{u} \) for \emph{every} \( \vec{u} \in Q \) and so we cannot map \( P \) onto \( Q \).
 The advantage of this method is that we only need to check \( \abs{P} \) things since the \( \max_{\vec{u} \in Q}\norm{\vec{u}} \) is simply a constant for a given point array \( Q \).
 And since \( \norm{A\vec{v}} \leq \norm{T\vec{v}} \) and \( \norm{B\vec{v}} \leq \norm{T\vec{v}} \) we actually only need to check this with partial transitions.
 
-We use theorem \vref{thrm:contrapositive-partial-transition-mapping-condition} only if theorem \vref{thrm:contrapositive-norm-condition-for-partial-transitions} fails to tell us that \( T \) is not transition.
-This theorem essentially checks whether \( T\vec{v} = \vec{u} \) for every combination of \( \vec{v} \in P \) and \( \vec{u} \in Q \).
+We use proposition \vref{prop:contrapositive-partial-transition-mapping-condition} only if proposition \vref{prop:contrapositive-norm-condition-for-partial-transitions} fails to tell us that \( T \) is not transition.
+This proposition essentially checks whether \( T\vec{v} = \vec{u} \) for every combination of \( \vec{v} \in P \) and \( \vec{u} \in Q \).
 We want to do this last since otherwise we lose the speedup that the previous condition allows for by precomputing the maximal norm of a point array.
 
 \subsubsection{Parallelization}
@@ -1732,8 +1730,8 @@ This program aims to solve the linear matrix equations in an efficient way that 
 The primary idea is that now that we can solve equations and determine if no solution exists, we can reduce the number of equations we need to check.
 
 \subsubsection{Pair Checking} \label{subsection:python-pair-checking}
-Recall theorem \vref{thrm:matrix-equation-solving} and its contrapositive.
-This theorem is telling us that what matters for solving a matrix is how the columns of \( B_0 \) and \( B_1 \) correspond with each other.
+Recall proposition \vref{prop:matrix-equation-solving} and its contrapositive.
+This proposition is telling us that what matters for solving a matrix is how the columns of \( B_0 \) and \( B_1 \) correspond with each other.
 Thus in a way, each column is independent of each other column.
 Let us then consider point arrays \( P \) and \( Q \).
 Suppose \( P \) is minimally generated by \((\vec{t}, \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n)\) and \( Q \) is minimally generated by vectors \((\vec{t'}, \vec{u}_1, \vec{u}_2, \dots, \vec{u}_n)\).
@@ -1772,14 +1770,14 @@ Therefore this class of equations can also be described as
 	\end{bmatrix}
 \end{equation*}
 where \( G_i \) and \( H_i \) are all elements of \( \mathcal{I} \).
-But because of theorem \ref{thrm:matrix-equation-solving}, we should first look at the equations
+But because of proposition \ref{prop:matrix-equation-solving}, we should first look at the equations
 \begin{align*}
 	TG_0\vec{t} &= H_0\vec{t'} \\
 	TG_1\vec{v}_1 &= H_1\vec{u}_1 \\
 	&\vdots \\
 	TG_n\vec{v}_n &= H_n\vec{u}_n.
 \end{align*}
-Because of the contrapositive of theorem \ref{thrm:matrix-equation-solving}, this tells us we ought to find pairs of \( (G_i, H_i) \) such that the equation \( TG_i\vec{v}_i = H_i\vec{u}_i \) has a solution (and of course changing substituting in the translation vectors if \( i = 0 \)).
+Because of the contrapositive of proposition \ref{prop:matrix-equation-solving}, this tells us we ought to find pairs of \( (G_i, H_i) \) such that the equation \( TG_i\vec{v}_i = H_i\vec{u}_i \) has a solution (and of course changing substituting in the translation vectors if \( i = 0 \)).
 Therefore we will create many subsets of \( \mathcal{I} \times \mathcal{I} \).
 \begin{align*}
 	TG_0\vec{t} = H_0\vec{t'} \implies& \{(G, H) \in \mathcal{I} \times \mathcal{I} \ |\ TG\vec{t} = H\vec{t'} \text{ has a solution.}\} \\
@@ -1808,7 +1806,7 @@ First, create all of the vector pair sets \( V(\vec{t}, \vec{t'}), V(\vec{v}_1, 
 Now we want to search through the cartesian product \( V(\vec{t}, \vec{t'}) \times V(\vec{v}_1, \vec{u}_1) \times \dots \times V(\vec{v}_n, \vec{u}_n) \). 
 This cartesian product can be mapped onto all possible point array matrices for \( P \) and \( Q \) that can have a solution.
 \footnote{
-	Since by construction of the icosahedral vector pair sets, we eliminate all possible pairs of point array matrices for which theorem \vref{thrm:contrapositive-matrix-equation-solving} applies.
+	Since by construction of the icosahedral vector pair sets, we eliminate all possible pairs of point array matrices for which proposition \vref{thrm:contrapositive-matrix-equation-solving} applies.
 }
 The mapping we use is \[
 	((\vec{t}_0, \vec{t}_0'), (\vec{v}_1, \vec{u}_1), \dots, (\vec{v}_n, \vec{u}_n)) 
@@ -1833,7 +1831,7 @@ Therefore when generating all point array matrices for \( P \) and \( Q \) that 
 Beyond checking for linear indepence, the last thing we need to check is that whether there is a shared solution by all the vector pairs.
 By construction of the icosahedral vector pair sets we are guaranteed that each column can be mapped to its corresponding column with a \( T \) matrix, but it is not guaranteed that there exists a shared \( T \) matrix that can map every column to its corresponding column.
 \footnote{
-	See theorem \vref{thrm:matrix-equation-solving} and footnote \vref{footnote:counterexample-to-converse-matrix-solving}.
+	See proposition \vref{prop:matrix-equation-solving} and footnote \vref{footnote:counterexample-to-converse-matrix-solving}.
 	\label{footnote:see-matrix-equation-solving-counterexample}
 }
 Thus as a last step we need to check whether the equation
@@ -1893,7 +1891,7 @@ that can be solved, then in order to add one vector we need to figure out if the
 	\end{bmatrix}
 \end{equation*}
 can be solved.
-When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v}_{n+1} \) and \( \vec{u}_{n+1} \) if the equation \( T\vec{v}_{n+1} = \vec{u}_{n+1}\) can be solved because of the Matrix Equation Solving Theorem (theorem \ref{thrm:matrix-equation-solving}).
+When adding a vector to these matrices, it only makes sense to add vectors \( \vec{v}_{n+1} \) and \( \vec{u}_{n+1} \) if the equation \( T\vec{v}_{n+1} = \vec{u}_{n+1}\) can be solved because of the Matrix Equation Solving proposition (proposition \ref{prop:matrix-equation-solving}).
 However, even if this equation can be solved, adding the vector might not work.
 \footnote{
 	See footnote \ref{footnote:see-matrix-equation-solving-counterexample}.
@@ -2007,7 +2005,7 @@ From determining all possible transitions we make the following conclusions for 
 \end{itemize}
 While these results are strong, we can actually create the stronger that there do not exist any nontrivial icosahedral transitions between any point arrays.
 Any lifted point arrays with any number of base vectors must be built up from these one-base point arrays.
-Theorem \ref{thrm:matrix-equation-solving} then tells us that in order to have transition between two point arrays, there must exist transitions between all of the one-base point arrays that make up the larger point arrays.
+Proposition \ref{prop:matrix-equation-solving} then tells us that in order to have transition between two point arrays, there must exist transitions between all of the one-base point arrays that make up the larger point arrays.
 This allows us to conclude that there cannot exist any nontrivial icosahedral transitions.
 
 \subsection{Future Directions}
