@@ -139,7 +139,7 @@ We are able to reproduce previously discovered transitions for the Cowpea Chloro
 \section{Introduction}
 Icosahedral viruses have the symmetries of an icosahedron, which involves 2-fold, 3-fold, and 5-fold rotational symmetries.
 We can approximate these virus capsids with finite sets of points (called a point array) which we realize in 6D (not just 3D) for the purpose of crystallography: our 6D point arrays naturally fit inside 6D icosahedral Bravais lattices. 
-There are \(55\) standard point arrays (called \emph{one-base}) from which we build all the others.
+There are \(55\) standard point arrays (called \emph{one-base}) from which we build all the others  \cite{keeftwarock2009affine}.
 \footnote{
 	See section \ref{section:all-one-base-point-arrays} for the list of all 55 one-base point arrays.
 }
@@ -538,11 +538,8 @@ The \( B_0 \) and \( B_1 \) matrices are both point array matrices and so both h
 
 One fact that will be useful to know is how many minimal point array matrices there are for a point array. 
 Given a point array $P$ with minimal generating list $(\vec{t}, \vec{v}_1, ..., \vec{v}_n)$ then
-\[\left|\minpam(P)\right| \approx \left(\abs{\mathcal{I}\vec{t}} \cdot \abs{\mathcal{I}\vec{v}_1} \cdot \abs{\mathcal{I}\vec{v}_2} \cdot \dots \cdot \abs{\mathcal{I}\vec{v}_n}.\right)\cdot n!\]
+\[\left|\minpam(P)\right| = \left(\abs{\mathcal{I}\vec{t}} \cdot \abs{\mathcal{I}\vec{v}_1} \cdot \abs{\mathcal{I}\vec{v}_2} \cdot \dots \cdot \abs{\mathcal{I}\vec{v}_n}\right)\cdot n!\]
 Note that we multiply by \( n! \) because \( \minpam(P) \) contains all permutations of our minimal generating list.
-{\color{orange} We can only say for certain that \( m \) is less than or equal to this value because we require point array matrices to be linearly independent (or have rank 6).
-\footnote{If we have that \( \vec{t} = \vec{v}_i \) for some \( i \), then there are matrices of the correct form that are not linearly independent.}}
-However, in general, we can assume that \( m \) is equal to this value since all the generating vectors are distinct.
 \subsection{Lattices} \label{section:lattices}
 In order to understand the nature of the transition matrix, we must understand lattices and how point arrays work with them.
 For our point arrays, we use 6-dimensional icosahedral lattices.
@@ -914,7 +911,7 @@ So by using lattice groups, we can clearly distinguish between different lattice
 	\[BN = B'.\]
 \end{Remark*}
 Now that we have explained the importance of the point and lattice groups using these 2D examples, we can define the 6-dimensional icosahedral lattices relevant to our point arrays.
-We want the lattices in which our point arrays sit \sout{in} to be invariant under the icosahedral group \( \mathcal{I} \).
+We want the lattices in which our point arrays sit to be invariant under the icosahedral group \( \mathcal{I} \).
 There are three 6-dimensional icosahedral lattices that are relevant to us:
 \begin{align*}
 	\mathcal{L}_{SC} &:= \{ (x_1,x_2, ...,x_n) \mid x_i \in \mathbb{Z} \} \\
@@ -1948,7 +1945,7 @@ Parallelizing the depth first approach in Python takes more thought than in the 
 What we can do for this approach is to split up the depth first search tree as shown in figure \vref{fig:depth-first-search-complicated-parallelization}.
 Because our goal is to search the entire tree, we split up the tree at the first level.
 Therefore in our example we would split into multiple trees as shown in figure \ref{fig:depth-first-search-complicated-parallelization}.
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	% https://q.uiver.app/#q=WzAsMTMsWzEsNSwiVFxcY2RvdFxcbGVmdFtHX25cXHZlY3t0fVxccmlnaHRdID0gXFxsZWZ0W0hfblxcdmVje3QnfVxccmlnaHRdIl0sWzEsMSwiVFxcY2RvdFxcbGVmdFtHXzBcXHZlY3t0fVxccmlnaHRdID0gXFxiZWdpbntibWF0cml4fUhfMFxcdmVje3QnfVxcZW5ke2JtYXRyaXh9Il0sWzIsNCwiVFxcY2RvdFxcbGVmdFtHX25cXHZlY3t0fSBcXHF1YWQgR18wJ1xcdmVje3Z9XFxyaWdodF0gPSBcXGxlZnRbSF9uXFx2ZWN7dCd9IFxccXVhZCBIXzAnXFx2ZWN7dX1cXHJpZ2h0XSJdLFsyLDIsIlRcXGNkb3RcXGxlZnRbR18wXFx2ZWN7dH0gXFxxdWFkIEdfbSdcXHZlY3t2fVxccmlnaHRdID0gXFxsZWZ0W0hfMFxcdmVje3QnfSBcXHF1YWQgSF9tJ1xcdmVje3V9XFxyaWdodF0iXSxbMiwwLCJUXFxjZG90XFxsZWZ0W0dfMFxcdmVje3R9IFxccXVhZCBHXzAnXFx2ZWN7dn1cXHJpZ2h0XSA9IFxcbGVmdFtIXzBcXHZlY3t0J30gXFxxdWFkIEhfMCdcXHZlY3t1fVxccmlnaHRdIl0sWzEsMywiXFx2ZG90cyJdLFsyLDEsIlxcdmRvdHMiXSxbMiw1LCJcXHZkb3RzIl0sWzIsNiwiVFxcY2RvdFxcbGVmdFtHX25cXHZlY3t0fSBcXHF1YWQgR19tJ1xcdmVje3ZfMX1cXHJpZ2h0XSA9IFxcbGVmdFtIX25cXHZlY3t0J30gXFxxdWFkIEhfbSdcXHZlY3t1fVxccmlnaHRdIl0sWzAsMSwiXFx0ZXh0e1Byb2Nlc3MgMH0iXSxbMCw1LCJcXHRleHR7UHJvY2VzcyB9IG4iXSxbMCwzLCJcXHZkb3RzIl0sWzIsMywiXFx2ZG90cyJdLFswLDJdLFsxLDNdLFsxLDRdLFsxLDZdLFswLDddLFswLDhdLFs5LDFdLFsxMCwwXSxbMTEsNV1d
 	\[\begin{tikzcd}[cramped]
@@ -1997,8 +1994,8 @@ From determining all possible transitions we make the following conclusions for 
 	\item There exists \( D_6 \) transitions for a majority of the possible one-base transitions (3,001 out of 3,025). Interestingly, all cases where there a \( D_6 \) transition does not exist involve the point array 24.
 	\item Transitions for \( D_{10} \) and \( A_4 \) are much less common, with transitions existing only in 1,277 out of 3,025 for \( D_{10} \) and 309 out of 3,025 existing for \( A_4 \).
 \end{itemize}
-While these results are strong, we can actually create the stronger that there do not exist any nontrivial icosahedral transitions between any point arrays.
-Any lifted point arrays with any number of base vectors must be built up from these one-base point arrays.
+While these results are strong, from this we get the stronger result that there do not exist any nontrivial icosahedral transitions between \emph{any} two point arrays.
+We get this from the fact that any lifted point arrays with any number of base vectors must be built up from these one-base point arrays.
 Proposition \ref{prop:matrix-equation-solving} then tells us that in order to have transition between two point arrays, there must exist transitions between all of the one-base point arrays that make up the larger point arrays.
 This allows us to conclude that there cannot exist any nontrivial icosahedral transitions.
 
